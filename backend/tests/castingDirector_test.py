@@ -4,7 +4,6 @@ from routes.castingDirector import castingDirector, get_castingDirectors
 
 client = TestClient(castingDirector)
 
-
 def get_all_castingDirectors_test():
     response = client.get("/castingDirectors")
     if (response.status_code == 200):
