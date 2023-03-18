@@ -1,0 +1,52 @@
+version: '3.5'
+
+networks:
+  test:
+    name: fastapi_example
+
+
+services:
+  mysql_db:
+    image: mysql:8.0.31
+    container_name: mysql-fastapi
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+    ports:
+      - 3307:3307
+    networks:
+      - test
+    environment:
+      - MYSQL_DATABASE=fastapi_database
+      - MYSQL_USER=admin_db
+      - MYSQL_PASSWORD=admin_db
+      - MYSQL_ROOT_PASSWORD=example
+    healthcheck:
+      test: mysqladmin ping -h 127.0.0.1 -u root --password=example
+      start_period: 5s
+      interval: 5s
+      timeout: 5s
+      retries: 55
+
+  adminer:
+    image: adminer
+    container_name: adminer
+    restart: always
+    ports: 
+      - 8081:8081     
+
+  fastapi:
+    image: fast-api-example:latest
+    container_name: fastapi
+    restart: always
+    ports: 
+      - 8001:8001
+    networks:
+      - test
+    environment:
+      - MYSQL_URL=mysql://root:example@mysql-fastapi:3307/fastapi_database
+    volumes:
+      - ./backend:/code/backend
+    depends_on:
+      mysql_db:
+        condition: service_healthy
