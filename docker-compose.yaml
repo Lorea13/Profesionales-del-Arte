@@ -8,12 +8,12 @@ networks:
 services:
   mysql_db:
     image: mysql:8.0.31
-    container_name: mysql-fastapi
+    container_name: mysql-fastapi-tfg
     command: --default-authentication-plugin=mysql_native_password
     volumes:
       - ./mysql/data:/var/lib/mysql
     ports:
-      - 3307:3307
+      - 3306:3306
     networks:
       - test
     environment:
@@ -30,21 +30,22 @@ services:
 
   adminer:
     image: adminer
-    container_name: adminer
+    container_name: adminer-tfg
     restart: always
     ports: 
-      - 8081:8081     
+      - 8080:8080
+     
 
   fastapi:
     image: fast-api-example:latest
-    container_name: fastapi
+    container_name: fastapi-tfg
     restart: always
     ports: 
-      - 8001:8001
+      - 8000:8000
     networks:
       - test
     environment:
-      - MYSQL_URL=mysql://root:example@mysql-fastapi:3307/fastapi_database
+      - MYSQL_URL=mysql://root:example@mysql-fastapi-tfg:3306/fastapi_database
     volumes:
       - ./backend:/code/backend
     depends_on:

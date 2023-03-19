@@ -1,14 +1,14 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from routes.castingDirector import castingDirector
+from routes.person import person
 from routes.casting import casting
 
 from config.db import conn
 
-from tests.execute_tests import execute_all_test
+#from tests.execute_tests import execute_all_test
 
-from models.castingDirector import castingDirector
+from models.person import people
 from models.casting import castings
 
 app = FastAPI(
@@ -18,7 +18,7 @@ app = FastAPI(
     
     Items
 
-    The different items are: castings and casting directors.
+    The different items are: castings and people.
 
     Methods
 
@@ -43,8 +43,8 @@ app = FastAPI(
             "description": "These are the routes of the castings"
         },
         {
-            "name": "CastingDirectors", 
-            "description": "These are the routes of the casting directors"
+            "name": "People", 
+            "description": "These are the routes of the people"
         }
     ]
 )
@@ -60,26 +60,26 @@ app.add_middleware(
     
 )
 
-app.include_router(castingDirector)
+app.include_router(person)
 app.include_router(casting)
 
 @app.on_event("startup")
 def startup_seedData_db():
     
     conn.execute(castings.delete())
-    conn.execute(castingDirectors.delete())
+    conn.execute(people.delete())
     
-    castingDirector_Init = [
+    person_Init = [
         {"id": "1", "name": "Jorge Galerón"},
         {"id": "2", "name": "Flor y Txabe"}
     ]
     
     casting_Init = [
-        {"id": "1", "name": "Campeones", "castingDirector": 1, "inProcess": False},
-        {"id": "2", 'name': 'Detective Romi', "castingDirector": 2, "inProcess": False},
+        {"id": "1", "name": "Campeones"},
+        {"id": "2", 'name': 'Detective Romi'},
     ]
 
-    conn.execute(castingDirectors.insert().values(castingDirector_Init))
+    conn.execute(people.insert().values(person_Init))
     conn.execute(castings.insert().values(casting_Init))
 
-    execute_all_test()
+  #  execute_all_test()

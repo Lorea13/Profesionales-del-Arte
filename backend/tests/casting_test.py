@@ -4,7 +4,6 @@ from routes.casting import casting, get_castings
 
 client = TestClient(casting)
 
-
 def get_all_castings_test():
     response = client.get("/castings")
     if (response.status_code == 200):
@@ -23,8 +22,6 @@ def create_casting_test():
         {
         "id": 99,
         "name": "Test",
-        "castingDirector": 1,
-        "inProcess": True,
         },
     )
     if (response.status_code == 200):
@@ -53,8 +50,6 @@ def update_casting_test():
         {
         "id": 99,
         "name": "TestUpdate",
-        "castingDirector": 1,
-        "inProcess": True,
         },
     )
     if (response.status_code == 200):
