@@ -75,8 +75,8 @@ def startup_seedData_db():
     ]
     
     casting_Init = [
-        {"id": "1", "name": "Campeones"},
-        {"id": "2", 'name': 'Detective Romi'},
+        {"id": "1", "name": "Campeones", "inPerson": True, "inProcess": False, "notes": "Fase final"},
+        {"id": "2", "name": "Detective Romi", "inPerson": False, "inProcess": False, "notes": "Buscaban mas mayores"},
     ]
 
     conn.execute(people.insert().values(person_Init))
