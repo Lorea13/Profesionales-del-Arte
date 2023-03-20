@@ -4,8 +4,9 @@ from config.db import meta, engine
 
 castings = Table("castings", meta, 
     Column("id", Integer, primary_key=True),
+    Column("date", Date),
     Column("name", String(255)),
-    Column("inProcess", Boolean),
+    Column("inPerson", Boolean),
     Column("inProcess", Boolean),
     Column("notes", String(355)))
 

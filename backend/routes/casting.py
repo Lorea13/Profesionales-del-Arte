@@ -11,7 +11,7 @@ def get_castings():
 
 @casting.post("/castings", response_model= Casting, tags= ["Castings"], description="**Create** a casting.", response_description="Created casting")
 def create_casting(casting: Casting):
-    new_casting = {"id": casting.id, "name": casting.name, "inPerson": casting.inPerson, "inProcess": casting.inProcess, "notes": casting.notes}
+    new_casting = {"id": casting.id, "date": casting.date,"name": casting.name, "inPerson": casting.inPerson, "inProcess": casting.inProcess, "notes": casting.notes}
     result = conn.execute(castings.insert().values(new_casting))
     return conn.execute(castings.select().where(castings.c.id == result.lastrowid)).first()
 
@@ -26,7 +26,8 @@ def delete_casting(id: str):
 
 @casting.put("/castings/update/{id}", response_model= Casting, tags= ["Castings"], description="**Update** casting with Id.", response_description="Updated casting")
 def update_casting(id: str, casting: Casting):
-    result = conn.execute(castings.update().values(name= casting.name,
+    result = conn.execute(castings.update().values(date= casting.date,
+    name= casting.name,
     inPerson= casting.inPerson,
     inProcess= casting.inProcess,
     notes= casting.notes))
