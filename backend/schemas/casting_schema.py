@@ -6,6 +6,7 @@ class Casting(BaseModel):
     id : Optional[str]
     date : date
     name : str
+    castingDirector : int
     director : int
     inPerson : bool
     inProcess : bool
