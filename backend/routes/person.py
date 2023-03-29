@@ -11,7 +11,7 @@ def get_people():
 
 @person.post("/people", response_model= Person, tags= ["People"], description="**Create** a person.", response_description="Created person")
 def create_person(person: Person):
-    new_person = {"id": person.id, "name": person.name}
+    new_person = {"id": person.id, "type": person.type, "name": person.name, "contactDate": person.contactDate, "contactDescription": person.contactDescription, "projects": person.projects, "webPage": person.webPage, "email": person.email, "phone": person.phone, "notes": person.notes}
     result = conn.execute(people.insert().values(new_person))
     return conn.execute(people.select().where(people.c.id == result.lastrowid)).first()
 
@@ -26,5 +26,13 @@ def delete_person(id: str):
 
 @person.put("/people/update/{id}", response_model= Person, tags= ["People"], description="**Update** person with Id.", response_description="Updated person")
 def update_person(id: str, person: Person):
-    result = conn.execute(people.update().values(name= person.name))
+    result = conn.execute(people.update().values(type= person.type,
+    name= person.name,
+    contactDate= person.contactDate,
+    contactDescription= person.contactDescription,
+    projects= person.projects,
+    webPage= person.webPage,
+    email= person.email,
+    phone= person.phone,
+    notes= person.notes))
     return conn.execute(people.select().where(people.c.id == id)).first()

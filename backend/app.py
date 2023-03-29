@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from routes.personType import personType
 from routes.person import person
 from routes.casting import casting
 
@@ -8,6 +9,7 @@ from config.db import conn
 
 #from tests.execute_tests import execute_all_test
 
+from models.personType import personTypes
 from models.person import people
 from models.casting import castings
 
@@ -45,6 +47,10 @@ app = FastAPI(
         {
             "name": "People", 
             "description": "These are the routes of the people"
+        },
+        {
+            "name": "PersonTypes", 
+            "description": "These are the routes of the person types"
         }
     ]
 )
@@ -60,6 +66,7 @@ app.add_middleware(
     
 )
 
+app.include_router(personType)
 app.include_router(person)
 app.include_router(casting)
 
@@ -68,19 +75,26 @@ def startup_seedData_db():
     
     conn.execute(castings.delete())
     conn.execute(people.delete())
+    conn.execute(personTypes.delete())
+
+    personType_Init = [
+        {"id": "1", "name": "castingDirector"},
+        {"id": "2", "name": "director"},
+        {"id": "3", "name": "theatreCompany"},
+        {"id": "4", "name": "productionCompany"},
+        {"id": "5", "name": "manager"},
+    ]
     
     person_Init = [
-        {"id": "1", "name": "Jorge Galerón"},
-        {"id": "2", "name": "Flor y Txabe"},
-        {"id": "3", "name": "Javier Fesser"},
-        {"id": "4", "name": "Ines Paris"},
+        {"id": "1", "type": 1, "name": "Jorge Galerón", "contactDate": "2022-08-15", "contactDescription": "Casting Campeones", "projects": "Campeones", "webPage": "", "email": "", "phone": "", "notes": ""},
     ]
     
     casting_Init = [
-        {"id": "1", "date": "2022-07-15", "name": "Campeones", "castingDirector": 1, "director": 3, "inPerson": True, "inProcess": False, "notes": "Fase final"},
-        {"id": "2", "date": "2022-06-25", "name": "Detective Romi", "castingDirector": 2, "director": 4, "inPerson": False, "inProcess": False, "notes": "Buscaban mas mayores"},
+        {"id": "1", "date": "2022-07-15", "name": "Campeones", "castingDirector": 1, "director": 1, "inPerson": True, "inProcess": False, "notes": "Fase final"},
+        {"id": "2", "date": "2022-06-25", "name": "Detective Romi", "castingDirector": 1, "director": 1, "inPerson": False, "inProcess": False, "notes": "Buscaban mas mayores"},
     ]
 
+    conn.execute(personTypes.insert().values(personType_Init))
     conn.execute(people.insert().values(person_Init))
     conn.execute(castings.insert().values(casting_Init))
 
