@@ -7,6 +7,7 @@ class Activity(BaseModel):
     type: int
     date : date
     name : str
+    company : int
     hours : int
     price : int
     iva : int
