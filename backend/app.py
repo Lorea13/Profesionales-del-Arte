@@ -5,6 +5,7 @@ from routes.personType import personType
 from routes.person import person
 from routes.casting import casting
 from routes.activityType import activityType
+from routes.activity import activity
 
 from config.db import conn
 
@@ -14,6 +15,7 @@ from models.personType import personTypes
 from models.person import people
 from models.casting import castings
 from models.activityType import activityTypes
+from models.activity import activities
 
 app = FastAPI(
     title= "Profesionales del arte API",
@@ -57,6 +59,10 @@ app = FastAPI(
         {
             "name": "ActivityTypes", 
             "description": "These are the routes of the activity types"
+        },
+        {
+            "name": "Activities", 
+            "description": "These are the routes of the activities"
         }
     ]
 )
@@ -76,6 +82,7 @@ app.include_router(personType)
 app.include_router(person)
 app.include_router(casting)
 app.include_router(activityType)
+app.include_router(activity)
 
 @app.on_event("startup")
 def startup_seedData_db():
@@ -84,6 +91,7 @@ def startup_seedData_db():
     conn.execute(people.delete())
     conn.execute(personTypes.delete())
     conn.execute(activityTypes.delete())
+    conn.execute(activities.delete())
 
     personType_Init = [
         {"id": "1", "name": "castingDirector"},
@@ -111,9 +119,14 @@ def startup_seedData_db():
         {"id": "6", "name": "other"},
     ]
 
+    activity_Init = [
+        {"id": "1", "type": 1, "date": "2022-08-15", "name": "Elorrio concierto", "hours": "10", "price": 350, "iva": 35, "invoice": False, "getPaid": True, "notes": ""},
+    ]
+
     conn.execute(personTypes.insert().values(personType_Init))
     conn.execute(people.insert().values(person_Init))
     conn.execute(castings.insert().values(casting_Init))
     conn.execute(activityTypes.insert().values(activityType_Init))
+    conn.execute(activities.insert().values(activity_Init))
 
   #  execute_all_test()
