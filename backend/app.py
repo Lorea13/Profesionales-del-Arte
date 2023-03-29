@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from routes.personType import personType
 from routes.person import person
 from routes.casting import casting
+from routes.activityType import activityType
 
 from config.db import conn
 
@@ -12,6 +13,7 @@ from config.db import conn
 from models.personType import personTypes
 from models.person import people
 from models.casting import castings
+from models.activityType import activityTypes
 
 app = FastAPI(
     title= "Profesionales del arte API",
@@ -20,7 +22,7 @@ app = FastAPI(
     
     Items
 
-    The different items are: castings and people.
+    The different items are: castings, activity types, activities, personTypes, people and clients.
 
     Methods
 
@@ -51,6 +53,10 @@ app = FastAPI(
         {
             "name": "PersonTypes", 
             "description": "These are the routes of the person types"
+        },
+        {
+            "name": "ActivityTypes", 
+            "description": "These are the routes of the activity types"
         }
     ]
 )
@@ -69,6 +75,7 @@ app.add_middleware(
 app.include_router(personType)
 app.include_router(person)
 app.include_router(casting)
+app.include_router(activityType)
 
 @app.on_event("startup")
 def startup_seedData_db():
@@ -76,6 +83,7 @@ def startup_seedData_db():
     conn.execute(castings.delete())
     conn.execute(people.delete())
     conn.execute(personTypes.delete())
+    conn.execute(activityTypes.delete())
 
     personType_Init = [
         {"id": "1", "name": "castingDirector"},
@@ -94,8 +102,18 @@ def startup_seedData_db():
         {"id": "2", "date": "2022-06-25", "name": "Detective Romi", "castingDirector": 1, "director": 1, "inPerson": False, "inProcess": False, "notes": "Buscaban mas mayores"},
     ]
 
+    activityType_Init = [
+        {"id": "1", "name": "show"},
+        {"id": "2", "name": "shooting"},
+        {"id": "3", "name": "promotion"},
+        {"id": "4", "name": "rehearsal"},
+        {"id": "5", "name": "voice recording"},
+        {"id": "6", "name": "other"},
+    ]
+
     conn.execute(personTypes.insert().values(personType_Init))
     conn.execute(people.insert().values(person_Init))
     conn.execute(castings.insert().values(casting_Init))
+    conn.execute(activityTypes.insert().values(activityType_Init))
 
   #  execute_all_test()
