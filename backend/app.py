@@ -60,7 +60,7 @@ app = FastAPI(
             "description": "These are the routes of the person types"
         },
         {
-            "name": "clients", 
+            "name": "Clients", 
             "description": "These are the routes of the clients"
         },
         {
