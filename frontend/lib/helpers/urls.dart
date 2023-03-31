@@ -1,10 +1,12 @@
-/// Crea la URI al endpoint de get all castings
+/// Crea la URI al endpoint de get all personTypes
 ///
-/// Retorna la URI correspondiente [allCastings]
-Uri allCastings() {
-  Uri allCastings = Uri.http('127.0.0.1:8000', '/castings');
-  return (allCastings);
+/// Retorna la URI correspondiente [allPersonTypes]
+Uri allPersonTypes() {
+  Uri allPersonTypes = Uri.http('127.0.0.1:8000', '/personTypes');
+  return (allPersonTypes);
 }
+
+
 
 /// Crea la URI al endpoint de get all people
 ///
@@ -13,6 +15,16 @@ Uri allPeople() {
   Uri allPeople = Uri.http('127.0.0.1:8000', '/people');
   return (allPeople);
 }
+
+
+/// Crea la URI al endpoint de get all castings
+///
+/// Retorna la URI correspondiente [allCastings]
+Uri allCastings() {
+  Uri allCastings = Uri.http('127.0.0.1:8000', '/castings');
+  return (allCastings);
+}
+
 
 /// Crea la URI al endpoint de update castings
 ///

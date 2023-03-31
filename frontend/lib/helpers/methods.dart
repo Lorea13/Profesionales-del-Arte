@@ -3,11 +3,74 @@ import 'package:frontend/helpers/urls.dart';
 import 'package:frontend/models/personType.dart';
 import 'package:frontend/models/person.dart';
 import 'package:frontend/models/casting.dart';
-import 'package:frontend/models/client.dart';
+import 'package:frontend/models/company.dart';
 import 'package:frontend/models/activityType.dart';
 import 'package:frontend/models/activity.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
+
+
+/// Obtiene todos los tipos personas de la base de datos
+///
+/// Hace una llamada al endpoint gracias a la URI de helpers/urls allPeople, que nos devuelve una Future List de las personas. Es una Future List debido a que, al ser una llamada a la API, la data no se obtiene de manera inmediata. Por cada elemento de la respuesta, creamos una persona y lo añadimos a [people], que es lo que retornamos.
+Future<List<PersonType>> getPersonTypes() async {
+  Client client = http.Client();
+
+  List<PersonType> personTypes = [];
+
+  List response = json.decode((await client.get(allPersonTypes())).body);
+
+  for (var personType in response) {
+    int id = int.parse(personType['id']);
+    String name = personType['name'];
+
+    personTypes.add(PersonType(
+      id,
+      name,
+    ));
+  }
+  return personTypes;
+}
+
+/// Obtiene todos las personas de la base de datos
+///
+/// Hace una llamada al endpoint gracias a la URI de helpers/urls allPeople, que nos devuelve una Future List de las personas. Es una Future List debido a que, al ser una llamada a la API, la data no se obtiene de manera inmediata. Por cada elemento de la respuesta, creamos una persona y lo añadimos a [people], que es lo que retornamos.
+Future<List<Person>> getPeople(
+  List<PersonType> personTypesList) async {
+  Client client = http.Client();
+
+  List<Person> people = [];
+
+  List response = json.decode((await client.get(allPeople())).body);
+
+  for (var person in response) {
+    int id = int.parse(person['id']);
+    //Los id empiezan desde 1, pero las posiciones de una lista desde 0. Por eso, para asignar una persona se resta 1 al id, para obtener su posición en la lista
+    PersonType type = personTypesList[person['type'] - 1];
+    String name = person['name'];
+    DateTime contactDate = DateTime.parse(person['contactDate']);
+    String contactDescription = person['contactDescription'];
+    String projects = person['projects'];
+    String webPage = person['webPage'];
+    String email = person['email'];
+    String phone = person['phone'];
+    String notes = person['notes'];
+
+    people.add(Person(
+      id,
+      type,
+      name,
+      contactDate,
+      contactDescription,
+      projects,
+      webPage,
+      email,
+      phone,
+      notes,
+    ));
+  }
+  return people;
+}
 
 /// Obtiene todos los castings de la base de datos
 ///
@@ -22,7 +85,7 @@ Future<List<Casting>> getCastings(
 
   for (var casting in response) {
     int id = int.parse(casting['id']);
-    Date date = Date.parse(casting['date']);
+    DateTime date = DateTime.parse(casting['date']);
     String name = casting['name'];
     //Los id empiezan desde 1, pero las posiciones de una lista desde 0. Por eso, para asignar un director de casting se resta 1 al id, para obtener su posición en la lista
     Person castingDirector = peopleList[casting['castingDirector'] - 1];
@@ -37,7 +100,7 @@ Future<List<Casting>> getCastings(
       name,
       castingDirector,
       director,
-      inPerson
+      inPerson,
       inProcess,
       notes,
     ));
@@ -52,7 +115,7 @@ Future<List<Casting>> getCastings(
 Future<int> createCasting(Casting casting) async {
   Client client = http.Client();
   var bodyEncoded = jsonEncode({
-    "date": casting.date
+    "date": casting.date,
     "name": casting.name,
     "castingDirector": casting.castingDirector.id.toString(),
     "director": casting.director.id.toString(),
@@ -77,7 +140,7 @@ Future<int> createCasting(Casting casting) async {
 Future<bool> updateCasting(Casting casting) async {
   Client client = http.Client();
   var bodyEncoded = jsonEncode({
-    "date": casting.date
+    "date": casting.date,
     "name": casting.name,
     "castingDirector": casting.castingDirector.id.toString(),
     "director": casting.director.id.toString(),

@@ -4,7 +4,7 @@ class Person {
   int id;
   PersonType type;
   String name;
-  Date contactDate;
+  DateTime contactDate;
   String contactDescription;
   String projects;
   String webPage;

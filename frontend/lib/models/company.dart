@@ -1,7 +1,7 @@
-class Client {
+class Company {
   int id;
   String name;
 
-  Client(
+  Company(
       this.id, this.name);
 }

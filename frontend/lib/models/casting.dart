@@ -2,7 +2,7 @@ import 'package:frontend/models/person.dart';
 
 class Casting {
   int id;
-  Date date;
+  DateTime date;
   String name;
   Person castingDirector;
   Person director;

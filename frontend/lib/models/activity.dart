@@ -1,12 +1,12 @@
 import 'package:frontend/models/activityType.dart';
-import 'package:frontend/models/client.dart';
+import 'package:frontend/models/company.dart';
 
 class Activity {
   int id;
   ActivityType type;
-  Date date;
+  DateTime date;
   String name;
-  Client company;
+  Company company;
   int hours;
   int price;
   int iva;
