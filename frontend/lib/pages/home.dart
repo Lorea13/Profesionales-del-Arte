@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:frontend/helpers/urls.dart';
 
 import 'package:frontend/models/personType.dart';
@@ -34,7 +35,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
  
- Future<bool> obtainUpdatedData() async {
+  Future<bool> obtainUpdatedData() async {
     Future<List<Person>> futurePeople = getPeople(widget.personTypes);
     widget.people = await futurePeople;
 
@@ -47,14 +48,49 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: 
-          Text(
-            'You have pushed the button this many times:',
-          ),
+      body: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: DataTable(
+          columns: const <DataColumn>[
+            DataColumn(
+              label: Text('Id'),
+            ),
+            DataColumn(
+              label: Text('Date'),
+            ),
+            DataColumn(
+              label: Text('Name'),
+            ),
+            DataColumn(
+              label: Text('Casting Director'),
+            ),
+            DataColumn(
+              label: Text('Director'),
+            ),
+            DataColumn(
+              label: Text('InPerson'),
+            ),
+            DataColumn(
+              label: Text('InProcess'),
+            ),
+            DataColumn(
+              label: Text('Notes'),
+            ),
+          ],
+          rows: widget.castings
+              .map((casting) => DataRow(cells: [
+                    DataCell(Text(casting.id.toString())),
+                    DataCell(Text(DateFormat('yyyy-MM-dd').format(casting.date))),
+                    DataCell(Text(casting.name)),
+                    DataCell(Text(casting.castingDirector.name)),
+                    DataCell(Text(casting.director.name)),
+                    DataCell(Text(casting.inPerson ? 'Sí' : 'No')),
+                    DataCell(Text(casting.inProcess ? 'Sí' : 'No')),
+                    DataCell(Text(casting.notes)),
+                  ]))
+              .toList(),
+        ),
       ),
-    );
+      );
   }
 }
