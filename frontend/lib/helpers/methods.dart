@@ -332,7 +332,7 @@ Future<List<ActivityType>> getActivityTypes() async {
     int id = int.parse(activityType['id']);
     String name = activityType['name'];
 
-    activityTypes.add(activityType(
+    activityTypes.add(ActivityType(
       id,
       name,
     ));

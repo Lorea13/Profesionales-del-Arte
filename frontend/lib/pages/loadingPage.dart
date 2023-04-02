@@ -37,8 +37,8 @@ class _LoadingPageState extends State<LoadingPage> {
     await obtainPeople();
     await obtainCastings();
     await obtainCompanys();
-   // await obtainActivityTypes();
-   // await obtainActivities();
+    await obtainActivityTypes();
+  ///  await obtainActivities();
 
     await Future.delayed(const Duration(seconds: 10));
 
@@ -86,20 +86,20 @@ class _LoadingPageState extends State<LoadingPage> {
   ///Obtiene todas los activityTypes
   ///
   ///Llama al método de /helpers/methods getActivityTypes, que nos retorna una lista de activityTypes, futureActivityTypes. Es un Future List porque, al ser una petición API, no se obtendrá respuesta al momento. Retorna dicha lista de activityTypes [activityTypes] que contendrá todos los activityTypes de la base de datos.
- // obtainActivityTypes() async {
-  //  Future<List<ActivityType>> futureActivityTypes = getActivityTypes();
+  obtainActivityTypes() async {
+    Future<List<ActivityType>> futureActivityTypes = getActivityTypes();
 
-  //  activityTypes = await futureActivityTypes;
- // }
+     activityTypes = await futureActivityTypes;
+  }
 
   ///Obtiene todas los activities
   ///
   ///Llama al método de /helpers/methods getActivities, que nos retorna una lista de activities, futureActivities. Es un Future List porque, al ser una petición API, no se obtendrá respuesta al momento. Retorna dicha lista de activities [activities] que contendrá todos los activities de la base de datos.
- // obtainActivities() async {
-  //  Future<List<Activity>> futureActivities = getActivities(activityTypes, companys);
+  ///obtainActivities() async {
+  ///  Future<List<Activity>> futureActivities = getActivities(activityTypes, companys);
 
-  //  activities = await futureActivities;
-  //}
+  ///  activities = await futureActivities;
+  ///}
 
 
   @override
