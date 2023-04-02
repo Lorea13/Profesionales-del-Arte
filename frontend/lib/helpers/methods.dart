@@ -359,9 +359,9 @@ Future<List<Activity>> getActivities(
     DateTime date = DateTime.parse(activity['date']);
     String name = activity['name'];
     Company company = companysList[activity['company'] - 1];
-    int hours = int.parse(activity['hours']);
-    int price = int.parse(activity['price']);
-    int iva = int.parse(activity['iva']);
+    int hours = activity['hours'];
+    int price = activity['price'];
+    int iva = activity['iva'];
     bool invoice = activity['invoice'] as bool;
     bool getPaid = activity['getPaid'] as bool;
     String notes = activity['notes'];
