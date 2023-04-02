@@ -25,7 +25,11 @@ class Home extends StatefulWidget {
   List<PersonType> personTypes;
   List<Person> people;
   List<Casting> castings;
-  Home(this.personTypes, this.people, this.castings,
+  List<Company> companys;
+  List<ActivityType> activityTypes;
+  List<Activity> activities;
+  
+  Home(this.personTypes, this.people, this.castings, this.companys, this.activityTypes, this.activities,
       {Key? key})
       : super(key: key);
 
@@ -41,6 +45,7 @@ class _HomeState extends State<Home> {
 
     Future<List<Casting>> futureCastings = getCastings(widget.people);
     widget.castings = await futureCastings;
+
 
     return true;
   }

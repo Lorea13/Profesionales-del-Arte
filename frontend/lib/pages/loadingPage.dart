@@ -25,6 +25,9 @@ class _LoadingPageState extends State<LoadingPage> {
     List<PersonType> personTypes = [];
     List<Person> people = [];
     List<Casting> castings = [];
+    List<Company> companys = [];
+    List<ActivityType> activityTypes = [];
+    List<Activity> activities = [];
 
   /// Obtención de los datos
   ///
@@ -33,6 +36,9 @@ class _LoadingPageState extends State<LoadingPage> {
     await obtainPersonTypes();
     await obtainPeople();
     await obtainCastings();
+    await obtainCompanys();
+   // await obtainActivityTypes();
+   // await obtainActivities();
 
     await Future.delayed(const Duration(seconds: 10));
 
@@ -67,6 +73,34 @@ class _LoadingPageState extends State<LoadingPage> {
 
     castings = await futureCastings;
   }
+
+  ///Obtiene todas los companies
+  ///
+  ///Llama al método de /helpers/methods getCompanys, que nos retorna una lista de companys, futureCompanys. Es un Future List porque, al ser una petición API, no se obtendrá respuesta al momento. Retorna dicha lista de companys [companys] que contendrá todos los companys de la base de datos.
+  obtainCompanys() async {
+    Future<List<Company>> futureCompanys = getCompanys();
+
+    companys = await futureCompanys;
+  }
+
+  ///Obtiene todas los activityTypes
+  ///
+  ///Llama al método de /helpers/methods getActivityTypes, que nos retorna una lista de activityTypes, futureActivityTypes. Es un Future List porque, al ser una petición API, no se obtendrá respuesta al momento. Retorna dicha lista de activityTypes [activityTypes] que contendrá todos los activityTypes de la base de datos.
+ // obtainActivityTypes() async {
+  //  Future<List<ActivityType>> futureActivityTypes = getActivityTypes();
+
+  //  activityTypes = await futureActivityTypes;
+ // }
+
+  ///Obtiene todas los activities
+  ///
+  ///Llama al método de /helpers/methods getActivities, que nos retorna una lista de activities, futureActivities. Es un Future List porque, al ser una petición API, no se obtendrá respuesta al momento. Retorna dicha lista de activities [activities] que contendrá todos los activities de la base de datos.
+ // obtainActivities() async {
+  //  Future<List<Activity>> futureActivities = getActivities(activityTypes, companys);
+
+  //  activities = await futureActivities;
+  //}
+
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +144,7 @@ class _LoadingPageState extends State<LoadingPage> {
                   ],
                 ),
               ]))
-          : Home(personTypes, people, castings),
+          : Home(personTypes, people, castings, companys, activityTypes, activities),
     );
   }
 }
