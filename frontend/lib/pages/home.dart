@@ -121,11 +121,11 @@ class _HomeState extends State<Home> {
       0,
       DropdownMenuItem(
         value: null,
-        child: Text('Seleccione un casting director'),
+        child: Text(casting.castingDirector.name),
       ));
 
   directorItems.insert(
-      0, DropdownMenuItem(value: null, child: Text('Seleccione un director')));
+      0, DropdownMenuItem(value: null, child: Text(casting.director.name)));
 
   await showDialog(
     context: context,
@@ -139,13 +139,13 @@ class _HomeState extends State<Home> {
               TextField(
                 controller: nameController,
                 decoration: InputDecoration(
-                  labelText: "Nombre",
+                  labelText: casting.name,
                 ),
               ),
               TextField(
                 controller: dateController,
                 decoration: InputDecoration(
-                  labelText: 'Date (yyyy-MM-dd)',
+                  labelText: DateFormat('yyyy-MM-dd').format(casting.date),
                 ),
               ),
               SizedBox(height: 10),
@@ -193,7 +193,7 @@ class _HomeState extends State<Home> {
                   });
                 },
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 10),
               DropdownButtonFormField<String>(
                 decoration: InputDecoration(
                   labelText: 'In Process',
@@ -212,11 +212,11 @@ class _HomeState extends State<Home> {
                   });
                 },
               ),
-              SizedBox(height: 16.0),
+              SizedBox(height: 10),
               TextField(
                 controller: notesController,
                 decoration: InputDecoration(
-                  labelText: "Notas",
+                  labelText: casting.notes,
                 ),
               ),
             ],
@@ -292,13 +292,14 @@ Future<void> _showCreateCastingDialog() async {
   Person? _castingDirector;
   Person? _director;
 
+  
+
   await showDialog(
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        title: Text("Create Casting"),
-        content: Form(
-          key: _formKey,
+        title: Text("Editar casting"),
+        content: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -314,7 +315,7 @@ Future<void> _showCreateCastingDialog() async {
                   labelText: 'Name',
                 ),
               ),
-              SizedBox(height: 16.0),
+              SizedBox(height: 10),
               TextFormField(
                 controller: _dateController,
                 validator: (value) {
@@ -327,7 +328,7 @@ Future<void> _showCreateCastingDialog() async {
                   labelText: 'Date (yyyy-MM-dd)',
                 ),
               ),
-              SizedBox(height: 16.0),
+              SizedBox(height: 10),
               DropdownButtonFormField<Person>(
                 value: _castingDirector,
                 items: widget.people
@@ -346,7 +347,7 @@ Future<void> _showCreateCastingDialog() async {
                   labelText: 'Director de casting',
                 ),
               ),
-              SizedBox(height: 16.0),
+              SizedBox(height: 10),
               DropdownButtonFormField<Person>(
                 value: _director,
                 items: widget.people
@@ -365,7 +366,7 @@ Future<void> _showCreateCastingDialog() async {
                   labelText: 'Director',
                 ),
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 10),
               DropdownButtonFormField<String>(
                 decoration: InputDecoration(
                   labelText: 'In Person',
@@ -384,7 +385,7 @@ Future<void> _showCreateCastingDialog() async {
                   });
                 },
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 10),
               DropdownButtonFormField<String>(
                 decoration: InputDecoration(
                   labelText: 'In Process',
@@ -403,7 +404,7 @@ Future<void> _showCreateCastingDialog() async {
                   });
                 },
               ),
-              SizedBox(height: 16.0),
+              SizedBox(height: 10),
               TextFormField(
                 controller: _notesController,
                 decoration: InputDecoration(
