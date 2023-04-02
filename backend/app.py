@@ -113,11 +113,38 @@ def startup_seedData_db():
     
     person_Init = [
         {"id": "1", "type": 1, "name": "Jorge Galeron", "contactDate": "2022-08-15", "contactDescription": "Casting Campeones", "projects": "Campeones", "webPage": "", "email": "", "phone": "", "notes": ""},
+        {"id": "2", "type": 1, "name": "Txabe Atxa", "contactDate": "2022-06-15", "contactDescription": "Casting Las buenas companias", "projects": "Akelarre", "webPage": "", "email": "", "phone": "", "notes": ""},
+        {"id": "3", "type": 1, "name": "Elena Arnau", "contactDate": "2010-01-01", "contactDescription": "", "projects": "La que se avecina", "webPage": "", "email": "", "phone": "", "notes": ""},
+        {"id": "4", "type": 1, "name": "Josu Bilbao", "contactDate": "2022-09-15", "contactDescription": "Casting publi", "projects": "Publicidad", "webPage": "", "email": "", "phone": "", "notes": ""},
+        {"id": "5", "type": 1, "name": "Carmen Utrilla", "contactDate": "2021-11-26", "contactDescription": "Casting el club de los lectores criminales", "projects": "", "webPage": "", "email": "", "phone": "", "notes": ""},
+        {"id": "6", "type": 1, "name": "Veló casting", "contactDate": "2022-08-25", "contactDescription": "Casting Somos fuego", "projects": "", "webPage": "", "email": "", "phone": "", "notes": ""},
+        {"id": "7", "type": 1, "name": "Tonucha Vidal", "contactDate": "2022-02-08", "contactDescription": "Casting Upa dance", "projects": "", "webPage": "", "email": "", "phone": "", "notes": ""},
+    
+
+        {"id": "8", "type": 2, "name": "Javier Fesser", "contactDate": "2022-08-15", "contactDescription": "Casting Campeones", "projects": "Campeones", "webPage": "", "email": "", "phone": "", "notes": ""},
+        {"id": "9", "type": 2, "name": "Silvia Munt", "contactDate": "2022-06-15", "contactDescription": "Casting Las buenas companias", "projects": "Las buenas companias", "webPage": "", "email": "", "phone": "", "notes": ""},
+        {"id": "10", "type": 2, "name": "Desconocido", "contactDate": "2010-01-01", "contactDescription": "", "projects": "", "webPage": "", "email": "", "phone": "", "notes": ""},
+        {"id": "11", "type": 2, "name": "Carlos Alonso-Ojea", "contactDate": "2021-11-26", "contactDescription": "Casting el club de los lectores criminale", "projects": "", "webPage": "", "email": "", "phone": "", "notes": ""},
+        {"id": "12", "type": 2, "name": "Dani de la orden", "contactDate": "2022-08-25", "contactDescription": "Casting Somos fuego", "projects": "", "webPage": "", "email": "", "phone": "", "notes": ""},
+        {"id": "13", "type": 2, "name": "Lara Izagirre", "contactDate": "2022-02-22", "contactDescription": "Casting pelikula baten bila", "projects": "Un otoño sin Berlin", "webPage": "", "email": "", "phone": "", "notes": ""},
+        {"id": "14", "type": 2, "name": "Ines Paris", "contactDate": "2022-06-25", "contactDescription": "Casting Detective romi", "projects": "", "webPage": "", "email": "", "phone": "", "notes": ""},
+        
+
+        {"id": "15", "type": 3, "name": "Teatro en vilo", "contactDate": "2021-10-25", "contactDescription": "Casting blast CDN", "projects": "Hoy puede ser tu gran noche", "webPage": "", "email": "", "phone": "", "notes": "Andrea y Noemi"},
+        
     ]
     
     casting_Init = [
-        {"id": "1", "date": "2022-07-15", "name": "Campeones", "castingDirector": 1, "director": 1, "inPerson": True, "inProcess": False, "notes": "Fase final"},
-        {"id": "2", "date": "2022-06-25", "name": "Detective Romi", "castingDirector": 1, "director": 1, "inPerson": False, "inProcess": False, "notes": "Buscaban mas mayores"},
+        {"id": "1", "date": "2022-07-15", "name": "Campeones", "castingDirector": 1, "director": 8, "inPerson": True, "inProcess": False, "notes": "Fase final"},
+        {"id": "2", "date": "2022-06-15", "name": "Las buenas companias", "castingDirector": 2, "director": 9, "inPerson": True, "inProcess": False, "notes": "Casting en Binahi"},
+        {"id": "3", "date": "2022-06-25", "name": "Detective Romi", "castingDirector": 2, "director": 14, "inPerson": False, "inProcess": False, "notes": "Buscaban mas mayores"},
+        {"id": "4", "date": "2022-09-15", "name": "Netflix", "castingDirector": 4, "director": 10, "inPerson": True, "inProcess": False, "notes": ""},
+        {"id": "5", "date": "2021-11-26", "name": "El club de los lectores criminales", "castingDirector": 5, "director": 11, "inPerson": False, "inProcess": False, "notes": ""},
+        {"id": "6", "date": "2021-09-26", "name": "Somos fuego", "castingDirector": 6, "director": 12, "inPerson": False, "inProcess": False, "notes": "Han vuelto a parar la produccion"},
+        {"id": "7", "date": "2021-10-25", "name": "Blast", "castingDirector": 15, "director": 15, "inPerson": True, "inProcess": False, "notes": ""},
+        {"id": "8", "date": "2022-02-08", "name": "Upa Dance", "castingDirector": 7, "director": 10, "inPerson": False, "inProcess": False, "notes": ""},
+        {"id": "9", "date": "2022-02-22", "name": "Pelikula baten bila", "castingDirector": 13, "director": 13, "inPerson": False, "inProcess": False, "notes": ""},
+        
     ]
 
     company_Init = [

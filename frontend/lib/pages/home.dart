@@ -494,6 +494,12 @@ Future<void> _showCreateCastingDialog() async {
             DataColumn(
               label: Text('Notes'),
             ),
+            DataColumn(
+              label: Text('Update'),
+            ),
+             DataColumn(
+              label: Text('Delete'),
+            ),
           ],
           rows: widget.castings
               .map((casting) => DataRow(cells: [
@@ -505,11 +511,29 @@ Future<void> _showCreateCastingDialog() async {
                     DataCell(Text(casting.inPerson ? 'Sí' : 'No')),
                     DataCell(Text(casting.inProcess ? 'Sí' : 'No')),
                     DataCell(Text(casting.notes)),
+                    DataCell(IconButton(
+                      icon: Icon(Icons.update),
+                      onPressed: () {
+                        _showEditCastingDialog(casting);
+                      },
+                    )),
+                    DataCell(IconButton(
+                      icon: Icon(Icons.delete),
+                      onPressed: () {
+                       _showDeleteConfirmationDialog(context, casting);
+                      },
+                  )),
                   ]))
               .toList(),
         ),
       ),
-      
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){
+          _showCreateCastingDialog();
+        },
+        tooltip: 'Create a New Casting',
+        child: const Icon(Icons.add),
+      ),
       );
   }
 }
