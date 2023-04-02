@@ -38,7 +38,7 @@ class _LoadingPageState extends State<LoadingPage> {
     await obtainCastings();
     await obtainCompanys();
     await obtainActivityTypes();
-  ///  await obtainActivities();
+    ///await obtainActivities();
 
     await Future.delayed(const Duration(seconds: 10));
 
@@ -95,11 +95,11 @@ class _LoadingPageState extends State<LoadingPage> {
   ///Obtiene todas los activities
   ///
   ///Llama al método de /helpers/methods getActivities, que nos retorna una lista de activities, futureActivities. Es un Future List porque, al ser una petición API, no se obtendrá respuesta al momento. Retorna dicha lista de activities [activities] que contendrá todos los activities de la base de datos.
-  ///obtainActivities() async {
-  ///  Future<List<Activity>> futureActivities = getActivities(activityTypes, companys);
+  obtainActivities() async {
+    Future<List<Activity>> futureActivities = getActivities(activityTypes, companys);
 
-  ///  activities = await futureActivities;
-  ///}
+    activities = await futureActivities;
+  }
 
 
   @override
@@ -135,11 +135,11 @@ class _LoadingPageState extends State<LoadingPage> {
                         "gifs/theatre.gif",
                       ),
                     ),
-                    Text('¡Que comience el espectáculo! . . .',
+                    Text('¡Que comience el espectáculo!',
                         style: GoogleFonts.basic(
                             fontSize:
                                 MediaQuery.of(context).size.width / 1000 * 12,
-                            color: Colors.white,
+                            color: Colors.black,
                             fontWeight: FontWeight.bold)),
                   ],
                 ),

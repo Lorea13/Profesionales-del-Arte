@@ -112,7 +112,7 @@ def startup_seedData_db():
     ]
     
     person_Init = [
-        {"id": "1", "type": 1, "name": "Jorge Galerón", "contactDate": "2022-08-15", "contactDescription": "Casting Campeones", "projects": "Campeones", "webPage": "", "email": "", "phone": "", "notes": ""},
+        {"id": "1", "type": 1, "name": "Jorge Galeron", "contactDate": "2022-08-15", "contactDescription": "Casting Campeones", "projects": "Campeones", "webPage": "", "email": "", "phone": "", "notes": ""},
     ]
     
     casting_Init = [
@@ -123,6 +123,7 @@ def startup_seedData_db():
     company_Init = [
         {"id": "1", "name": "Pausoka"},
         {"id": "2", "name": "Erre produkzioak"},
+        {"id": "3", "name": "Nor gira"},
     ]
 
     activityType_Init = [
@@ -135,7 +136,9 @@ def startup_seedData_db():
     ]
 
     activity_Init = [
-        {"id": "1", "type": 1, "date": "2022-08-15", "name": "Elorrio concierto", "company": 1, "hours": "10", "price": 350, "iva": 35, "invoice": False, "getPaid": True, "notes": ""},
+        {"id": "1", "type": 1, "date": "2022-08-15", "name": "Elorrio concierto", "company": 1, "hours": 10, "price": 350, "iva": 0, "invoice": False, "getPaid": True, "notes": ""},
+        {"id": "2", "type": 1, "date": "2023-04-01", "name": "Belauntza", "company": 3, "hours": 3, "price": 300, "iva": 30, "invoice": False, "getPaid": False, "notes": "Asier hace factura"},
+    
     ]
 
     conn.execute(personTypes.insert().values(personType_Init))

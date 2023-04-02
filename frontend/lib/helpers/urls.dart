@@ -124,7 +124,6 @@ Uri allActivities() {
   return (allActivities);
 }
 
-
 /// Crea la URI al endpoint de update activity
 ///
 /// Retorna la URI correspondiente [updateActivity]

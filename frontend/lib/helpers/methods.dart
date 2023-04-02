@@ -351,7 +351,7 @@ Future<List<Activity>> getActivities(
 
   List<Activity> activities = [];
 
-  List response = json.decode((await client.get(allActivities())).body);
+  List<dynamic> response = json.decode((await client.get(allActivities())).body);
 
   for (var activity in response) {
     int id = int.parse(activity['id']);
@@ -362,8 +362,8 @@ Future<List<Activity>> getActivities(
     int hours = int.parse(activity['hours']);
     int price = int.parse(activity['price']);
     int iva = int.parse(activity['iva']);
-    bool invoice = activity['invoice'];
-    bool getPaid = activity['getPaid'];
+    bool invoice = activity['invoice'] as bool;
+    bool getPaid = activity['getPaid'] as bool;
     String notes = activity['notes'];
 
     activities.add(Activity(
