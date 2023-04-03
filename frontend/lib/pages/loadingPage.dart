@@ -38,7 +38,7 @@ class _LoadingPageState extends State<LoadingPage> {
     await obtainCastings();
     await obtainCompanys();
     await obtainActivityTypes();
-    ///await obtainActivities();
+    await obtainActivities();
 
     await Future.delayed(const Duration(seconds: 10));
 

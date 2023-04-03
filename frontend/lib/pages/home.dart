@@ -117,16 +117,6 @@ class _HomeState extends State<Home> {
           ))
       .toList();
 
-  castingDirectorItems.insert(
-      0,
-      DropdownMenuItem(
-        value: null,
-        child: Text(casting.castingDirector.name),
-      ));
-
-  directorItems.insert(
-      0, DropdownMenuItem(value: null, child: Text(casting.director.name)));
-
   await showDialog(
     context: context,
     builder: (BuildContext context) {
@@ -152,7 +142,7 @@ class _HomeState extends State<Home> {
               DropdownButtonFormField<Person>(
                 value: castingDirector,
                 decoration: InputDecoration(
-                  labelText: "Director de casting",
+                  labelText: casting.castingDirector.name,
                 ),
                 items: castingDirectorItems,
                 onChanged: (value) {
@@ -165,7 +155,7 @@ class _HomeState extends State<Home> {
               DropdownButtonFormField<Person>(
                 value: director,
                 decoration: InputDecoration(
-                  labelText: "Director",
+                  labelText: casting.director.name,
                 ),
                 items: directorItems,
                 onChanged: (value) {
@@ -279,9 +269,6 @@ class _HomeState extends State<Home> {
 
 
 
-
-
-
 Future<void> _showCreateCastingDialog() async {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
@@ -289,16 +276,32 @@ Future<void> _showCreateCastingDialog() async {
   final _notesController = TextEditingController();
   bool _inPerson = false;
   bool _inProcess = false;
-  Person? _castingDirector;
-  Person? _director;
 
-  
+  Person? castingDirector;
+  Person? director;
+
+  List<DropdownMenuItem<Person>> castingDirectorItems = widget.people
+      .where((person) => person.type!.name == "castingDirector")
+      .map((person) => DropdownMenuItem(
+            value: person,
+            child: Text(person.name),
+          ))
+      .toList();
+
+  List<DropdownMenuItem<Person>> directorItems = widget.people
+      .where((person) => person.type!.name == "director")
+      .map((person) => DropdownMenuItem(
+            value: person,
+            child: Text(person.name),
+          ))
+      .toList();
+
 
   await showDialog(
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        title: Text("Editar casting"),
+        title: Text("Crear casting"),
         content: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -330,41 +333,29 @@ Future<void> _showCreateCastingDialog() async {
               ),
               SizedBox(height: 10),
               DropdownButtonFormField<Person>(
-                value: _castingDirector,
-                items: widget.people
-                    .map<DropdownMenuItem<Person>>((Person value) {
-                  return DropdownMenuItem<Person>(
-                    value: value,
-                    child: Text(value.name),
-                  );
-                }).toList(),
-                onChanged: (Person? newValue) {
+                value: castingDirector,
+                decoration: InputDecoration(
+                  labelText: "Director de casting",
+                ),
+                items: castingDirectorItems,
+                onChanged: (value) {
                   setState(() {
-                    _castingDirector = newValue;
+                    castingDirector = value;
                   });
                 },
-                decoration: InputDecoration(
-                  labelText: 'Director de casting',
-                ),
               ),
               SizedBox(height: 10),
               DropdownButtonFormField<Person>(
-                value: _director,
-                items: widget.people
-                    .map<DropdownMenuItem<Person>>((Person value) {
-                  return DropdownMenuItem<Person>(
-                    value: value,
-                    child: Text(value.name),
-                  );
-                }).toList(),
-                onChanged: (Person? newValue) {
+                value: director,
+                decoration: InputDecoration(
+                  labelText: "Director",
+                ),
+                items: directorItems,
+                onChanged: (value) {
                   setState(() {
-                    _director = newValue;
+                    director = value;
                   });
                 },
-                decoration: InputDecoration(
-                  labelText: 'Director',
-                ),
               ),
               SizedBox(height: 10),
               DropdownButtonFormField<String>(
@@ -424,25 +415,26 @@ Future<void> _showCreateCastingDialog() async {
           TextButton(
             child: Text('Create'),
             onPressed: () async {
-              if (_formKey.currentState!.validate()) {
-                Casting newCasting = Casting(widget.castings.length + 1,
+                Casting newCasting = Casting(10,
                   DateTime.parse(_dateController.text),
                   _nameController.text,
-                  _castingDirector!,
-                  _director!,
+                  castingDirector!,
+                  director!,
                   _inPerson,
                   _inProcess,
                   _notesController.text,
                 );
 
-                await createCasting(newCasting);
+                int newID = await createCasting(newCasting);
 
                 setState(() {
-                  widget.castings.add(newCasting);
-                });
+                    if (newID != 0) {
+                      newCasting.id = newID;
+                      widget.castings.add(newCasting);
+                    }
+                  });
 
                 Navigator.of(context).pop();
-              }
             },
           ),
         ],

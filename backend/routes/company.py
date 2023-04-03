@@ -5,7 +5,7 @@ from schemas.activityType_schema import ActivityType
 
 company = APIRouter()
 
-@company.get("/companys", response_model= list[ActivityType], tags= ["ompanys"], description= "**Return all** the companys", response_description="All the companys")
+@company.get("/companys", response_model= list[ActivityType], tags= ["Companys"], description= "**Return all** the companys", response_description="All the companys")
 def get_companys():
     return conn.execute(companys.select()).fetchall()
 

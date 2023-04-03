@@ -7,6 +7,7 @@ from routes.casting import casting
 from routes.company import company
 from routes.activityType import activityType
 from routes.activity import activity
+from routes.user import user
 
 from config.db import conn
 
@@ -18,6 +19,7 @@ from models.casting import castings
 from models.company import companys
 from models.activityType import activityTypes
 from models.activity import activities
+from models.user import users
 
 
 app = FastAPI(
@@ -27,7 +29,7 @@ app = FastAPI(
     
     Items
 
-    The different items are: castings, activity types, activities, personTypes, people and companies.
+    The different items are: castings, activity types, activities, personTypes, people, companies and users.
 
     Methods
 
@@ -70,6 +72,10 @@ app = FastAPI(
         {
             "name": "Activities", 
             "description": "These are the routes of the activities"
+        },
+        {
+            "name": "Users", 
+            "description": "These are the routes of the users"
         }
         
     ]
@@ -92,6 +98,7 @@ app.include_router(casting)
 app.include_router(company)
 app.include_router(activityType)
 app.include_router(activity)
+app.include_router(user)
 
 @app.on_event("startup")
 def startup_seedData_db():
@@ -102,6 +109,7 @@ def startup_seedData_db():
     conn.execute(companys.delete())
     conn.execute(activityTypes.delete())
     conn.execute(activities.delete())
+    conn.execute(users.delete())
 
     personType_Init = [
         {"id": "1", "name": "castingDirector"},
@@ -136,14 +144,14 @@ def startup_seedData_db():
     
     casting_Init = [
         {"id": "1", "date": "2022-07-15", "name": "Campeones", "castingDirector": 1, "director": 8, "inPerson": True, "inProcess": False, "notes": "Fase final"},
-        {"id": "2", "date": "2022-06-15", "name": "Las buenas companias", "castingDirector": 2, "director": 9, "inPerson": True, "inProcess": False, "notes": "Casting en Binahi"},
-        {"id": "3", "date": "2022-06-25", "name": "Detective Romi", "castingDirector": 2, "director": 14, "inPerson": False, "inProcess": False, "notes": "Buscaban mas mayores"},
+        {"id": "2", "date": "2022-06-15", "name": "Buenas companias", "castingDirector": 2, "director": 9, "inPerson": True, "inProcess": False, "notes": "Binahi"},
+        {"id": "3", "date": "2022-06-25", "name": "Detective Romi", "castingDirector": 2, "director": 14, "inPerson": False, "inProcess": False, "notes": "Mas mayores"},
         {"id": "4", "date": "2022-09-15", "name": "Netflix", "castingDirector": 4, "director": 10, "inPerson": True, "inProcess": False, "notes": ""},
-        {"id": "5", "date": "2021-11-26", "name": "El club de los lectores criminales", "castingDirector": 5, "director": 11, "inPerson": False, "inProcess": False, "notes": ""},
-        {"id": "6", "date": "2021-09-26", "name": "Somos fuego", "castingDirector": 6, "director": 12, "inPerson": False, "inProcess": False, "notes": "Han vuelto a parar la produccion"},
+        {"id": "5", "date": "2021-11-26", "name": "CL criminales", "castingDirector": 5, "director": 11, "inPerson": False, "inProcess": False, "notes": ""},
+        {"id": "6", "date": "2021-09-26", "name": "Somos fuego", "castingDirector": 6, "director": 12, "inPerson": False, "inProcess": False, "notes": "Produccion para"},
         {"id": "7", "date": "2021-10-25", "name": "Blast", "castingDirector": 15, "director": 15, "inPerson": True, "inProcess": False, "notes": ""},
         {"id": "8", "date": "2022-02-08", "name": "Upa Dance", "castingDirector": 7, "director": 10, "inPerson": False, "inProcess": False, "notes": ""},
-        {"id": "9", "date": "2022-02-22", "name": "Pelikula baten bila", "castingDirector": 13, "director": 13, "inPerson": False, "inProcess": False, "notes": ""},
+        {"id": "9", "date": "2022-02-22", "name": "Pelikula bila", "castingDirector": 13, "director": 13, "inPerson": False, "inProcess": False, "notes": ""},
         
     ]
 
@@ -168,11 +176,16 @@ def startup_seedData_db():
     
     ]
 
+    user_Init = [
+        {"id": "1", "name": "lorea", "pass": "seguridad"},
+    ]
+
     conn.execute(personTypes.insert().values(personType_Init))
     conn.execute(people.insert().values(person_Init))
     conn.execute(castings.insert().values(casting_Init))
     conn.execute(companys.insert().values(company_Init))
     conn.execute(activityTypes.insert().values(activityType_Init))
     conn.execute(activities.insert().values(activity_Init))
+    conn.execute(users.insert().values(user_Init))
 
   #  execute_all_test()
