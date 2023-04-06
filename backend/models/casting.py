@@ -4,7 +4,7 @@ from config.db import meta, engine
 
 castings = Table("castings", meta, 
     Column("id", Integer, primary_key=True),
-    Column("date", Date),
+    Column("castingDate", Date),
     Column("name", String(255)),
     Column("castingDirector", Integer, ForeignKey("people.id")),
     Column("director", Integer, ForeignKey("people.id")),

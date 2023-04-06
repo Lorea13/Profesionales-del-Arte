@@ -4,7 +4,7 @@ from datetime import date
 
 class Casting(BaseModel):
     id : Optional[str]
-    date : date
+    castingDate : date
     name : str
     castingDirector : int
     director : int

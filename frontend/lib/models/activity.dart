@@ -4,7 +4,7 @@ import 'package:frontend/models/company.dart';
 class Activity {
   int id;
   ActivityType type;
-  DateTime date;
+  DateTime activityDate;
   String name;
   Company company;
   int hours;
@@ -15,5 +15,5 @@ class Activity {
   String notes;
 
   Activity(
-      this.id, this.type, this.date, this.name, this.company, this.hours, this.price, this.iva, this.invoice, this.getPaid, this.notes);
+      this.id, this.type, this.activityDate, this.name, this.company, this.hours, this.price, this.iva, this.invoice, this.getPaid, this.notes);
 }

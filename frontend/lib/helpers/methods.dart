@@ -154,7 +154,7 @@ Future<List<Casting>> getCastings(
 
   for (var casting in response) {
     int id = int.parse(casting['id']);
-    DateTime date = DateTime.parse(casting['date']);
+    DateTime castingDate = DateTime.parse(casting['castingDate']);
     String name = casting['name'];
     //Los id empiezan desde 1, pero las posiciones de una lista desde 0. Por eso, para asignar un director de casting se resta 1 al id, para obtener su posición en la lista
     Person castingDirector = peopleList[casting['castingDirector'] - 1];
@@ -165,7 +165,7 @@ Future<List<Casting>> getCastings(
 
     castings.add(Casting(
       id,
-      date,
+      castingDate,
       name,
       castingDirector,
       director,
@@ -184,7 +184,7 @@ Future<List<Casting>> getCastings(
 Future<int> createCasting(Casting casting) async {
   Client client = http.Client();
   var bodyEncoded = jsonEncode({
-    "date": casting.date.toString(),
+    "castingDate": casting.castingDate.toString(),
     "name": casting.name,
     "castingDirector": casting.castingDirector.id.toString(),
     "director": casting.director.id.toString(),
@@ -213,7 +213,7 @@ Future<int> createCasting(Casting casting) async {
 Future<bool> updateCasting(Casting casting) async {
   Client client = http.Client();
   var bodyEncoded = jsonEncode({
-    "date": casting.date.toString(),
+    "castingDate": casting.castingDate.toString(),
     "name": casting.name,
     "castingDirector": casting.castingDirector.id.toString(),
     "director": casting.director.id.toString(),
@@ -366,7 +366,7 @@ Future<List<Activity>> getActivities(
   for (var activity in response) {
     int id = int.parse(activity['id']);
     ActivityType type = activityTypesList[activity['type'] - 1];
-    DateTime date = DateTime.parse(activity['date']);
+    DateTime activityDate = DateTime.parse(activity['activityDate']);
     String name = activity['name'];
     Company company = companysList[activity['company'] - 1];
     int hours = activity['hours'];
@@ -379,7 +379,7 @@ Future<List<Activity>> getActivities(
     activities.add(Activity(
       id,
       type,
-      date,
+      activityDate,
       name,
       company,
       hours,
@@ -401,7 +401,7 @@ Future<int> createActivity(Activity activity) async {
   Client client = http.Client();
   var bodyEncoded = jsonEncode({
     "type": activity.type.id.toString(),
-    "date": activity.date.toString(),
+    "activityDate": activity.activityDate.toString(),
     "name": activity.name,
     "company": activity.company.id.toString(),
     "hours": activity.hours.toString(),
@@ -429,7 +429,7 @@ Future<bool> updateActivity(Activity activity) async {
   Client client = http.Client();
   var bodyEncoded = jsonEncode({
     "type": activity.type.id.toString(),
-    "date": activity.date.toString(),
+    "activityDate": activity.activityDate.toString(),
     "name": activity.name,
     "company": activity.company.id.toString(),
     "hours": activity.hours.toString(),

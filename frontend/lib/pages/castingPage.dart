@@ -87,7 +87,7 @@ class _CastingPageState extends State<CastingPage> {
   Future<void> _showEditCastingDialog(Casting casting) async {
   TextEditingController nameController = TextEditingController();
   TextEditingController notesController = TextEditingController();
-  TextEditingController dateController = TextEditingController();
+  TextEditingController castingDateController = TextEditingController();
   bool inProcess = false;
   bool inPerson = false;
 
@@ -126,9 +126,9 @@ class _CastingPageState extends State<CastingPage> {
                 ),
               ),
               TextField(
-                controller: dateController,
+                controller: castingDateController,
                 decoration: InputDecoration(
-                  labelText: DateFormat('yyyy-MM-dd').format(casting.date),
+                  labelText: DateFormat('yyyy-MM-dd').format(casting.castingDate),
                 ),
               ),
               SizedBox(height: 10),
@@ -212,7 +212,7 @@ class _CastingPageState extends State<CastingPage> {
           ),
           TextButton(
             onPressed: () async {
-              casting.date = DateTime.parse(dateController.text);
+              casting.castingDate = DateTime.parse(castingDateController.text);
               casting.name = nameController.text;
               casting.castingDirector = castingDirector!;
               casting.director = director!;
@@ -265,7 +265,7 @@ class _CastingPageState extends State<CastingPage> {
 Future<void> _showCreateCastingDialog() async {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
-  final _dateController = TextEditingController();
+  final _castingDateController = TextEditingController();
   final _notesController = TextEditingController();
   bool _inPerson = false;
   bool _inProcess = false;
@@ -313,7 +313,7 @@ Future<void> _showCreateCastingDialog() async {
               ),
               SizedBox(height: 10),
               TextFormField(
-                controller: _dateController,
+                controller: _castingDateController,
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Please enter a valid date';
@@ -409,7 +409,7 @@ Future<void> _showCreateCastingDialog() async {
             child: Text('Create'),
             onPressed: () async {
                 Casting newCasting = Casting(10,
-                  DateTime.parse(_dateController.text),
+                  DateTime.parse(_castingDateController.text),
                   _nameController.text,
                   castingDirector!,
                   director!,
@@ -446,66 +446,77 @@ Future<void> _showCreateCastingDialog() async {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: DataTable(
-          columns: const <DataColumn>[
-            DataColumn(
-              label: Text('Id'),
-            ),
-            DataColumn(
-              label: Text('Date'),
-            ),
-            DataColumn(
-              label: Text('Name'),
-            ),
-            DataColumn(
-              label: Text('Casting Director'),
-            ),
-            DataColumn(
-              label: Text('Director'),
-            ),
-            DataColumn(
-              label: Text('InPerson'),
-            ),
-            DataColumn(
-              label: Text('InProcess'),
-            ),
-            DataColumn(
-              label: Text('Notes'),
-            ),
-            DataColumn(
-              label: Text('Update'),
-            ),
-             DataColumn(
-              label: Text('Delete'),
+      body: Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: DataTable(
+                      columns: const <DataColumn>[
+                         DataColumn(
+                          label: Text('Update'),
+                        ),
+                        DataColumn(
+                          label: Text('Delete'),
+                        ),
+                        DataColumn(
+                          label: Text('Name'),
+                        ),
+                        DataColumn(
+                          label: Text('Date'),
+                        ),
+                        DataColumn(
+                          label: Text('Casting Director'),
+                        ),
+                        DataColumn(
+                          label: Text('Director'),
+                        ),
+                        DataColumn(
+                          label: Text('InPerson'),
+                        ),
+                        DataColumn(
+                          label: Text('InProcess'),
+                        ),
+                        DataColumn(
+                          label: Text('Notes'),
+                        ),
+                       
+                      ],
+                      rows: widget.castings
+                          .map((casting) => DataRow(cells: [
+                                DataCell(IconButton(
+                                  icon: Icon(Icons.update),
+                                  onPressed: () {
+                                    _showEditCastingDialog(casting);
+                                  },
+                                )),
+                                DataCell(IconButton(
+                                  icon: Icon(Icons.delete),
+                                  onPressed: () {
+                                  _showDeleteConfirmationDialog(context, casting);
+                                  },
+                              )),
+                                DataCell(Text(casting.name)),
+                                DataCell(Text(DateFormat('yyyy-MM-dd').format(casting.castingDate))),
+                                DataCell(Text(casting.castingDirector.name)),
+                                DataCell(Text(casting.director.name)),
+                                DataCell(Text(casting.inPerson ? 'Sí' : 'No')),
+                                DataCell(Text(casting.inProcess ? 'Sí' : 'No')),
+                                DataCell(Text(casting.notes)),
+                                
+                              ]))
+                          .toList(),
+                    ),
             ),
           ],
-          rows: widget.castings
-              .map((casting) => DataRow(cells: [
-                    DataCell(Text(casting.id.toString())),
-                    DataCell(Text(DateFormat('yyyy-MM-dd').format(casting.date))),
-                    DataCell(Text(casting.name)),
-                    DataCell(Text(casting.castingDirector.name)),
-                    DataCell(Text(casting.director.name)),
-                    DataCell(Text(casting.inPerson ? 'Sí' : 'No')),
-                    DataCell(Text(casting.inProcess ? 'Sí' : 'No')),
-                    DataCell(Text(casting.notes)),
-                    DataCell(IconButton(
-                      icon: Icon(Icons.update),
-                      onPressed: () {
-                        _showEditCastingDialog(casting);
-                      },
-                    )),
-                    DataCell(IconButton(
-                      icon: Icon(Icons.delete),
-                      onPressed: () {
-                       _showDeleteConfirmationDialog(context, casting);
-                      },
-                  )),
-                  ]))
-              .toList(),
         ),
+      ),
+    ),
+  ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: (){

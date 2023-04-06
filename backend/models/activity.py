@@ -5,7 +5,7 @@ from config.db import meta, engine
 activities = Table("activities", meta, 
     Column("id", Integer, primary_key=True),
     Column("type", Integer, ForeignKey("activityTypes.id")),
-    Column("date", Date),
+    Column("activityDate", Date),
     Column("name", String(255)),
     Column("company", Integer, ForeignKey("companys.id")),
     Column("hours", Integer),

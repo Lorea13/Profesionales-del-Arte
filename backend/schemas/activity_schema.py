@@ -5,7 +5,7 @@ from datetime import date
 class Activity(BaseModel):
     id : Optional[str]
     type: int
-    date : date
+    activityDate : date
     name : str
     company : int
     hours : int
