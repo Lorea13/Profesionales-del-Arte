@@ -130,14 +130,14 @@ Future<bool> updatePerson(Person person) async {
 ///Se pasa como parametro el id del person a eliminar [id]. Llamamos al endpoint gracias a la URI deletePersonUri de helpers/urls, al que le pasamos el id del person a eliminar. Retorna true si la operación se completa exitosamente (codigo de respuesta == 200) y false en caso contrario.
 Future<bool> deletePerson(int id) async {
   Client client = http.Client();
-
   var response = await client.get(deletePersonUri(id.toString()),
       headers: {"Content-Type": "application/json"});
-
   if (response.statusCode == 200) {
+    print("Person eliminated correctly 200");
     return true;
-  }
+  }else{
   return false;
+}
 }
 
 
@@ -242,11 +242,14 @@ Future<bool> deleteCasting(int id) async {
 
   var response = await client.get(deleteCastingUri(id.toString()),
       headers: {"Content-Type": "application/json"});
-
   if (response.statusCode == 200) {
+    print("Casting deleted correctly");
     return true;
+  }else{
+    print("Error castin deleting");
+    print(response.statusCode);
+    return false;
   }
-  return false;
 }
 
 

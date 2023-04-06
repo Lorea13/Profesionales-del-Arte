@@ -35,7 +35,9 @@ Uri createPersonUri() {
 ///
 /// Se pasa por parametro el id del person a eliminar [id]. Retorna la URI correspondiente [deletePerson]
 Uri deletePersonUri(String id) {
+  print("Estoy en la URI");
   Uri deletePerson = Uri.http('127.0.0.1:8000', '/people/delete/$id');
+  print("Estoy en URI 2"+deletePerson.toString());
   return (deletePerson);
 }
 

@@ -21,7 +21,9 @@ def get_person(id: str):
 
 @person.get("/people/delete/{id}", response_model= str, tags= ["People"], description="**Delete one** person with Id.", response_description="String with message: delated person and Id")
 def delete_person(id: str):
+    print("Estoy en routes")
     result = conn.execute(people.delete().where(people.c.id == id))
+    print("Ejecutado en routes")
     return ("deleted person with id = " + id)
 
 @person.put("/people/update/{id}", response_model= Person, tags= ["People"], description="**Update** person with Id.", response_description="Updated person")
