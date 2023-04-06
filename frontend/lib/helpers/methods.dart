@@ -196,9 +196,13 @@ Future<int> createCasting(Casting casting) async {
   var response = await client.post(createCastingUri(),
       headers: {"Content-Type": "application/json"}, body: bodyEncoded);
 
-  if (response.statusCode == 200) {
+  if (response.statusCode == 200 || response.statusCode == 422) {
+    print('response 200 Create Casting');
     int id = int.parse(json.decode((response).body)['id']);
     return id;
+  }else{
+    print('Error in Create Casting');
+    print(response.statusCode);
   }
   return 0;
 }
@@ -223,6 +227,9 @@ Future<bool> updateCasting(Casting casting) async {
 
   if (response.statusCode == 200) {
     return true;
+  }else{
+    print('Error in Update Casting');
+    print(response.statusCode);
   }
   return false;
 }

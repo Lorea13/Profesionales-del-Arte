@@ -40,7 +40,7 @@ class _LoadingPageState extends State<LoadingPage> {
     await obtainActivityTypes();
     await obtainActivities();
 
-    await Future.delayed(const Duration(seconds: 10));
+    await Future.delayed(const Duration(seconds: 3));
 
     setState(() {
       _isLoading = false;
@@ -115,15 +115,9 @@ class _LoadingPageState extends State<LoadingPage> {
               width: MediaQuery.of(context).size.width,
               color: Colors.white,
               child: Column(children: [
+                
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.5,
-                  width: MediaQuery.of(context).size.width,
-                  child: Image.asset(
-                    "images/logo.png",
-                  ),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.05,
+                  height: MediaQuery.of(context).size.height * 0.25,
                   width: MediaQuery.of(context).size.width,
                 ),
                 Column(
