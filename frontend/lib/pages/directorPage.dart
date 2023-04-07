@@ -44,17 +44,17 @@ class _DirectorPageState extends State<DirectorPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Confirm Deletion'),
-          content: Text('Are you sure you want to delete this person?'),
+          title: Text('Confirmación de borrado'),
+          content: Text('¿Estás seguro de que quieres borrar este casting?'),
           actions: <Widget>[
             TextButton(
-              child: Text('Cancel'),
+              child: Text('Cancelar'),
               onPressed: () {
                 Navigator.of(context).pop(false);
               },
             ),
             TextButton(
-              child: Text('Delete'),
+              child: Text('Borrar'),
               onPressed: () {
                 Navigator.of(context).pop(true);
               },
@@ -69,34 +69,34 @@ class _DirectorPageState extends State<DirectorPage> {
 
       if (success) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('Person deleted successfully!'),
+          content: Text('¡La Persona ha sido eliminada con éxito!'),
         ));
         setState(() {
           widget.people.remove(person);
         });
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('An error occurred while deleting the person.'),
+          content: Text('Ha ocurrido un error al eliminar la persona.'),
         ));
       }
     }
   }
 
   Future<void> _showEditPersonDialog(Person person) async {
-  TextEditingController nameController = TextEditingController();
-  TextEditingController contactDateController = TextEditingController();
-  TextEditingController contactDescriptionController = TextEditingController();
-  TextEditingController projectsController = TextEditingController();
-  TextEditingController webPageController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
-  TextEditingController notesController = TextEditingController();
-  PersonType? personType;
+  TextEditingController nameController = TextEditingController(text: person.name);
+  TextEditingController contactDateController = TextEditingController(text: DateFormat('yyyy-MM-dd').format(person.contactDate));
+  TextEditingController contactDescriptionController = TextEditingController(text: person.contactDescription);
+  TextEditingController projectsController = TextEditingController(text: person.projects);
+  TextEditingController webPageController = TextEditingController(text: person.webPage);
+  TextEditingController emailController = TextEditingController(text: person.email);
+  TextEditingController phoneController = TextEditingController(text: person.phone);
+  TextEditingController notesController = TextEditingController(text: person.notes);
+  PersonType? selectedPersonType = person.type;
 
   List<DropdownMenuItem<PersonType>> typeItems = widget.personTypes
-      .map((peronType) => DropdownMenuItem(
+      .map((personType) => DropdownMenuItem(
             value: personType,
-            child: Text(person.type.name),
+            child: Text(personType.name),
           ))
       .toList();
 
@@ -112,31 +112,31 @@ class _DirectorPageState extends State<DirectorPage> {
               TextField(
                 controller: nameController,
                 decoration: InputDecoration(
-                  labelText: person.name,
+                  labelText: 'Nombre',
                 ),
               ),
               TextField(
                 controller: contactDateController,
                 decoration: InputDecoration(
-                  labelText: DateFormat('yyyy-MM-dd').format(person.contactDate),
+                  labelText: 'Fecha (yyyy-MM-dd)',
+                ),
+              ),
+              TextField(
+                controller: contactDescriptionController,
+                decoration: InputDecoration(
+                  labelText: 'Decripcion de la fecha',
                 ),
               ),
               SizedBox(height: 10),
-              TextField(
-                controller: contactDateController,
-                decoration: InputDecoration(
-                labelText: DateFormat('yyyy-MM-dd').format(person.contactDate),
-                ),
-              ),
               DropdownButtonFormField<PersonType>(
-                value: personType,
+                value: selectedPersonType,
                 decoration: InputDecoration(
-                  labelText: person.type.name,
+                  labelText: 'Tipo de persona',
                 ),
                 items: typeItems,
                 onChanged: (value) {
                   setState(() {
-                    personType = value;
+                    selectedPersonType = value;
                   });
                 },
               ),
@@ -144,35 +144,35 @@ class _DirectorPageState extends State<DirectorPage> {
               TextField(
                 controller: projectsController,
                 decoration: InputDecoration(
-                labelText: person.projects,
+                labelText: 'Proyectos',
                 ),
               ),
               SizedBox(height: 10),
               TextField(
                 controller: webPageController,
                 decoration: InputDecoration(
-                labelText: person.webPage,
+                labelText: 'Pagina web',
                 ),
               ),
               SizedBox(height: 10),
               TextField(
                 controller: emailController,
                 decoration: InputDecoration(
-                labelText: person.email,
+                labelText: 'Email',
                 ),
               ),
               SizedBox(height: 10),
               TextField(
                 controller: phoneController,
                 decoration: InputDecoration(
-                labelText: person.phone,
+                labelText: 'Telefono',
                 ),
               ),
               SizedBox(height: 10),
               TextField(
                 controller: notesController,
                 decoration: InputDecoration(
-                labelText: person.notes,
+                labelText: 'Notas',
                 ),
               ),
               SizedBox(height: 10),
@@ -186,7 +186,7 @@ class _DirectorPageState extends State<DirectorPage> {
           ),
           TextButton(
             onPressed: () async {
-              person.type = personType!;
+              person.type = selectedPersonType!;
               person.contactDate = DateTime.parse(contactDateController.text);
               person.contactDescription = contactDescriptionController.text;
               person.projects = projectsController.text;
@@ -209,33 +209,156 @@ class _DirectorPageState extends State<DirectorPage> {
 }
 
 
-/// setState(() {
-  ///if (success) {
- /// widget.dinosaurs[widget.dinosaurs.indexOf(dinosaur)] = updatedDinosaur;
-    ///                }
-       ///           }
 
 
 
- ///if (delete == true) {
-     /// bool success = deleteCasting(casting.id);
+Future<void> _showCreatePersonDialog() async {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final _nameController = TextEditingController();
+  final _contactDateController = TextEditingController();
+  final _contactDescriptionController = TextEditingController();
+  final _projectsController = TextEditingController();
+  final _webPageController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _phoneController = TextEditingController();
+  final _notesController = TextEditingController();
 
-    ///  if (success) {
-   ///     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      ///    content: Text('Casting deleted successfully!'),
-     ///   ));
-    ///    setState(() {
-       ///   widget.castings.remove(casting);
-  ///      });
-  ///    } else {
-   ///     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-   ///       content: Text('An error occurred while deleting the casting.'),
-   ///     ));
-  ///    }
-  ///  }
+  PersonType? selectedPersonType;
+
+  List<DropdownMenuItem<PersonType>> typeItems = widget.personTypes
+      .map((personType) => DropdownMenuItem(
+            value: personType,
+            child: Text(personType.name),
+          ))
+      .toList();
+
+  await showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text("Crear contacto"),
+        content: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextFormField(
+                controller: _nameController,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Por favor introduzca un nombre';
+                  }
+                  return null;
+                },
+                decoration: InputDecoration(
+                  labelText: 'Nombre',
+                ),
+              ),
+              SizedBox(height: 10),
+              TextFormField(
+                controller: _contactDateController,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Por favor introduzca una fecha valida';
+                  }
+                  return null;
+                },
+                decoration: InputDecoration(
+                  labelText: 'Fecha (yyyy-MM-dd)',
+                ),
+              ),
+              SizedBox(height: 10),
+              DropdownButtonFormField<PersonType>(
+                value: selectedPersonType,
+                decoration: InputDecoration(
+                  labelText: 'Tipo de persona',
+                ),
+                items: typeItems,
+                onChanged: (value) {
+                  setState(() {
+                    selectedPersonType = value;
+                  });
+                },
+              ),
+              SizedBox(height: 10),
+              TextField(
+                controller: _projectsController,
+                decoration: InputDecoration(
+                labelText: 'Proyectos',
+                ),
+              ),
+              SizedBox(height: 10),
+              TextField(
+                controller: _webPageController,
+                decoration: InputDecoration(
+                labelText: 'Pagina web',
+                ),
+              ),
+              SizedBox(height: 10),
+              TextField(
+                controller: _emailController,
+                decoration: InputDecoration(
+                labelText: 'Email',
+                ),
+              ),
+              SizedBox(height: 10),
+              TextField(
+                controller: _phoneController,
+                decoration: InputDecoration(
+                labelText: 'Telefono',
+                ),
+              ),
+              SizedBox(height: 10),
+              TextField(
+                controller: _notesController,
+                decoration: InputDecoration(
+                labelText: 'Notas',
+                ),
+              ),
+              SizedBox(height: 10),
+            ],
+          ),
+        ),
+        actions: <Widget>[
+          TextButton(
+            child: Text('Cancelar'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          TextButton(
+            child: Text('Crear'),
+            onPressed: () async {
+                Person newPerson = Person(10,
+                  selectedPersonType!,
+                  _nameController.text,
+                  DateTime.parse(_contactDateController.text),
+                  _contactDescriptionController.text,
+                  _projectsController.text,
+                  _webPageController.text,
+                  _emailController.text,
+                  _phoneController.text,
+                  _notesController.text,
+                );
+
+                int newID = await createPerson(newPerson);
+
+                setState(() {
+                    if (newID != 0) {
+                      newPerson.id = newID;
+                      widget.people.add(newPerson);
+                    }
+                  });
+
+                Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
 
 
-//Falta el alert dialog de create
 
   @override
   Widget build(BuildContext context) {
@@ -252,37 +375,37 @@ class _DirectorPageState extends State<DirectorPage> {
                     child:  DataTable(
                       columns: const <DataColumn>[
                         DataColumn(
-                          label: Text('Update'),
+                          label: Text('Modificar'),
                         ),
                         DataColumn(
-                          label: Text('Delete'),
+                          label: Text('Borrar'),
                         ),
                         DataColumn(
-                          label: Text('Name'),
+                          label: Text('Nombre'),
                         ),
                         DataColumn(
-                          label: Text('Type'),
+                          label: Text('Tipo'),
                         ),
                         DataColumn(
-                          label: Text('C. Date'),
+                          label: Text('Fecha c.'),
                         ),
                         DataColumn(
-                          label: Text('C. Description'),
+                          label: Text('Descripcion c.'),
                         ),
                         DataColumn(
-                          label: Text('Projects'),
+                          label: Text('Proyectos'),
                         ),
                         DataColumn(
-                          label: Text('WebPage'),
+                          label: Text('Web'),
                         ),
                         DataColumn(
                           label: Text('Email'),
                         ),
                         DataColumn(
-                          label: Text('Phone'),
+                          label: Text('Tel'),
                         ),
                         DataColumn(
-                          label: Text('Notes'),
+                          label: Text('Notas'),
                         ),
                       ],
                       rows: widget.people
@@ -321,9 +444,9 @@ class _DirectorPageState extends State<DirectorPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: (){
-         // _showCreatePersonDialog();
+         _showCreatePersonDialog();
         },
-        tooltip: 'Create a New Person',
+        tooltip: 'Crear una nueva persona',
         child: const Icon(Icons.add),
       ),
       );

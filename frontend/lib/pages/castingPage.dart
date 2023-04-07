@@ -46,17 +46,17 @@ class _CastingPageState extends State<CastingPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Confirm Deletion'),
-          content: Text('Are you sure you want to delete this casting?'),
+          title: Text('Confirmación de borrado'),
+          content: Text('¿Estás seguro de que quieres borrar este casting?'),
           actions: <Widget>[
             TextButton(
-              child: Text('Cancel'),
+              child: Text('Cancelar'),
               onPressed: () {
                 Navigator.of(context).pop(false);
               },
             ),
             TextButton(
-              child: Text('Delete'),
+              child: Text('Borrar'),
               onPressed: () {
                 Navigator.of(context).pop(true);
               },
@@ -71,14 +71,14 @@ class _CastingPageState extends State<CastingPage> {
 
       if (success) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('Casting deleted successfully!'),
+          content: Text('¡El casting ha sido eliminado con éxito!'),
         ));
         setState(() {
           widget.castings.remove(casting);
         });
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('An error occurred while deleting the casting.'),
+          content: Text('Ha ocurrido un error al eliminar el casting.'),
         ));
       }
     }
@@ -122,13 +122,13 @@ class _CastingPageState extends State<CastingPage> {
               TextField(
                 controller: nameController,
                 decoration: InputDecoration(
-                  labelText: 'Name',
+                  labelText: 'Nombre',
                 ),
               ),
               TextField(
                 controller: castingDateController,
                 decoration: InputDecoration(
-                  labelText: 'Date (yyyy-MM-dd)',
+                  labelText: 'Fecha (yyyy-MM-dd)',
                 ),
               ),
               SizedBox(height: 10),
@@ -160,7 +160,7 @@ class _CastingPageState extends State<CastingPage> {
               SizedBox(height: 10),
               DropdownButtonFormField<String>(
                 decoration: InputDecoration(
-                  labelText: 'In Person',
+                  labelText: 'Presencial',
                 ),
                 value: inPerson ? 'Sí' : 'No',
                 items: <String>['Sí', 'No']
@@ -179,7 +179,7 @@ class _CastingPageState extends State<CastingPage> {
               SizedBox(height: 10),
               DropdownButtonFormField<String>(
                 decoration: InputDecoration(
-                  labelText: 'In Process',
+                  labelText: 'En proceso',
                 ),
                 value: inProcess ? 'Sí' : 'No',
                 items: <String>['Sí', 'No']
@@ -270,8 +270,8 @@ Future<void> _showCreateCastingDialog() async {
   bool _inPerson = false;
   bool _inProcess = false;
 
-  Person? castingDirector;
-  Person? director;
+  Person? selectedCastingDirector;
+  Person? selectedDirector;
 
   List<DropdownMenuItem<Person>> castingDirectorItems = widget.people
       .where((person) => person.type!.name == "castingDirector")
@@ -303,12 +303,12 @@ Future<void> _showCreateCastingDialog() async {
                 controller: _nameController,
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return 'Please enter the name';
+                    return 'Por favor introduzca un nombre';
                   }
                   return null;
                 },
                 decoration: InputDecoration(
-                  labelText: 'Name',
+                  labelText: 'Nombre',
                 ),
               ),
               SizedBox(height: 10),
@@ -316,44 +316,44 @@ Future<void> _showCreateCastingDialog() async {
                 controller: _castingDateController,
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return 'Please enter a valid date';
+                    return 'Por favor introduzca una fecha valida';
                   }
                   return null;
                 },
                 decoration: InputDecoration(
-                  labelText: 'Date (yyyy-MM-dd)',
+                  labelText: 'Fecha (yyyy-MM-dd)',
                 ),
               ),
               SizedBox(height: 10),
               DropdownButtonFormField<Person>(
-                value: castingDirector,
+                value: selectedCastingDirector,
                 decoration: InputDecoration(
                   labelText: "Director de casting",
                 ),
                 items: castingDirectorItems,
                 onChanged: (value) {
                   setState(() {
-                    castingDirector = value;
+                    selectedCastingDirector = value;
                   });
                 },
               ),
               SizedBox(height: 10),
               DropdownButtonFormField<Person>(
-                value: director,
+                value: selectedDirector,
                 decoration: InputDecoration(
                   labelText: "Director",
                 ),
                 items: directorItems,
                 onChanged: (value) {
                   setState(() {
-                    director = value;
+                    selectedDirector = value;
                   });
                 },
               ),
               SizedBox(height: 10),
               DropdownButtonFormField<String>(
                 decoration: InputDecoration(
-                  labelText: 'In Person',
+                  labelText: 'Presencial',
                 ),
                 value: _inPerson ? 'Sí' : 'No',
                 items: <String>['Sí', 'No']
@@ -372,7 +372,7 @@ Future<void> _showCreateCastingDialog() async {
               SizedBox(height: 10),
               DropdownButtonFormField<String>(
                 decoration: InputDecoration(
-                  labelText: 'In Process',
+                  labelText: 'En proceso',
                 ),
                 value: _inProcess ? 'Sí' : 'No',
                 items: <String>['Sí', 'No']
@@ -392,7 +392,7 @@ Future<void> _showCreateCastingDialog() async {
               TextFormField(
                 controller: _notesController,
                 decoration: InputDecoration(
-                  labelText: 'Notes',
+                  labelText: 'Notas',
                 ),
               ),
             ],
@@ -400,19 +400,19 @@ Future<void> _showCreateCastingDialog() async {
         ),
         actions: <Widget>[
           TextButton(
-            child: Text('Cancel'),
+            child: Text('Cancelar'),
             onPressed: () {
               Navigator.of(context).pop();
             },
           ),
           TextButton(
-            child: Text('Create'),
+            child: Text('Crear'),
             onPressed: () async {
                 Casting newCasting = Casting(10,
                   DateTime.parse(_castingDateController.text),
                   _nameController.text,
-                  castingDirector!,
-                  director!,
+                  selectedCastingDirector!,
+                  selectedDirector!,
                   _inPerson,
                   _inProcess,
                   _notesController.text,
@@ -458,31 +458,31 @@ Future<void> _showCreateCastingDialog() async {
                     child: DataTable(
                       columns: const <DataColumn>[
                          DataColumn(
-                          label: Text('Update'),
+                          label: Text('Modificar'),
                         ),
                         DataColumn(
-                          label: Text('Delete'),
+                          label: Text('Borrar'),
                         ),
                         DataColumn(
-                          label: Text('Name'),
+                          label: Text('Nombre'),
                         ),
                         DataColumn(
-                          label: Text('Date'),
+                          label: Text('Fecha'),
                         ),
                         DataColumn(
-                          label: Text('Casting Director'),
+                          label: Text('Dir. casting'),
                         ),
                         DataColumn(
                           label: Text('Director'),
                         ),
                         DataColumn(
-                          label: Text('InPerson'),
+                          label: Text('Presencial'),
                         ),
                         DataColumn(
-                          label: Text('InProcess'),
+                          label: Text('En proceso'),
                         ),
                         DataColumn(
-                          label: Text('Notes'),
+                          label: Text('Notas'),
                         ),
                        
                       ],
@@ -522,7 +522,7 @@ Future<void> _showCreateCastingDialog() async {
         onPressed: (){
           _showCreateCastingDialog();
         },
-        tooltip: 'Create a New Casting',
+        tooltip: 'Crear un nuevo casting',
         child: const Icon(Icons.add),
       ),
       );
