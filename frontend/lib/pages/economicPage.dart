@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:frontend/helpers/urls.dart';
 
-import 'package:frontend/models/personType.dart';
-import 'package:frontend/models/person.dart';
-import 'package:frontend/models/casting.dart';
+import 'package:frontend/models/company.dart';
+import 'package:frontend/models/activityType.dart';
+import 'package:frontend/models/activity.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:slide_to_act/slide_to_act.dart';
@@ -15,6 +15,7 @@ import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 
 import '../helpers/methods.dart';
+import '../fragments/topPanel.dart';
 import 'home.dart';
 
 
@@ -44,6 +45,12 @@ class _EconomicPageState extends State<EconomicPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-    )
+      body: Column(
+        children: [
+          Container(
+           )
+        ],
+      ),
+    );
   }
 }

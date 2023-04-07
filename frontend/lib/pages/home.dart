@@ -17,8 +17,8 @@ import 'package:slide_to_act/slide_to_act.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 
+import '../fragments/topPanel.dart';
 import '../helpers/methods.dart';
-import '../helpers/navegationMenu.dart';
 import 'castingPage.dart';
 import 'directorPage.dart';
 import 'contactPage.dart';
@@ -67,14 +67,11 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: NavigationDrawerX(
-        currentIndex: _currentIndex,
-        onNavigationItemSelected: _onNavigationItemSelected,
-        ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            TopPanel(0, widget.personTypes, widget.people, widget.castings, widget.companys, widget.activityTypes, widget.activities),
             ElevatedButton(
               child: Text('Castings'),
               onPressed: () {

@@ -1,12 +1,28 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:frontend/pages/home.dart';
+import 'dart:convert';
 
-import '../helpers/mehotds.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:intl/intl.dart';
+import 'package:flutter/material.dart';
+import 'package:frontend/helpers/urls.dart';
+
+import 'package:google_fonts/google_fonts.dart';
+import 'package:slide_to_act/slide_to_act.dart';
+
+import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
+import '../helpers/methods.dart';
+
+import '../models/personType.dart';
+import '../models/person.dart';
+import '../models/casting.dart';
+import '../models/company.dart';
+import '../models/activityType.dart';
+import '../models/activity.dart';
+
+import 'package:frontend/pages/home.dart';
 import '../pages/contactPage.dart';
 import '../pages/economicPage.dart';
-import '../pages/home.dart';
-import '../pages/castinPage.dart';
+import '../pages/castingPage.dart';
 
 Color mainColor = Colors.purple;
 Color selectedColor = const Color.fromARGB(201, 155, 39, 176);
@@ -21,7 +37,7 @@ class TopPanel extends StatelessWidget {
   List<ActivityType> activityTypes;
   List<Activity> activities;
 
-  const TopPanel(this._count, this.personTypes, this.people, this.castings, this.companys, this.activityTypes, this.activities,
+  TopPanel(this._count, this.personTypes, this.people, this.castings, this.companys, this.activityTypes, this.activities,
   {Key? key}) : super(key: key);
 
   @override
@@ -35,7 +51,7 @@ class TopPanel extends StatelessWidget {
             cursor: SystemMouseCursors.click,
             child: GestureDetector(
               onTap: () {
-                Navigator.push(context, Home(personTypes, people, castings, companys, activityTypes, activities));
+                Home(personTypes, people, castings, companys, activityTypes, activities);
               },
               child: Container(
                 width: MediaQuery.of(context).size.width / 6,
@@ -53,8 +69,7 @@ class TopPanel extends StatelessWidget {
             cursor: SystemMouseCursors.click,
             child: GestureDetector(
               onTap: () {
-                Navigator.push(
-                    context, EconomicPage(activityTypes, activities, companys));
+                EconomicPage(activityTypes, activities, companys);
               },
               child: Container(
                 width: MediaQuery.of(context).size.width / 6,
@@ -72,7 +87,7 @@ class TopPanel extends StatelessWidget {
             cursor: SystemMouseCursors.click,
             child: GestureDetector(
               onTap: () {
-                Navigator.push(context, CastingPage(personTypes, people, castings));
+                CastingPage(personTypes, people, castings);
               },
               child: Container(
                 width: MediaQuery.of(context).size.width / 6,
@@ -90,8 +105,7 @@ class TopPanel extends StatelessWidget {
             cursor: SystemMouseCursors.click,
             child: GestureDetector(
               onTap: () {
-                Navigator.push(
-                    context, ContactPage(personTypes, people, castings));
+                ContactPage(personTypes, people, castings);
               },
               child: Container(
                 width: MediaQuery.of(context).size.width / 6,
