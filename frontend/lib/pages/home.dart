@@ -67,11 +67,12 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
+      body: Container(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             TopPanel(0, widget.personTypes, widget.people, widget.castings, widget.companys, widget.activityTypes, widget.activities),
+            SizedBox(height: 40),
             ElevatedButton(
               child: Text('Castings'),
               onPressed: () {

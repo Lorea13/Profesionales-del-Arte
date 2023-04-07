@@ -24,11 +24,12 @@ import '../pages/contactPage.dart';
 import '../pages/economicPage.dart';
 import '../pages/castingPage.dart';
 
-Color mainColor = Colors.purple;
-Color selectedColor = const Color.fromARGB(201, 155, 39, 176);
+Color mainColor = Colors.blue;
+Color selectedColor = Color.fromARGB(255, 0, 0, 139);
 Color textColor = Colors.white;
+Color hoverTextColor = Colors.black;
 
-class TopPanel extends StatelessWidget {
+class TopPanel extends StatefulWidget {
   final int _count;
   List<PersonType> personTypes;
   List<Person> people;
@@ -37,85 +38,179 @@ class TopPanel extends StatelessWidget {
   List<ActivityType> activityTypes;
   List<Activity> activities;
 
+  
+
   TopPanel(this._count, this.personTypes, this.people, this.castings, this.companys, this.activityTypes, this.activities,
   {Key? key}) : super(key: key);
 
   @override
+  State<TopPanel> createState() => _TopPanelState();
+
+}
+
+class _TopPanelState extends State<TopPanel> {
+
+  bool _hoveringHome = false;
+  bool _hoveringEconomic = false;
+  bool _hoveringCasting = false;
+  bool _hoveringContacts = false;
+
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.12,
+      height: MediaQuery.of(context).size.height * 0.08,
       width: MediaQuery.of(context).size.width,
       child: Row(
         children: [
           MouseRegion(
             cursor: SystemMouseCursors.click,
+            onEnter: (PointerEvent details) {
+              setState(() {
+                _hoveringHome = true;
+              });
+            },
+            onExit: (PointerEvent details) {
+              setState(() {
+                _hoveringHome = false;
+              });
+            },
             child: GestureDetector(
               onTap: () {
-                Home(personTypes, people, castings, companys, activityTypes, activities);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Home(widget.personTypes, widget.people, widget.castings, widget.companys, widget.activityTypes, widget.activities)),
+                );
               },
-              child: Container(
-                width: MediaQuery.of(context).size.width / 6,
-                height: MediaQuery.of(context).size.height * 0.12,
-                color: _count == 0 ? selectedColor : mainColor,
-                child: Icon(
-                  Icons.home_rounded,
-                  size: MediaQuery.of(context).size.width / 1000 * 32,
-                  color: textColor,
+              child: Opacity(
+                opacity: _hoveringHome ? 0.5 : 1.0,
+                child: Container(
+                  width: MediaQuery.of(context).size.width / 4,
+                  height: MediaQuery.of(context).size.height * 0.08,
+                  color: widget._count == 0 ? selectedColor : mainColor,
+                  child: Center(
+                    child: Text(
+                      'Home',
+                      style: TextStyle(
+                        fontSize: MediaQuery.of(context).size.width / 1000 * 14,
+                        color: _hoveringHome ? hoverTextColor : textColor,
+                      ),
+                    ),
+                  ),
+                  ),
+                ),
+            ),
+          ),
+          MouseRegion(
+            cursor: SystemMouseCursors.click,
+            onEnter: (PointerEvent details) {
+              setState(() {
+                _hoveringEconomic = true;
+              });
+            },
+            onExit: (PointerEvent details) {
+              setState(() {
+                _hoveringEconomic = false;
+              });
+            },
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => EconomicPage(widget.activityTypes, widget.activities, widget.companys)),
+                );
+              },
+              child: Opacity(
+                opacity: _hoveringEconomic ? 0.5 : 1.0,
+                child: Container(
+                  width: MediaQuery.of(context).size.width / 4,
+                  height: MediaQuery.of(context).size.height * 0.08,
+                  color: widget._count == 1 ? selectedColor : mainColor,
+                  child: Center(
+                    child: Text(
+                      'Economico',
+                      style: TextStyle(
+                        fontSize: MediaQuery.of(context).size.width / 1000 * 14,
+                        color: _hoveringEconomic ? hoverTextColor : textColor,
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),
           ),
           MouseRegion(
             cursor: SystemMouseCursors.click,
+            onEnter: (PointerEvent details) {
+              setState(() {
+                _hoveringCasting = true;
+              });
+            },
+            onExit: (PointerEvent details) {
+              setState(() {
+                _hoveringCasting = false;
+              });
+            },
             child: GestureDetector(
-              onTap: () {
-                EconomicPage(activityTypes, activities, companys);
-              },
-              child: Container(
-                width: MediaQuery.of(context).size.width / 6,
-                height: MediaQuery.of(context).size.height * 0.12,
-                color: _count == 1 ? selectedColor : mainColor,
-                child: Icon(
-                  Icons.warehouse_rounded,
-                  size: MediaQuery.of(context).size.width / 1000 * 32,
-                  color: textColor,
+             onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => CastingPage(widget.personTypes, widget.people, widget.castings)),
+              );
+            },
+              child: Opacity(
+                opacity: _hoveringCasting ? 0.5 : 1.0,
+                child: Container(
+                width: MediaQuery.of(context).size.width / 4,
+                height: MediaQuery.of(context).size.height * 0.08,
+                color: widget._count == 2 ? selectedColor : mainColor,
+                child: Center(
+                    child: Text(
+                      'Casting',
+                      style: TextStyle(
+                        fontSize: MediaQuery.of(context).size.width / 1000 * 14,
+                        color: _hoveringCasting ? hoverTextColor : textColor,
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),
           ),
           MouseRegion(
             cursor: SystemMouseCursors.click,
+            onEnter: (PointerEvent details) {
+              setState(() {
+                _hoveringContacts = true;
+              });
+            },
+            onExit: (PointerEvent details) {
+              setState(() {
+                _hoveringContacts = false;
+              });
+            },
             child: GestureDetector(
               onTap: () {
-                CastingPage(personTypes, people, castings);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ContactPage(widget.personTypes, widget.people, widget.castings)),
+                );
               },
+              child: Opacity(
+                opacity: _hoveringContacts ? 0.5 : 1.0,
               child: Container(
-                width: MediaQuery.of(context).size.width / 6,
-                height: MediaQuery.of(context).size.height * 0.12,
-                color: _count == 2 ? selectedColor : mainColor,
-                child: Icon(
-                  Icons.attach_money_rounded,
-                  size: MediaQuery.of(context).size.width / 1000 * 32,
-                  color: textColor,
+                width: MediaQuery.of(context).size.width / 4,
+                height: MediaQuery.of(context).size.height * 0.08,
+                color: widget._count == 3 ? selectedColor : mainColor,
+                child: Center(
+                    child: Text(
+                      'Contactos',
+                      style: TextStyle(
+                        fontSize: MediaQuery.of(context).size.width / 1000 * 14,
+                        color: _hoveringContacts ? hoverTextColor : textColor,
+                      ),
+                    ),
                 ),
-              ),
-            ),
-          ),
-          MouseRegion(
-            cursor: SystemMouseCursors.click,
-            child: GestureDetector(
-              onTap: () {
-                ContactPage(personTypes, people, castings);
-              },
-              child: Container(
-                width: MediaQuery.of(context).size.width / 6,
-                height: MediaQuery.of(context).size.height * 0.12,
-                color: _count == 3 ? selectedColor : mainColor,
-                child: Icon(
-                  CupertinoIcons.graph_square_fill,
-                  size: MediaQuery.of(context).size.width / 1000 * 32,
-                  color: textColor,
-                ),
+                  ),
               ),
             ),
           ),
