@@ -85,14 +85,14 @@ class _CastingPageState extends State<CastingPage> {
   }
 
   Future<void> _showEditCastingDialog(Casting casting) async {
-  TextEditingController nameController = TextEditingController();
-  TextEditingController notesController = TextEditingController();
-  TextEditingController castingDateController = TextEditingController();
-  bool inProcess = false;
-  bool inPerson = false;
+  TextEditingController nameController = TextEditingController(text: casting.name);
+  TextEditingController notesController = TextEditingController(text: casting.notes);
+  TextEditingController castingDateController = TextEditingController(text: DateFormat('yyyy-MM-dd').format(casting.castingDate));
+  bool inProcess = casting.inProcess;
+  bool inPerson = casting.inPerson;
 
-  Person? castingDirector;
-  Person? director;
+  Person? selectedCastingDirector = casting.castingDirector;
+  Person? selectedDirector = casting.director;
 
   List<DropdownMenuItem<Person>> castingDirectorItems = widget.people
       .where((person) => person.type!.name == "castingDirector")
@@ -122,38 +122,38 @@ class _CastingPageState extends State<CastingPage> {
               TextField(
                 controller: nameController,
                 decoration: InputDecoration(
-                  labelText: casting.name,
+                  labelText: 'Name',
                 ),
               ),
               TextField(
                 controller: castingDateController,
                 decoration: InputDecoration(
-                  labelText: DateFormat('yyyy-MM-dd').format(casting.castingDate),
+                  labelText: 'Date (yyyy-MM-dd)',
                 ),
               ),
               SizedBox(height: 10),
               DropdownButtonFormField<Person>(
-                value: castingDirector,
+                value: selectedCastingDirector,
                 decoration: InputDecoration(
-                  labelText: casting.castingDirector.name,
+                  labelText: 'Director de casting',
                 ),
                 items: castingDirectorItems,
                 onChanged: (value) {
                   setState(() {
-                    castingDirector = value;
+                    selectedCastingDirector = value;
                   });
                 },
               ),
               SizedBox(height: 10),
               DropdownButtonFormField<Person>(
-                value: director,
+                value: selectedDirector,
                 decoration: InputDecoration(
-                  labelText: casting.director.name,
+                  labelText: 'Director',
                 ),
                 items: directorItems,
                 onChanged: (value) {
                   setState(() {
-                    director = value;
+                    selectedDirector = value;
                   });
                 },
               ),
@@ -199,7 +199,7 @@ class _CastingPageState extends State<CastingPage> {
               TextField(
                 controller: notesController,
                 decoration: InputDecoration(
-                  labelText: casting.notes,
+                  labelText: 'Notas',
                 ),
               ),
             ],
@@ -214,8 +214,8 @@ class _CastingPageState extends State<CastingPage> {
             onPressed: () async {
               casting.castingDate = DateTime.parse(castingDateController.text);
               casting.name = nameController.text;
-              casting.castingDirector = castingDirector!;
-              casting.director = director!;
+              casting.castingDirector = selectedCastingDirector!;
+              casting.director = selectedDirector!;
               casting.inPerson = inPerson;
               casting.inProcess = inProcess;
               casting.notes = notesController.text;
