@@ -2,12 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/pages/home.dart';
 
-import '../helpers/CustomPageRoute.dart';
-import '../pages/Decisions.dart';
-import '../pages/Graphics.dart';
-import '../pages/Sales.dart';
-import '../pages/Settings.dart';
-import '../pages/Warehouse.dart';
+import '../helpers/mehotds.dart';
+import '../pages/contactPage.dart';
+import '../pages/economicPage.dart';
+import '../pages/home.dart';
+import '../pages/castinPage.dart';
 
 Color mainColor = Colors.purple;
 Color selectedColor = const Color.fromARGB(201, 155, 39, 176);
@@ -15,8 +14,15 @@ Color textColor = Colors.white;
 
 class TopPanel extends StatelessWidget {
   final int _count;
+  List<PersonType> personTypes;
+  List<Person> people;
+  List<Casting> castings;
+  List<Company> companys;
+  List<ActivityType> activityTypes;
+  List<Activity> activities;
 
-  const TopPanel(this._count, {Key? key}) : super(key: key);
+  const TopPanel(this._count, this.personTypes, this.people, this.castings, this.companys, this.activityTypes, this.activities,
+  {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +35,7 @@ class TopPanel extends StatelessWidget {
             cursor: SystemMouseCursors.click,
             child: GestureDetector(
               onTap: () {
-                Navigator.push(context, CustomPageRoute(child: const Home()));
+                Navigator.push(context, Home(personTypes, people, castings, companys, activityTypes, activities));
               },
               child: Container(
                 width: MediaQuery.of(context).size.width / 6,
@@ -48,7 +54,7 @@ class TopPanel extends StatelessWidget {
             child: GestureDetector(
               onTap: () {
                 Navigator.push(
-                    context, CustomPageRoute(child: const Warehouse()));
+                    context, EconomicPage(activityTypes, activities, companys));
               },
               child: Container(
                 width: MediaQuery.of(context).size.width / 6,
@@ -66,7 +72,7 @@ class TopPanel extends StatelessWidget {
             cursor: SystemMouseCursors.click,
             child: GestureDetector(
               onTap: () {
-                Navigator.push(context, CustomPageRoute(child: const Sales()));
+                Navigator.push(context, CastingPage(personTypes, people, castings));
               },
               child: Container(
                 width: MediaQuery.of(context).size.width / 6,
@@ -85,7 +91,7 @@ class TopPanel extends StatelessWidget {
             child: GestureDetector(
               onTap: () {
                 Navigator.push(
-                    context, CustomPageRoute(child: const Graphics()));
+                    context, ContactPage(personTypes, people, castings));
               },
               child: Container(
                 width: MediaQuery.of(context).size.width / 6,
@@ -99,44 +105,6 @@ class TopPanel extends StatelessWidget {
               ),
             ),
           ),
-          MouseRegion(
-            cursor: SystemMouseCursors.click,
-            child: GestureDetector(
-              onTap: () {
-                Navigator.push(
-                    context, CustomPageRoute(child: const Decisions()));
-              },
-              child: Container(
-                width: MediaQuery.of(context).size.width / 6,
-                height: MediaQuery.of(context).size.height * 0.12,
-                color: _count == 4 ? selectedColor : mainColor,
-                child: Icon(
-                  Icons.balance_rounded,
-                  size: MediaQuery.of(context).size.width / 1000 * 32,
-                  color: textColor,
-                ),
-              ),
-            ),
-          ),
-          MouseRegion(
-            cursor: SystemMouseCursors.click,
-            child: GestureDetector(
-              onTap: () {
-                Navigator.push(
-                    context, CustomPageRoute(child: const Settings()));
-              },
-              child: Container(
-                width: MediaQuery.of(context).size.width / 6,
-                height: MediaQuery.of(context).size.height * 0.12,
-                color: _count == 5 ? selectedColor : mainColor,
-                child: Icon(
-                  Icons.settings_rounded,
-                  size: MediaQuery.of(context).size.width / 1000 * 32,
-                  color: textColor,
-                ),
-              ),
-            ),
-          )
         ],
       ),
     );

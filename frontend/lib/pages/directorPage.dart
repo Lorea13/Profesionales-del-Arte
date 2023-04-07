@@ -6,6 +6,7 @@ import 'package:frontend/helpers/urls.dart';
 
 import 'package:frontend/models/personType.dart';
 import 'package:frontend/models/person.dart';
+import 'package:frontend/models/casting.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:slide_to_act/slide_to_act.dart';
@@ -21,8 +22,11 @@ import 'home.dart';
 class DirectorPage extends StatefulWidget {
   List<PersonType> personTypes;
   List<Person> people;
+  List<Casting> castings;
 
-  DirectorPage(this.personTypes, this.people,
+  
+
+  DirectorPage(this.personTypes, this.people, this.castings,
       {Key? key})
       : super(key: key);
 
@@ -31,6 +35,8 @@ class DirectorPage extends StatefulWidget {
 }
 
 class _DirectorPageState extends State<DirectorPage> {
+
+ 
   Future<bool> obtainUpdatedData() async {
 
     Future<List<Person>> futurePeople = getPeople(widget.personTypes);
@@ -45,7 +51,7 @@ class _DirectorPageState extends State<DirectorPage> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text('Confirmación de borrado'),
-          content: Text('¿Estás seguro de que quieres borrar este casting?'),
+          content: Text('¿Estás seguro de que quieres borrar esta persona?'),
           actions: <Widget>[
             TextButton(
               child: Text('Cancelar'),
@@ -384,9 +390,6 @@ Future<void> _showCreatePersonDialog() async {
                           label: Text('Nombre'),
                         ),
                         DataColumn(
-                          label: Text('Tipo'),
-                        ),
-                        DataColumn(
                           label: Text('Fecha c.'),
                         ),
                         DataColumn(
@@ -408,7 +411,7 @@ Future<void> _showCreatePersonDialog() async {
                           label: Text('Notas'),
                         ),
                       ],
-                      rows: widget.people
+                      rows: widget.people.where((person) => person.type!.name == "director")
                           .map((person) => DataRow(cells: [
                                 DataCell(IconButton(
                                   icon: Icon(Icons.update),
@@ -419,11 +422,16 @@ Future<void> _showCreatePersonDialog() async {
                                 DataCell(IconButton(
                                   icon: Icon(Icons.delete),
                                   onPressed: () {
-                                  _showDeleteConfirmationDialog(context, person);
+                                  if(!widget.castings.any((casting) => casting.director?.id == person.id || casting.castingDirector?.id == person.id)) {
+                                      _showDeleteConfirmationDialog(context, person);
+                                    }else{
+                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                      content: Text('No se puede eliminar este contacto porque tiene un casting asociado.'),
+                                      ));
+                                      }
                                   },
                               )),
                                 DataCell(Text(person.name)),
-                                DataCell(Text(person.type.name)),
                                 DataCell(Text(DateFormat('yyyy-MM-dd').format(person.contactDate))),
                                 DataCell(Text(person.contactDescription)),
                                 DataCell(Text(person.projects)),

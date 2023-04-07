@@ -21,7 +21,11 @@ import '../helpers/methods.dart';
 import '../helpers/navegationMenu.dart';
 import 'castingPage.dart';
 import 'directorPage.dart';
-
+import 'contactPage.dart';
+import 'castingDirectorPage.dart';
+import 'theatreCompanyPage.dart';
+import 'managerPage.dart';
+import 'productionCompanyPage.dart';
 
 
 class Home extends StatefulWidget {
@@ -82,14 +86,65 @@ class _HomeState extends State<Home> {
             ),
             SizedBox(height: 20),
             ElevatedButton(
-              child: Text('Contacts'),
+              child: Text('Contactos'),
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => DirectorPage(widget.personTypes, widget.people)),
+                  MaterialPageRoute(builder: (context) => ContactPage(widget.personTypes, widget.people, widget.castings)),
                 );
               },
             ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              child: Text('Contactos de directores'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => DirectorPage(widget.personTypes, widget.people, widget.castings)),
+                );
+              },
+            ),
+            SizedBox(height: 20),
+             ElevatedButton(
+              child: Text('Contactos de directores de casting'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => CastingDirectorPage(widget.personTypes, widget.people, widget.castings)),
+                );
+              },
+            ),
+            SizedBox(height: 20),
+             ElevatedButton(
+              child: Text('Contactos de compañías de teatro'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => TheatreCompanyPage(widget.personTypes, widget.people, widget.castings)),
+                );
+              },
+            ),
+            SizedBox(height: 20),
+             ElevatedButton(
+              child: Text('Contactos de productoras'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ProductionCompanyPage(widget.personTypes, widget.people, widget.castings)),
+                );
+              },
+            ),
+            SizedBox(height: 20),
+             ElevatedButton(
+              child: Text('Contactos de representatnes'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ProductionCompanyPage(widget.personTypes, widget.people, widget.castings)),
+                );
+              },
+            ),
+            SizedBox(height: 20),
           ],
         ),
       ),

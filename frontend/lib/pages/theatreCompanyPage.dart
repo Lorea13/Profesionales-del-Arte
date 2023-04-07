@@ -19,20 +19,24 @@ import 'home.dart';
 
 
 
-class ContactPage extends StatefulWidget {
+class TheatreCompanyPage extends StatefulWidget {
   List<PersonType> personTypes;
   List<Person> people;
   List<Casting> castings;
 
-  ContactPage(this.personTypes, this.people, this.castings,
+  
+
+  TheatreCompanyPage(this.personTypes, this.people, this.castings,
       {Key? key})
       : super(key: key);
 
   @override
-  State<ContactPage> createState() => _ContactPageState();
+  State<TheatreCompanyPage> createState() => _TheatreCompanyPageState();
 }
 
-class _ContactPageState extends State<ContactPage> {
+class _TheatreCompanyPageState extends State<TheatreCompanyPage> {
+
+ 
   Future<bool> obtainUpdatedData() async {
 
     Future<List<Person>> futurePeople = getPeople(widget.personTypes);
@@ -410,7 +414,7 @@ Future<void> _showCreatePersonDialog() async {
                           label: Text('Notas'),
                         ),
                       ],
-                      rows: widget.people
+                      rows: widget.people.where((person) => person.type!.name == "theatreCompany")
                           .map((person) => DataRow(cells: [
                                 DataCell(IconButton(
                                   icon: Icon(Icons.update),
@@ -421,11 +425,11 @@ Future<void> _showCreatePersonDialog() async {
                                 DataCell(IconButton(
                                   icon: Icon(Icons.delete),
                                   onPressed: () {
-                                    if(!widget.castings.any((casting) => casting.director?.id == person.id || casting.castingDirector?.id == person.id)) {
+                                  if(!widget.castings.any((casting) => casting.director?.id == person.id || casting.castingDirector?.id == person.id)) {
                                       _showDeleteConfirmationDialog(context, person);
                                     }else{
                                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                      content: Text('No se puede eliminar este director porque tiene un casting asociado.'),
+                                      content: Text('No se puede eliminar este contacto porque tiene un casting asociado.'),
                                       ));
                                       }
                                   },

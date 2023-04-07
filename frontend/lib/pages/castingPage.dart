@@ -446,85 +446,90 @@ Future<void> _showCreateCastingDialog() async {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Expanded(
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  SingleChildScrollView(
-                    scrollDirection: Axis.vertical,
-                    child: DataTable(
-                      columns: const <DataColumn>[
-                         DataColumn(
-                          label: Text('Modificar'),
-                        ),
-                        DataColumn(
-                          label: Text('Borrar'),
-                        ),
-                        DataColumn(
-                          label: Text('Nombre'),
-                        ),
-                        DataColumn(
-                          label: Text('Fecha'),
-                        ),
-                        DataColumn(
-                          label: Text('Dir. casting'),
-                        ),
-                        DataColumn(
-                          label: Text('Director'),
-                        ),
-                        DataColumn(
-                          label: Text('Presencial'),
-                        ),
-                        DataColumn(
-                          label: Text('En proceso'),
-                        ),
-                        DataColumn(
-                          label: Text('Notas'),
-                        ),
-                       
-                      ],
-                      rows: widget.castings
-                          .map((casting) => DataRow(cells: [
-                                DataCell(IconButton(
-                                  icon: Icon(Icons.update),
-                                  onPressed: () {
-                                    _showEditCastingDialog(casting);
-                                  },
+      body: Container(
+        padding: EdgeInsets.zero,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      child: DataTable(
+                        columns: const <DataColumn>[
+                          DataColumn(
+                            label: Text('Modificar'),
+                          ),
+                          DataColumn(
+                            label: Text('Borrar'),
+                          ),
+                          DataColumn(
+                            label: Text('Nombre'),
+                          ),
+                          DataColumn(
+                            label: Text('Fecha'),
+                          ),
+                          DataColumn(
+                            label: Text('Dir. casting'),
+                          ),
+                          DataColumn(
+                            label: Text('Director'),
+                          ),
+                          DataColumn(
+                            label: Text('Presencial'),
+                          ),
+                          DataColumn(
+                            label: Text('En proceso'),
+                          ),
+                          DataColumn(
+                            label: Text('Notas'),
+                          ),
+                        
+                        ],
+                        rows: widget.castings
+                            .map((casting) => DataRow(cells: [
+                                  DataCell(IconButton(
+                                    icon: Icon(Icons.update),
+                                    onPressed: () {
+                                      _showEditCastingDialog(casting);
+                                    },
+                                  )),
+                                  DataCell(IconButton(
+                                    icon: Icon(Icons.delete),
+                                    onPressed: () {
+                                    _showDeleteConfirmationDialog(context, casting);
+                                    },
                                 )),
-                                DataCell(IconButton(
-                                  icon: Icon(Icons.delete),
-                                  onPressed: () {
-                                  _showDeleteConfirmationDialog(context, casting);
-                                  },
-                              )),
-                                DataCell(Text(casting.name)),
-                                DataCell(Text(DateFormat('yyyy-MM-dd').format(casting.castingDate))),
-                                DataCell(Text(casting.castingDirector.name)),
-                                DataCell(Text(casting.director.name)),
-                                DataCell(Text(casting.inPerson ? 'Sí' : 'No')),
-                                DataCell(Text(casting.inProcess ? 'Sí' : 'No')),
-                                DataCell(Text(casting.notes)),
-                                
-                              ]))
-                          .toList(),
-                    ),
-            ),
-          ],
+                                  DataCell(Text(casting.name)),
+                                  DataCell(Text(DateFormat('yyyy-MM-dd').format(casting.castingDate))),
+                                  DataCell(Text(casting.castingDirector.name)),
+                                  DataCell(Text(casting.director.name)),
+                                  DataCell(Text(casting.inPerson ? 'Sí' : 'No')),
+                                  DataCell(Text(casting.inProcess ? 'Sí' : 'No')),
+                                  DataCell(Text(casting.notes)),
+                                  
+                                ]))
+                            .toList(),
+                      ),
+              ),
+            ],
+          ),
         ),
       ),
-    ),
-  ],
+    ],
+        ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: (){
-          _showCreateCastingDialog();
-        },
-        tooltip: 'Crear un nuevo casting',
-        child: const Icon(Icons.add),
-      ),
-      );
+        floatingActionButton: FloatingActionButton(
+          onPressed: (){
+            _showCreateCastingDialog();
+          },
+          tooltip: 'Crear un nuevo casting',
+          child: const Icon(Icons.add),
+        ),
+        
+    );
   }
 }
