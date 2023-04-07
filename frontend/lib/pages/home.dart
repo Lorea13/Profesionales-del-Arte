@@ -71,7 +71,7 @@ class _HomeState extends State<Home> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            TopPanel(0, widget.personTypes, widget.people, widget.castings, widget.companys, widget.activityTypes, widget.activities),
+            TopPanel(0),
             SizedBox(height: 40),
             ElevatedButton(
               child: Text('Castings'),

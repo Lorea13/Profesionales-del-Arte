@@ -452,6 +452,7 @@ Future<void> _showCreateCastingDialog() async {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            TopPanel(2),
             Expanded(
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
@@ -488,7 +489,6 @@ Future<void> _showCreateCastingDialog() async {
                           DataColumn(
                             label: Text('Notas'),
                           ),
-                        
                         ],
                         rows: widget.castings
                             .map((casting) => DataRow(cells: [

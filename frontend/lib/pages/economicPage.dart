@@ -45,11 +45,13 @@ class _EconomicPageState extends State<EconomicPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Container(
-           )
+      body: Container(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            TopPanel(1),
         ],
+      ),
       ),
     );
   }

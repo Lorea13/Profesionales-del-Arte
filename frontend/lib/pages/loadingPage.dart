@@ -40,7 +40,7 @@ class _LoadingPageState extends State<LoadingPage> {
     await obtainActivityTypes();
     await obtainActivities();
 
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 1));
 
     setState(() {
       _isLoading = false;

@@ -366,90 +366,94 @@ Future<void> _showCreatePersonDialog() async {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Expanded(
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  SingleChildScrollView(
-                    scrollDirection: Axis.vertical,
-                    child:  DataTable(
-                      columns: const <DataColumn>[
-                        DataColumn(
-                          label: Text('Modificar'),
-                        ),
-                        DataColumn(
-                          label: Text('Borrar'),
-                        ),
-                        DataColumn(
-                          label: Text('Nombre'),
-                        ),
-                        DataColumn(
-                          label: Text('Tipo'),
-                        ),
-                        DataColumn(
-                          label: Text('Fecha c.'),
-                        ),
-                        DataColumn(
-                          label: Text('Descripcion c.'),
-                        ),
-                        DataColumn(
-                          label: Text('Proyectos'),
-                        ),
-                        DataColumn(
-                          label: Text('Web'),
-                        ),
-                        DataColumn(
-                          label: Text('Email'),
-                        ),
-                        DataColumn(
-                          label: Text('Tel'),
-                        ),
-                        DataColumn(
-                          label: Text('Notas'),
-                        ),
-                      ],
-                      rows: widget.people
-                          .map((person) => DataRow(cells: [
-                                DataCell(IconButton(
-                                  icon: Icon(Icons.update),
-                                  onPressed: () {
-                                    _showEditPersonDialog(person);
-                                  },
+      body: Container(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            TopPanel(3),
+            Expanded(
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                        child:  DataTable(
+                        columns: const <DataColumn>[
+                          DataColumn(
+                            label: Text('Modificar'),
+                          ),
+                          DataColumn(
+                            label: Text('Borrar'),
+                          ),
+                          DataColumn(
+                            label: Text('Nombre'),
+                          ),
+                          DataColumn(
+                            label: Text('Tipo'),
+                          ),
+                          DataColumn(
+                            label: Text('Fecha c.'),
+                          ),
+                          DataColumn(
+                            label: Text('Descripcion c.'),
+                          ),
+                          DataColumn(
+                            label: Text('Proyectos'),
+                          ),
+                          DataColumn(
+                            label: Text('Web'),
+                          ),
+                          DataColumn(
+                            label: Text('Email'),
+                          ),
+                          DataColumn(
+                            label: Text('Tel'),
+                          ),
+                          DataColumn(
+                            label: Text('Notas'),
+                          ),
+                        ],
+                        rows: widget.people
+                            .map((person) => DataRow(cells: [
+                                  DataCell(IconButton(
+                                    icon: Icon(Icons.update),
+                                    onPressed: () {
+                                      _showEditPersonDialog(person);
+                                    },
+                                  )),
+                                  DataCell(IconButton(
+                                    icon: Icon(Icons.delete),
+                                    onPressed: () {
+                                      if(!widget.castings.any((casting) => casting.director?.id == person.id || casting.castingDirector?.id == person.id)) {
+                                        _showDeleteConfirmationDialog(context, person);
+                                      }else{
+                                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                        content: Text('No se puede eliminar este director porque tiene un casting asociado.'),
+                                        ));
+                                        }
+                                    },
                                 )),
-                                DataCell(IconButton(
-                                  icon: Icon(Icons.delete),
-                                  onPressed: () {
-                                    if(!widget.castings.any((casting) => casting.director?.id == person.id || casting.castingDirector?.id == person.id)) {
-                                      _showDeleteConfirmationDialog(context, person);
-                                    }else{
-                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                      content: Text('No se puede eliminar este director porque tiene un casting asociado.'),
-                                      ));
-                                      }
-                                  },
-                              )),
-                                DataCell(Text(person.name)),
-                                DataCell(Text(person.type.name)),
-                                DataCell(Text(DateFormat('yyyy-MM-dd').format(person.contactDate))),
-                                DataCell(Text(person.contactDescription)),
-                                DataCell(Text(person.projects)),
-                                DataCell(Text(person.webPage)),
-                                DataCell(Text(person.email)),
-                                DataCell(Text(person.phone)),
-                                DataCell(Text(person.notes)),
-                                
-                              ]))
-                          .toList(),
-                    ),
-            ),
+                                  DataCell(Text(person.name)),
+                                  DataCell(Text(person.type.name)),
+                                  DataCell(Text(DateFormat('yyyy-MM-dd').format(person.contactDate))),
+                                  DataCell(Text(person.contactDescription)),
+                                  DataCell(Text(person.projects)),
+                                  DataCell(Text(person.webPage)),
+                                  DataCell(Text(person.email)),
+                                  DataCell(Text(person.phone)),
+                                  DataCell(Text(person.notes)),
+                                  
+                                ]))
+                            .toList(),
+                      ),
+              ),
           ],
         ),
       ),
     ),
   ],
+      ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: (){
