@@ -21,17 +21,17 @@ import 'home.dart';
 
 
 
-class EconomicPage extends StatefulWidget {
+class PausokaPage extends StatefulWidget {
 
-  EconomicPage(
+  PausokaPage(
       {Key? key})
       : super(key: key);
 
   @override
-  State<EconomicPage> createState() => _EconomicPageState();
+  State<PausokaPage> createState() => _PausokaPageState();
 }
 
-class _EconomicPageState extends State<EconomicPage> {
+class _PausokaPageState extends State<PausokaPage> {
 
   bool _isLoading = true;
 
@@ -94,7 +94,7 @@ class _EconomicPageState extends State<EconomicPage> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 TopPanel(1),
-                TopPanelEconomics(0),
+                TopPanelEconomics(1),
             ],
           ),
       ),

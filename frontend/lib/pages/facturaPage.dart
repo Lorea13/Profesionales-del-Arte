@@ -21,17 +21,17 @@ import 'home.dart';
 
 
 
-class EconomicPage extends StatefulWidget {
+class FacturaPage extends StatefulWidget {
 
-  EconomicPage(
+  FacturaPage(
       {Key? key})
       : super(key: key);
 
   @override
-  State<EconomicPage> createState() => _EconomicPageState();
+  State<FacturaPage> createState() => _FacturaPageState();
 }
 
-class _EconomicPageState extends State<EconomicPage> {
+class _FacturaPageState extends State<FacturaPage> {
 
   bool _isLoading = true;
 
@@ -94,7 +94,7 @@ class _EconomicPageState extends State<EconomicPage> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 TopPanel(1),
-                TopPanelEconomics(0),
+                TopPanelEconomics(3),
             ],
           ),
       ),
