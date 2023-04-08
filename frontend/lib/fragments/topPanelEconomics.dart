@@ -12,39 +12,39 @@ import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import '../helpers/methods.dart';
 
-import '../models/personType.dart';
-import '../models/person.dart';
-import '../models/casting.dart';
 import '../models/company.dart';
 import '../models/activityType.dart';
 import '../models/activity.dart';
 
-import 'package:frontend/pages/home.dart';
-import '../pages/contactPage.dart';
-import '../pages/economicPage.dart';
-import '../pages/castingPage.dart';
+import 'package:frontend/pages/castingDirectorPage.dart';
+import '../pages/directorPage.dart';
+import '../pages/theatreCompanyPage.dart';
+import '../pages/productionCompanyPage.dart';
+import '../pages/managerPage.dart';
 
-Color mainColor = Colors.blue;
-Color selectedColor = Color.fromARGB(255, 0, 0, 139);
+Color mainColor = Color.fromARGB(255, 0, 0, 139);
+Color selectedColor = Colors.black;
 Color textColor = Colors.white;
-Color hoverTextColor = Colors.black;
+Color hoverTextColor = Colors.gray;
 
-class TopPanel extends StatefulWidget {
-  final int _count;
+class TopPanelContacts extends StatefulWidget {
+  final int _countContacts;
 
-  TopPanel(this._count, {Key? key}) : super(key: key);
+  TopPanelContacts(this._countContacts, {Key? key}) : super(key: key);
 
   @override
-  State<TopPanel> createState() => _TopPanelState();
+  State<TopPanelContacts> createState() => _TopPanelContactsState();
 
 }
 
-class _TopPanelState extends State<TopPanel> {
+class _TopPanelContactsState extends State<TopPanelContacts> {
+
   
-  bool _hoveringHome = false;
-  bool _hoveringEconomic = false;
-  bool _hoveringCasting = false;
-  bool _hoveringContacts = false;
+  bool _hoveringPausoka = false;
+  bool _hoveringErreProdukzioak = false;
+  bool _hoveringFacturas= false;
+  bool _hoveringCuentaAjena = false;
+  bool _hoveringPromocion = false;
 
   @override
   Widget build(BuildContext context) {
@@ -57,34 +57,34 @@ class _TopPanelState extends State<TopPanel> {
             cursor: SystemMouseCursors.click,
             onEnter: (PointerEvent details) {
               setState(() {
-                _hoveringHome = true;
+                _hoveringCastingDirector = true;
               });
             },
             onExit: (PointerEvent details) {
               setState(() {
-                _hoveringHome = false;
+                _hoveringCastingDirector = false;
               });
             },
             child: GestureDetector(
               onTap: () {
                   Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Home()),
+                  MaterialPageRoute(builder: (context) => CastingDirectorPage()),
                 );
                                
               },
               child: Opacity(
-                opacity: _hoveringHome ? 0.5 : 1.0,
+                opacity: _hoveringCastingDirector ? 0.5 : 1.0,
                 child: Container(
-                  width: MediaQuery.of(context).size.width / 4,
+                  width: MediaQuery.of(context).size.width / 5,
                   height: MediaQuery.of(context).size.height * 0.08,
                   color: widget._count == 0 ? selectedColor : mainColor,
                   child: Center(
                     child: Text(
-                      'Home',
+                      'Directores de casting',
                       style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.width / 1000 * 14,
-                        color: _hoveringHome ? hoverTextColor : textColor,
+                        fontSize: MediaQuery.of(context).size.width / 1000 * 12,
+                        color: _hoveringCastingDirector ? hoverTextColor : textColor,
                       ),
                     ),
                   ),
@@ -96,33 +96,33 @@ class _TopPanelState extends State<TopPanel> {
             cursor: SystemMouseCursors.click,
             onEnter: (PointerEvent details) {
               setState(() {
-                _hoveringEconomic = true;
+                _hoveringDirector = true;
               });
             },
             onExit: (PointerEvent details) {
               setState(() {
-                _hoveringEconomic = false;
+                _hoveringDirector = false;
               });
             },
             child: GestureDetector(
               onTap: () {
                   Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => EconomicPage()),
+                  MaterialPageRoute(builder: (context) => DirectorPage()),
                 );
               },
               child: Opacity(
-                opacity: _hoveringEconomic ? 0.5 : 1.0,
+                opacity: _hoveringDirector ? 0.5 : 1.0,
                 child: Container(
-                  width: MediaQuery.of(context).size.width / 4,
+                  width: MediaQuery.of(context).size.width / 5,
                   height: MediaQuery.of(context).size.height * 0.08,
                   color: widget._count == 1 ? selectedColor : mainColor,
                   child: Center(
                     child: Text(
-                      'Economico',
+                      'Directores',
                       style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.width / 1000 * 14,
-                        color: _hoveringEconomic ? hoverTextColor : textColor,
+                        fontSize: MediaQuery.of(context).size.width / 1000 * 12,
+                        color: _hoveringDirector ? hoverTextColor : textColor,
                       ),
                     ),
                   ),
@@ -134,71 +134,108 @@ class _TopPanelState extends State<TopPanel> {
             cursor: SystemMouseCursors.click,
             onEnter: (PointerEvent details) {
               setState(() {
-                _hoveringCasting = true;
+                _hoveringTheatreCompany = true;
               });
             },
             onExit: (PointerEvent details) {
               setState(() {
-                _hoveringCasting = false;
+                _hoveringTheatreCompany = false;
               });
             },
             child: GestureDetector(
              onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => CastingPage()),
+                MaterialPageRoute(builder: (context) => TheatreCompanyPage()),
               );
             },
               child: Opacity(
-                opacity: _hoveringCasting ? 0.5 : 1.0,
-                child: Container(
-                width: MediaQuery.of(context).size.width / 4,
+                opacity: _hoveringTheatreCompany ? 0.5 : 1.0,
+                child: Container
+                width: MediaQuery.of(context).size.width / 5,
                 height: MediaQuery.of(context).size.height * 0.08,
                 color: widget._count == 2 ? selectedColor : mainColor,
                 child: Center(
                     child: Text(
-                      'Casting',
+                      'Compañías de teatro',
                       style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.width / 1000 * 14,
-                        color: _hoveringCasting ? hoverTextColor : textColor,
+                        fontSize: MediaQuery.of(context).size.width / 1000 * 12,
+                        color: _hoveringTheatreCompany ? hoverTextColor : textColor,
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
           ),
           MouseRegion(
             cursor: SystemMouseCursors.click,
             onEnter: (PointerEvent details) {
               setState(() {
-                _hoveringContacts = true;
+                _hoveringProduction = true;
               });
             },
             onExit: (PointerEvent details) {
               setState(() {
-                _hoveringContacts = false;
+                _hoveringProduction = false;
               });
             },
             child: GestureDetector(
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ContactPage()),
+                  MaterialPageRoute(builder: (context) => ProductionCompanyPage()),
                 );
               },
               child: Opacity(
-                opacity: _hoveringContacts ? 0.5 : 1.0,
+                opacity: _hoveringProduction ? 0.5 : 1.0,
               child: Container(
-                width: MediaQuery.of(context).size.width / 4,
+                width: MediaQuery.of(context).size.width / 5,
                 height: MediaQuery.of(context).size.height * 0.08,
                 color: widget._count == 3 ? selectedColor : mainColor,
                 child: Center(
                     child: Text(
-                      'Contactos',
+                      'Productoras audiovisuales',
                       style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.width / 1000 * 14,
-                        color: _hoveringContacts ? hoverTextColor : textColor,
+                        fontSize: MediaQuery.of(context).size.width / 1000 * 12,
+                        color: _hoveringProduction ? hoverTextColor : textColor,
+                      ),
+                    ),
+                ),
+                  ),
+              ),
+            ),
+          ),
+           MouseRegion(
+            cursor: SystemMouseCursors.click,
+            onEnter: (PointerEvent details) {
+              setState(() {
+                _hoveringManager = true;
+              });
+            },
+            onExit: (PointerEvent details) {
+              setState(() {
+                _hoveringManager = false;
+              });
+            },
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ManagerPage()),
+                );
+              },
+              child: Opacity(
+                opacity: _hoveringManager ? 0.5 : 1.0,
+              child: Container(
+                width: MediaQuery.of(context).size.width / 5,
+                height: MediaQuery.of(context).size.height * 0.08,
+                color: widget._count == 3 ? selectedColor : mainColor,
+                child: Center(
+                    child: Text(
+                      'Representantes',
+                      style: TextStyle(
+                        fontSize: MediaQuery.of(context).size.width / 1000 * 12,
+                        color: _hoveringManager ? hoverTextColor : textColor,
                       ),
                     ),
                 ),

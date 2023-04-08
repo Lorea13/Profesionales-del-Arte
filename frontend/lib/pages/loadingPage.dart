@@ -138,7 +138,7 @@ class _LoadingPageState extends State<LoadingPage> {
                   ],
                 ),
               ]))
-          : Home(personTypes, people, castings, companys, activityTypes, activities),
+          : Home(),
     );
   }
 }

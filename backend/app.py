@@ -125,7 +125,7 @@ def startup_seedData_db():
         {"id": "3", "type": 1, "name": "Elena Arnau", "contactDate": "2010-01-01", "contactDescription": "", "projects": "La que se avecina", "webPage": "", "email": "", "phone": "", "notes": ""},
         {"id": "4", "type": 1, "name": "Josu Bilbao", "contactDate": "2022-09-15", "contactDescription": "Casting publi", "projects": "Publicidad", "webPage": "", "email": "", "phone": "", "notes": ""},
         {"id": "5", "type": 1, "name": "Carmen Utrilla", "contactDate": "2021-11-26", "contactDescription": "Casting el club de los lectores criminales", "projects": "", "webPage": "", "email": "", "phone": "", "notes": ""},
-        {"id": "6", "type": 1, "name": "Veló casting", "contactDate": "2022-08-25", "contactDescription": "Casting Somos fuego", "projects": "", "webPage": "", "email": "", "phone": "", "notes": ""},
+        {"id": "6", "type": 1, "name": "Velo casting", "contactDate": "2022-08-25", "contactDescription": "Casting Somos fuego", "projects": "", "webPage": "", "email": "", "phone": "", "notes": ""},
         {"id": "7", "type": 1, "name": "Tonucha Vidal", "contactDate": "2022-02-08", "contactDescription": "Casting Upa dance", "projects": "", "webPage": "", "email": "", "phone": "", "notes": ""},
     
 
@@ -134,11 +134,16 @@ def startup_seedData_db():
         {"id": "10", "type": 2, "name": "Desconocido", "contactDate": "2010-01-01", "contactDescription": "", "projects": "", "webPage": "", "email": "", "phone": "", "notes": ""},
         {"id": "11", "type": 2, "name": "Carlos Alonso-Ojea", "contactDate": "2021-11-26", "contactDescription": "Casting el club de los lectores criminale", "projects": "", "webPage": "", "email": "", "phone": "", "notes": ""},
         {"id": "12", "type": 2, "name": "Dani de la orden", "contactDate": "2022-08-25", "contactDescription": "Casting Somos fuego", "projects": "", "webPage": "", "email": "", "phone": "", "notes": ""},
-        {"id": "13", "type": 2, "name": "Lara Izagirre", "contactDate": "2022-02-22", "contactDescription": "Casting pelikula baten bila", "projects": "Un otoño sin Berlin", "webPage": "", "email": "", "phone": "", "notes": ""},
+        {"id": "13", "type": 2, "name": "Lara Izagirre", "contactDate": "2022-02-22", "contactDescription": "Casting pelikula baten bila", "projects": "Un otonyo sin Berlin", "webPage": "", "email": "", "phone": "", "notes": ""},
         {"id": "14", "type": 2, "name": "Ines Paris", "contactDate": "2022-06-25", "contactDescription": "Casting Detective romi", "projects": "", "webPage": "", "email": "", "phone": "", "notes": ""},
         
 
         {"id": "15", "type": 3, "name": "Teatro en vilo", "contactDate": "2021-10-25", "contactDescription": "Casting blast CDN", "projects": "Hoy puede ser tu gran noche", "webPage": "", "email": "", "phone": "", "notes": "Andrea y Noemi"},
+        {"id": "16", "type": 3, "name": "Ados teatroa", "contactDate": "2010-10-10", "contactDescription": "", "projects": "Derechos humanos teatro", "webPage": "", "email": "", "phone": "", "notes": "Garbi Losada"},
+        
+        {"id": "17", "type": 4, "name": "Bixagu Entertainment", "contactDate": "2023-04-08", "contactDescription": "Trabajo como project manager", "projects": "La Ermita", "webPage": "bixagu.com", "email": "inaki@bixagu.com", "phone": "", "notes": "Inaki y Pablo"},
+        
+        {"id": "18", "type": 5, "name": "Mc artistas", "contactDate": "2023-04-08", "contactDescription": "Representada por ellos", "projects": "", "webPage": "mcartistas.com", "email": "info@mcartistas.com", "phone": "", "notes": "Mariluz y Antonela"},
         
     ]
     

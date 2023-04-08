@@ -21,11 +21,9 @@ import 'home.dart';
 
 
 class CastingPage extends StatefulWidget {
-  List<PersonType> personTypes;
-  List<Person> people;
-  List<Casting> castings;
+  
 
-  CastingPage(this.personTypes, this.people, this.castings,
+  CastingPage(
       {Key? key})
       : super(key: key);
 
@@ -34,10 +32,62 @@ class CastingPage extends StatefulWidget {
 }
 
 class _CastingPageState extends State<CastingPage> {
+
+  bool _isLoading = true;
+
+  List<PersonType> personTypes = [];
+  List<Person> people = [];
+  List<Casting> castings = [];
+
+
+  obtainDataApi() async {
+    await obtainPersonTypes();
+    print("Obtenidos personType");
+    await obtainPeople();
+    print("Obtenidos people");
+    await obtainCastings();
+    print("Obtenidos castings");
+
+    setState(() {
+      _isLoading = false;
+      print("Ya tengo todos los datos");
+    });
+
+  }
+
+  ///Obtiene todos los tipos de persona
+  ///
+  ///Llama al método de /helpers/methods getPersonTypes, que nos retorna una lista de los tipos de personas, futurePersonType. Es un Future List porque, al ser una petición API, no se obtendrá respuesta al momento. Retorna dicha lista de tipos de personas [personTypes] que contendrá todos los tipos de personas de la base de datos.
+  obtainPersonTypes() async {
+    Future<List<PersonType>> futurePersonTypes = getPersonTypes();
+    print("Obteniendo personType");
+
+    personTypes = await futurePersonTypes;
+  }
+
+  ///Obtiene todas las personas
+  ///
+  ///Llama al método de /helpers/methods getPeople, que nos retorna una lista de personas, futurePeople. Es un Future List porque, al ser una petición API, no se obtendrá respuesta al momento. Retorna dicha lista de personas [people] que contendrá todas las personas de la base de datos.
+  obtainPeople() async {
+    Future<List<Person>> futurePeople = getPeople(personTypes);
+
+    people = await futurePeople;
+  }
+
+  ///Obtiene todas los castings
+  ///
+  ///Llama al método de /helpers/methods getCastings, que nos retorna una lista de castings, futureCastings. Es un Future List porque, al ser una petición API, no se obtendrá respuesta al momento. Retorna dicha lista de castings [castings] que contendrá todos los castings de la base de datos.
+  obtainCastings() async {
+    Future<List<Casting>> futureCastings = getCastings(people);
+
+    castings = await futureCastings;
+  }
+
+
   Future<bool> obtainUpdatedData() async {
 
-    Future<List<Casting>> futureCastings = getCastings(widget.people);
-    widget.castings = await futureCastings;
+    Future<List<Casting>> futureCastings = getCastings(people);
+    castings = await futureCastings;
 
     return true;
   }
@@ -75,7 +125,7 @@ class _CastingPageState extends State<CastingPage> {
           content: Text('¡El casting ha sido eliminado con éxito!'),
         ));
         setState(() {
-          widget.castings.remove(casting);
+          castings.remove(casting);
         });
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -95,7 +145,7 @@ class _CastingPageState extends State<CastingPage> {
   Person? selectedCastingDirector = casting.castingDirector;
   Person? selectedDirector = casting.director;
 
-  List<DropdownMenuItem<Person>> castingDirectorItems = widget.people
+  List<DropdownMenuItem<Person>> castingDirectorItems = people
       .where((person) => person.type!.name == "castingDirector")
       .map((person) => DropdownMenuItem(
             value: person,
@@ -103,7 +153,7 @@ class _CastingPageState extends State<CastingPage> {
           ))
       .toList();
 
-  List<DropdownMenuItem<Person>> directorItems = widget.people
+  List<DropdownMenuItem<Person>> directorItems = people
       .where((person) => person.type!.name == "director")
       .map((person) => DropdownMenuItem(
             value: person,
@@ -274,7 +324,7 @@ Future<void> _showCreateCastingDialog() async {
   Person? selectedCastingDirector;
   Person? selectedDirector;
 
-  List<DropdownMenuItem<Person>> castingDirectorItems = widget.people
+  List<DropdownMenuItem<Person>> castingDirectorItems = people
       .where((person) => person.type!.name == "castingDirector")
       .map((person) => DropdownMenuItem(
             value: person,
@@ -282,7 +332,7 @@ Future<void> _showCreateCastingDialog() async {
           ))
       .toList();
 
-  List<DropdownMenuItem<Person>> directorItems = widget.people
+  List<DropdownMenuItem<Person>> directorItems = people
       .where((person) => person.type!.name == "director")
       .map((person) => DropdownMenuItem(
             value: person,
@@ -424,7 +474,7 @@ Future<void> _showCreateCastingDialog() async {
                 setState(() {
                     if (newID != 0) {
                       newCasting.id = newID;
-                      widget.castings.add(newCasting);
+                      castings.add(newCasting);
                     }
                   });
 
@@ -446,83 +496,88 @@ Future<void> _showCreateCastingDialog() async {
 
   @override
   Widget build(BuildContext context) {
+     if (_isLoading) {
+      obtainDataApi();
+    }
     return Scaffold(
-      body: Container(
-        padding: EdgeInsets.zero,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            TopPanel(2),
-            Expanded(
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    SingleChildScrollView(
-                      scrollDirection: Axis.vertical,
-                      child: DataTable(
-                        columns: const <DataColumn>[
-                          DataColumn(
-                            label: Text('Modificar'),
-                          ),
-                          DataColumn(
-                            label: Text('Borrar'),
-                          ),
-                          DataColumn(
-                            label: Text('Nombre'),
-                          ),
-                          DataColumn(
-                            label: Text('Fecha'),
-                          ),
-                          DataColumn(
-                            label: Text('Dir. casting'),
-                          ),
-                          DataColumn(
-                            label: Text('Director'),
-                          ),
-                          DataColumn(
-                            label: Text('Presencial'),
-                          ),
-                          DataColumn(
-                            label: Text('En proceso'),
-                          ),
-                          DataColumn(
-                            label: Text('Notas'),
-                          ),
-                        ],
-                        rows: widget.castings
-                            .map((casting) => DataRow(cells: [
-                                  DataCell(IconButton(
-                                    icon: Icon(Icons.update),
-                                    onPressed: () {
-                                      _showEditCastingDialog(casting);
-                                    },
-                                  )),
-                                  DataCell(IconButton(
-                                    icon: Icon(Icons.delete),
-                                    onPressed: () {
-                                    _showDeleteConfirmationDialog(context, casting);
-                                    },
-                                )),
-                                  DataCell(Text(casting.name)),
-                                  DataCell(Text(DateFormat('yyyy-MM-dd').format(casting.castingDate))),
-                                  DataCell(Text(casting.castingDirector.name)),
-                                  DataCell(Text(casting.director.name)),
-                                  DataCell(Text(casting.inPerson ? 'Sí' : 'No')),
-                                  DataCell(Text(casting.inProcess ? 'Sí' : 'No')),
-                                  DataCell(Text(casting.notes)),
-                                  
-                                ]))
-                            .toList(),
-                      ),
+      body: _isLoading
+          ? Container()
+          : Container(
+              padding: EdgeInsets.zero,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  TopPanel(2),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          SingleChildScrollView(
+                            scrollDirection: Axis.vertical,
+                            child: DataTable(
+                              columns: const <DataColumn>[
+                                DataColumn(
+                                  label: Text('Modificar'),
+                                ),
+                                DataColumn(
+                                  label: Text('Borrar'),
+                                ),
+                                DataColumn(
+                                  label: Text('Nombre'),
+                                ),
+                                DataColumn(
+                                  label: Text('Fecha'),
+                                ),
+                                DataColumn(
+                                  label: Text('Dir. casting'),
+                                ),
+                                DataColumn(
+                                  label: Text('Director'),
+                                ),
+                                DataColumn(
+                                  label: Text('Presencial'),
+                                ),
+                                DataColumn(
+                                  label: Text('En proceso'),
+                                ),
+                                DataColumn(
+                                  label: Text('Notas'),
+                                ),
+                              ],
+                              rows: castings
+                                  .map((casting) => DataRow(cells: [
+                                        DataCell(IconButton(
+                                          icon: Icon(Icons.update),
+                                          onPressed: () {
+                                            _showEditCastingDialog(casting);
+                                          },
+                                        )),
+                                        DataCell(IconButton(
+                                          icon: Icon(Icons.delete),
+                                          onPressed: () {
+                                          _showDeleteConfirmationDialog(context, casting);
+                                          },
+                                      )),
+                                        DataCell(Text(casting.name)),
+                                        DataCell(Text(DateFormat('yyyy-MM-dd').format(casting.castingDate))),
+                                        DataCell(Text(casting.castingDirector.name)),
+                                        DataCell(Text(casting.director.name)),
+                                        DataCell(Text(casting.inPerson ? 'Sí' : 'No')),
+                                        DataCell(Text(casting.inProcess ? 'Sí' : 'No')),
+                                        DataCell(Text(casting.notes)),
+                                        
+                                      ]))
+                                  .toList(),
+                            ),
+                    ),
+                  ],
+                ),
               ),
-            ],
-          ),
-        ),
-      ),
-    ],
-        ),
-      ),
+            ),
+          ],
+              ),
+            ),
         floatingActionButton: FloatingActionButton(
           onPressed: (){
             _showCreateCastingDialog();

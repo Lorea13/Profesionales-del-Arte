@@ -20,13 +20,9 @@ import 'home.dart';
 
 
 class ManagerPage extends StatefulWidget {
-  List<PersonType> personTypes;
-  List<Person> people;
-  List<Casting> castings;
 
-  
 
-  ManagerPage(this.personTypes, this.people, this.castings,
+  ManagerPage(
       {Key? key})
       : super(key: key);
 
@@ -35,12 +31,55 @@ class ManagerPage extends StatefulWidget {
 }
 
 class _ManagerPageState extends State<ManagerPage> {
+  bool _isLoading = true;
 
+  List<PersonType> personTypes = [];
+  List<Person> people = [];
+  List<Casting> castings = [];
+
+
+  obtainDataApi() async {
+    await obtainPersonTypes();
+    await obtainPeople();
+    await obtainCastings();
+
+    setState(() {
+      _isLoading = false;
+    });
+
+  }
+
+  ///Obtiene todos los tipos de persona
+  ///
+  ///Llama al método de /helpers/methods getPersonTypes, que nos retorna una lista de los tipos de personas, futurePersonType. Es un Future List porque, al ser una petición API, no se obtendrá respuesta al momento. Retorna dicha lista de tipos de personas [personTypes] que contendrá todos los tipos de personas de la base de datos.
+  obtainPersonTypes() async {
+    Future<List<PersonType>> futurePersonTypes = getPersonTypes();
+
+    personTypes = await futurePersonTypes;
+  }
+
+  ///Obtiene todas las personas
+  ///
+  ///Llama al método de /helpers/methods getPeople, que nos retorna una lista de personas, futurePeople. Es un Future List porque, al ser una petición API, no se obtendrá respuesta al momento. Retorna dicha lista de personas [people] que contendrá todas las personas de la base de datos.
+  obtainPeople() async {
+    Future<List<Person>> futurePeople = getPeople(personTypes);
+
+    people = await futurePeople;
+  }
+
+  ///Obtiene todas los castings
+  ///
+  ///Llama al método de /helpers/methods getCastings, que nos retorna una lista de castings, futureCastings. Es un Future List porque, al ser una petición API, no se obtendrá respuesta al momento. Retorna dicha lista de castings [castings] que contendrá todos los castings de la base de datos.
+  obtainCastings() async {
+    Future<List<Casting>> futureCastings = getCastings(people);
+
+    castings = await futureCastings;
+  }
  
   Future<bool> obtainUpdatedData() async {
 
-    Future<List<Person>> futurePeople = getPeople(widget.personTypes);
-    widget.people = await futurePeople;
+    Future<List<Person>> futurePeople = getPeople(personTypes);
+    people = await futurePeople;
 
     return true;
   }
@@ -78,7 +117,7 @@ class _ManagerPageState extends State<ManagerPage> {
           content: Text('¡La Persona ha sido eliminada con éxito!'),
         ));
         setState(() {
-          widget.people.remove(person);
+          people.remove(person);
         });
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -99,7 +138,7 @@ class _ManagerPageState extends State<ManagerPage> {
   TextEditingController notesController = TextEditingController(text: person.notes);
   PersonType? selectedPersonType = person.type;
 
-  List<DropdownMenuItem<PersonType>> typeItems = widget.personTypes
+  List<DropdownMenuItem<PersonType>> typeItems = personTypes
       .map((personType) => DropdownMenuItem(
             value: personType,
             child: Text(personType.name),
@@ -231,7 +270,7 @@ Future<void> _showCreatePersonDialog() async {
 
   PersonType? selectedPersonType;
 
-  List<DropdownMenuItem<PersonType>> typeItems = widget.personTypes
+  List<DropdownMenuItem<PersonType>> typeItems = personTypes
       .map((personType) => DropdownMenuItem(
             value: personType,
             child: Text(personType.name),
@@ -351,7 +390,7 @@ Future<void> _showCreatePersonDialog() async {
                 setState(() {
                     if (newID != 0) {
                       newPerson.id = newID;
-                      widget.people.add(newPerson);
+                      people.add(newPerson);
                     }
                   });
 
@@ -368,88 +407,93 @@ Future<void> _showCreatePersonDialog() async {
 
   @override
   Widget build(BuildContext context) {
+      if (_isLoading) {
+      obtainDataApi();
+    }
     return Scaffold(
-      body: Column(
-        children: [
-          Expanded(
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  SingleChildScrollView(
-                    scrollDirection: Axis.vertical,
-                    child:  DataTable(
-                      columns: const <DataColumn>[
-                        DataColumn(
-                          label: Text('Modificar'),
-                        ),
-                        DataColumn(
-                          label: Text('Borrar'),
-                        ),
-                        DataColumn(
-                          label: Text('Nombre'),
-                        ),
-                        DataColumn(
-                          label: Text('Tipo'),
-                        ),
-                        DataColumn(
-                          label: Text('Fecha c.'),
-                        ),
-                        DataColumn(
-                          label: Text('Descripcion c.'),
-                        ),
-                        DataColumn(
-                          label: Text('Proyectos'),
-                        ),
-                        DataColumn(
-                          label: Text('Web'),
-                        ),
-                        DataColumn(
-                          label: Text('Email'),
-                        ),
-                        DataColumn(
-                          label: Text('Tel'),
-                        ),
-                        DataColumn(
-                          label: Text('Notas'),
-                        ),
-                      ],
-                      rows: widget.people.where((person) => person.type!.name == "manager")
-                          .map((person) => DataRow(cells: [
-                                DataCell(IconButton(
-                                  icon: Icon(Icons.update),
-                                  onPressed: () {
-                                    _showEditPersonDialog(person);
-                                  },
-                                )),
-                                DataCell(IconButton(
-                                  icon: Icon(Icons.delete),
-                                  onPressed: () {
-                                  if(!widget.castings.any((casting) => casting.director?.id == person.id || casting.castingDirector?.id == person.id)) {
-                                      _showDeleteConfirmationDialog(context, person);
-                                    }else{
-                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                      content: Text('No se puede eliminar este contacto porque tiene un casting asociado.'),
-                                      ));
-                                      }
-                                  },
-                              )),
-                                DataCell(Text(person.name)),
-                                DataCell(Text(person.type.name)),
-                                DataCell(Text(DateFormat('yyyy-MM-dd').format(person.contactDate))),
-                                DataCell(Text(person.contactDescription)),
-                                DataCell(Text(person.projects)),
-                                DataCell(Text(person.webPage)),
-                                DataCell(Text(person.email)),
-                                DataCell(Text(person.phone)),
-                                DataCell(Text(person.notes)),
-                                
-                              ]))
-                          .toList(),
-                    ),
-            ),
-          ],
-        ),
+      body: _isLoading
+          ? Column()
+          : Column(
+              children: [
+                Expanded(
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        SingleChildScrollView(
+                          scrollDirection: Axis.vertical,
+                          child:  DataTable(
+                            columns: const <DataColumn>[
+                              DataColumn(
+                                label: Text('Modificar'),
+                              ),
+                              DataColumn(
+                                label: Text('Borrar'),
+                              ),
+                              DataColumn(
+                                label: Text('Nombre'),
+                              ),
+                              DataColumn(
+                                label: Text('Tipo'),
+                              ),
+                              DataColumn(
+                                label: Text('Fecha c.'),
+                              ),
+                              DataColumn(
+                                label: Text('Descripcion c.'),
+                              ),
+                              DataColumn(
+                                label: Text('Proyectos'),
+                              ),
+                              DataColumn(
+                                label: Text('Web'),
+                              ),
+                              DataColumn(
+                                label: Text('Email'),
+                              ),
+                              DataColumn(
+                                label: Text('Tel'),
+                              ),
+                              DataColumn(
+                                label: Text('Notas'),
+                              ),
+                            ],
+                            rows: people.where((person) => person.type!.name == "manager")
+                                .map((person) => DataRow(cells: [
+                                      DataCell(IconButton(
+                                        icon: Icon(Icons.update),
+                                        onPressed: () {
+                                          _showEditPersonDialog(person);
+                                        },
+                                      )),
+                                      DataCell(IconButton(
+                                        icon: Icon(Icons.delete),
+                                        onPressed: () {
+                                        if(!castings.any((casting) => casting.director?.id == person.id || casting.castingDirector?.id == person.id)) {
+                                            _showDeleteConfirmationDialog(context, person);
+                                          }else{
+                                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                            content: Text('No se puede eliminar este contacto porque tiene un casting asociado.'),
+                                            ));
+                                            }
+                                        },
+                                    )),
+                                      DataCell(Text(person.name)),
+                                      DataCell(Text(person.type.name)),
+                                      DataCell(Text(DateFormat('yyyy-MM-dd').format(person.contactDate))),
+                                      DataCell(Text(person.contactDescription)),
+                                      DataCell(Text(person.projects)),
+                                      DataCell(Text(person.webPage)),
+                                      DataCell(Text(person.email)),
+                                      DataCell(Text(person.phone)),
+                                      DataCell(Text(person.notes)),
+                                      
+                                    ]))
+                                .toList(),
+                          ),
+                  ),
+                ],
+              ),
       ),
     ),
   ],
