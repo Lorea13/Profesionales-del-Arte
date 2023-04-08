@@ -15,6 +15,9 @@ import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 
 import '../helpers/methods.dart';
+
+import '../fragments/topPanel.dart';
+import '../fragments/topPanelContacts.dart';
 import 'home.dart';
 
 
@@ -416,6 +419,8 @@ Future<void> _showCreatePersonDialog() async {
           ? Column()
           : Column(
               children: [
+                TopPanel(3),
+                TopPanelContacts(2),
                 Expanded(
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,

@@ -16,6 +16,7 @@ import '../models/personType.dart';
 import '../models/person.dart';
 import '../models/casting.dart';
 
+import '../pages/contactPage.dart';
 import 'package:frontend/pages/castingDirectorPage.dart';
 import '../pages/directorPage.dart';
 import '../pages/theatreCompanyPage.dart';
@@ -25,7 +26,7 @@ import '../pages/managerPage.dart';
 Color mainColor = Color.fromARGB(255, 0, 0, 139);
 Color selectedColor = Colors.black;
 Color textColor = Colors.white;
-Color hoverTextColor = Colors.gray;
+Color hoverTextColor = Colors.white;
 
 class TopPanelContacts extends StatefulWidget {
   final int _countContacts;
@@ -39,7 +40,7 @@ class TopPanelContacts extends StatefulWidget {
 
 class _TopPanelContactsState extends State<TopPanelContacts> {
 
-  
+  bool _hoveringContacts = false;
   bool _hoveringCastingDirector = false;
   bool _hoveringDirector = false;
   bool _hoveringTheatreCompany = false;
@@ -53,6 +54,45 @@ class _TopPanelContactsState extends State<TopPanelContacts> {
       width: MediaQuery.of(context).size.width,
       child: Row(
         children: [
+          MouseRegion(
+            cursor: SystemMouseCursors.click,
+            onEnter: (PointerEvent details) {
+              setState(() {
+                _hoveringContacts = true;
+              });
+            },
+            onExit: (PointerEvent details) {
+              setState(() {
+                _hoveringContacts = false;
+              });
+            },
+            child: GestureDetector(
+              onTap: () {
+                  Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ContactPage()),
+                );
+                               
+              },
+              child: Opacity(
+                opacity: _hoveringContacts ? 0.5 : 1.0,
+                child: Container(
+                  width: MediaQuery.of(context).size.width / 6,
+                  height: MediaQuery.of(context).size.height * 0.08,
+                  color: widget._countContacts == 0 ? selectedColor : mainColor,
+                  child: Center(
+                    child: Text(
+                      'Todos los contactos',
+                      style: TextStyle(
+                        fontSize: MediaQuery.of(context).size.width / 1000 * 10,
+                        color: _hoveringContacts ? hoverTextColor : textColor,
+                      ),
+                    ),
+                  ),
+                  ),
+                ),
+            ),
+          ),
           MouseRegion(
             cursor: SystemMouseCursors.click,
             onEnter: (PointerEvent details) {
@@ -76,14 +116,14 @@ class _TopPanelContactsState extends State<TopPanelContacts> {
               child: Opacity(
                 opacity: _hoveringCastingDirector ? 0.5 : 1.0,
                 child: Container(
-                  width: MediaQuery.of(context).size.width / 5,
+                  width: MediaQuery.of(context).size.width / 6,
                   height: MediaQuery.of(context).size.height * 0.08,
-                  color: widget._count == 0 ? selectedColor : mainColor,
+                  color: widget._countContacts == 1 ? selectedColor : mainColor,
                   child: Center(
                     child: Text(
                       'Directores de casting',
                       style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.width / 1000 * 12,
+                        fontSize: MediaQuery.of(context).size.width / 1000 * 10,
                         color: _hoveringCastingDirector ? hoverTextColor : textColor,
                       ),
                     ),
@@ -114,14 +154,14 @@ class _TopPanelContactsState extends State<TopPanelContacts> {
               child: Opacity(
                 opacity: _hoveringDirector ? 0.5 : 1.0,
                 child: Container(
-                  width: MediaQuery.of(context).size.width / 5,
+                  width: MediaQuery.of(context).size.width / 6,
                   height: MediaQuery.of(context).size.height * 0.08,
-                  color: widget._count == 1 ? selectedColor : mainColor,
+                  color: widget._countContacts == 2 ? selectedColor : mainColor,
                   child: Center(
                     child: Text(
                       'Directores',
                       style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.width / 1000 * 12,
+                        fontSize: MediaQuery.of(context).size.width / 1000 * 10,
                         color: _hoveringDirector ? hoverTextColor : textColor,
                       ),
                     ),
@@ -151,20 +191,21 @@ class _TopPanelContactsState extends State<TopPanelContacts> {
             },
               child: Opacity(
                 opacity: _hoveringTheatreCompany ? 0.5 : 1.0,
-                child: Container
-                width: MediaQuery.of(context).size.width / 5,
+                child: Container(
+                width: MediaQuery.of(context).size.width / 6,
                 height: MediaQuery.of(context).size.height * 0.08,
-                color: widget._count == 2 ? selectedColor : mainColor,
+                color: widget._countContacts == 3 ? selectedColor : mainColor,
                 child: Center(
                     child: Text(
                       'Compañías de teatro',
                       style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.width / 1000 * 12,
+                        fontSize: MediaQuery.of(context).size.width / 1000 * 10,
                         color: _hoveringTheatreCompany ? hoverTextColor : textColor,
                       ),
                     ),
                   ),
                 ),
+              ),
               ),
           ),
           MouseRegion(
@@ -189,14 +230,14 @@ class _TopPanelContactsState extends State<TopPanelContacts> {
               child: Opacity(
                 opacity: _hoveringProduction ? 0.5 : 1.0,
               child: Container(
-                width: MediaQuery.of(context).size.width / 5,
+                width: MediaQuery.of(context).size.width / 6,
                 height: MediaQuery.of(context).size.height * 0.08,
-                color: widget._count == 3 ? selectedColor : mainColor,
+                color: widget._countContacts == 4 ? selectedColor : mainColor,
                 child: Center(
                     child: Text(
                       'Productoras audiovisuales',
                       style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.width / 1000 * 12,
+                        fontSize: MediaQuery.of(context).size.width / 1000 * 10,
                         color: _hoveringProduction ? hoverTextColor : textColor,
                       ),
                     ),
@@ -227,14 +268,14 @@ class _TopPanelContactsState extends State<TopPanelContacts> {
               child: Opacity(
                 opacity: _hoveringManager ? 0.5 : 1.0,
               child: Container(
-                width: MediaQuery.of(context).size.width / 5,
+                width: MediaQuery.of(context).size.width / 6,
                 height: MediaQuery.of(context).size.height * 0.08,
-                color: widget._count == 3 ? selectedColor : mainColor,
+                color: widget._countContacts == 5 ? selectedColor : mainColor,
                 child: Center(
                     child: Text(
                       'Representantes',
                       style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.width / 1000 * 12,
+                        fontSize: MediaQuery.of(context).size.width / 1000 * 10,
                         color: _hoveringManager ? hoverTextColor : textColor,
                       ),
                     ),

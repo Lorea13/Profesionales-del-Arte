@@ -15,6 +15,9 @@ import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 
 import '../helpers/methods.dart';
+
+import '../fragments/topPanel.dart';
+import '../fragments/topPanelContacts.dart';
 import 'home.dart';
 
 
@@ -414,7 +417,10 @@ Future<void> _showCreatePersonDialog() async {
       body: _isLoading
           ? Column()
           : Column(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
+                TopPanel(3),
+                TopPanelContacts(5),
                 Expanded(
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
@@ -432,10 +438,7 @@ Future<void> _showCreatePersonDialog() async {
                               ),
                               DataColumn(
                                 label: Text('Nombre'),
-                              ),
-                              DataColumn(
-                                label: Text('Tipo'),
-                              ),
+                              ),                            
                               DataColumn(
                                 label: Text('Fecha c.'),
                               ),
@@ -479,7 +482,6 @@ Future<void> _showCreatePersonDialog() async {
                                         },
                                     )),
                                       DataCell(Text(person.name)),
-                                      DataCell(Text(person.type.name)),
                                       DataCell(Text(DateFormat('yyyy-MM-dd').format(person.contactDate))),
                                       DataCell(Text(person.contactDescription)),
                                       DataCell(Text(person.projects)),
