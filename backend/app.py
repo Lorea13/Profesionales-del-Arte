@@ -194,24 +194,45 @@ def startup_seedData_db():
         {"id": "6", "name": "Ikertze"},
         {"id": "7", "name": "Ayuntamiento de Urnieta"},
         {"id": "8", "name": "New media"},
+        {"id": "9", "name": "On time"},
     ]
 
     activityType_Init = [
-        {"id": "1", "name": "show"},
-        {"id": "2", "name": "shooting"},
-        {"id": "3", "name": "promotion"},
-        {"id": "4", "name": "rehearsal"},
-        {"id": "5", "name": "voice recording"},
-        {"id": "6", "name": "other"},
+        {"id": "1", "name": "Funciones"},
+        {"id": "2", "name": "Rodajes"},
+        {"id": "3", "name": "Promociones"},
+        {"id": "4", "name": "Ensayos"},
+        {"id": "5", "name": "Grabaciones de voz"},
+        {"id": "6", "name": "Otros"},
     ]
 
     activity_Init = [
-        {"id": "1", "type": 1, "activityDate": "2022-08-15", "name": "Elorrio concierto", "company": 1, "hours": 10, "price": 350, "iva": 0, "invoice": False, "getPaid": True, "notes": ""},
-        {"id": "2", "type": 1, "activityDate": "2023-04-01", "name": "Belauntza", "company": 3, "hours": 3, "price": 300, "iva": 0, "invoice": False, "getPaid": False, "notes": "Asier hace factura"},
-        {"id": "3", "type": 1, "activityDate": "2023-03-27", "name": "Hernani Fake", "company": 2, "hours": 5, "price": 250, "iva": 0, "invoice": False, "getPaid": True, "notes": "Ultima funcion"},
-        {"id": "4", "type": 1, "activityDate": "2022-10-10", "name": "Begiradak gala", "company": 6, "hours": 20, "price": 1000, "iva": 100, "invoice": True, "getPaid": True, "notes": ""},
-        {"id": "5", "type": 3, "activityDate": "2023-03-21", "name": "Biba zuek entrevista", "company": 8, "hours": 2, "price": 0, "iva": 0, "invoice": False, "getPaid": False, "notes": ""},
-    
+        {"id": "1", "type": 1, "activityDate": "2022-08-15", "name": "Concierto de Go!azen en Elorrio", "company": 1, "hours": 10, "price": 350, "iva": 0, "invoice": False, "getPaid": True, "notes": ""},
+        {"id": "2", "type": 1, "activityDate": "2023-04-01", "name": "Dantza festa en Belauntza", "company": 3, "hours": 3, "price": 300, "iva": 0, "invoice": True, "getPaid": False, "notes": "Asier hace factura"},
+        {"id": "3", "type": 1, "activityDate": "2023-03-27", "name": "Fake Trampantojo en Hernani", "company": 2, "hours": 5, "price": 250, "iva": 0, "invoice": False, "getPaid": True, "notes": "Ultima funcion"},
+        {"id": "4", "type": 1, "activityDate": "2022-10-10", "name": "Gala de clasura del festival Begiradak", "company": 6, "hours": 20, "price": 1000, "iva": 100, "invoice": True, "getPaid": True, "notes": ""},
+        {"id": "5", "type": 3, "activityDate": "2023-03-21", "name": "Entrevista en el programa Biba Zuek", "company": 8, "hours": 2, "price": 0, "iva": 0, "invoice": False, "getPaid": False, "notes": ""},
+        {"id": "6", "type": 2, "activityDate": "2022-08-01", "name": "Rodaje Go!azen 9.0. Dia 1", "company": 1, "hours": 10, "price": 295, "iva": 0, "invoice": False, "getPaid": True, "notes": ""},
+        {"id": "7", "type": 2, "activityDate": "2022-08-02", "name": "Rodaje Go!azen 9.0. Dia 2", "company": 1, "hours": 10, "price": 295, "iva": 0, "invoice": False, "getPaid": True, "notes": ""},
+        {"id": "8", "type": 2, "activityDate": "2022-08-03", "name": "Rodaje Go!azen 9.0. Dia 3", "company": 1, "hours": 10, "price": 295, "iva": 0, "invoice": False, "getPaid": True, "notes": ""},
+        {"id": "9", "type": 2, "activityDate": "2022-08-04", "name": "Rodaje Go!azen 9.0. Dia 4", "company": 1, "hours": 10, "price": 295, "iva": 0, "invoice": False, "getPaid": True, "notes": ""},
+        {"id": "10", "type": 2, "activityDate": "2021-08-01", "name": "Rodaje Go!azen 8.0. Dia 1", "company": 1, "hours": 10, "price": 295, "iva": 0, "invoice": False, "getPaid": True, "notes": ""},
+        {"id": "11", "type": 2, "activityDate": "2021-08-02", "name": "Rodaje Go!azen 8.0. Dia 2", "company": 1, "hours": 10, "price": 295, "iva": 0, "invoice": False, "getPaid": True, "notes": ""},
+        {"id": "12", "type": 2, "activityDate": "2021-08-03", "name": "Rodaje Go!azen 8.0. Dia 3", "company": 1, "hours": 10, "price": 295, "iva": 0, "invoice": False, "getPaid": True, "notes": ""},
+        {"id": "13", "type": 1, "activityDate": "2021-11-03", "name": "Concierto de Go!azen en Azpeitia", "company": 1, "hours": 10, "price": 350, "iva": 0, "invoice": False, "getPaid": True, "notes": ""},
+        {"id": "14", "type": 1, "activityDate": "2021-12-03", "name": "Concierto de Go!azen en el BEC", "company": 1, "hours": 10, "price": 350, "iva": 0, "invoice": False, "getPaid": True, "notes": ""},
+        {"id": "15", "type": 1, "activityDate": "2021-11-03", "name": "Concierto de Go!azen en el Kursaal", "company": 1, "hours": 10, "price": 350, "iva": 0, "invoice": False, "getPaid": True, "notes": ""},
+        {"id": "16", "type": 2, "activityDate": "2020-11-03", "name": "Rodaje de Vaya Semanita. Dia 1", "company": 1, "hours": 10, "price": 450, "iva": 0, "invoice": False, "getPaid": True, "notes": ""},
+        {"id": "17", "type": 2, "activityDate": "2020-11-10", "name": "Rodaje de Vaya Semanita. Dia 2", "company": 1, "hours": 10, "price": 450, "iva": 0, "invoice": False, "getPaid": True, "notes": ""},
+        {"id": "18", "type": 2, "activityDate": "2020-11-17", "name": "Rodaje de Vaya Semanita. Dia 3", "company": 1, "hours": 10, "price": 450, "iva": 0, "invoice": False, "getPaid": True, "notes": ""},
+        {"id": "19", "type": 4, "activityDate": "2021-08-23", "name": "Ensayo de Fake Trampantojo. Dia 1", "company": 2, "hours": 4, "price": 50, "iva": 0, "invoice": False, "getPaid": True, "notes": ""},
+        {"id": "20", "type": 4, "activityDate": "2021-08-24", "name": "Ensayo de Fake Trampantojo. Dia 2", "company": 2, "hours": 4, "price": 50, "iva": 0, "invoice": False, "getPaid": True, "notes": ""},
+        {"id": "21", "type": 4, "activityDate": "2021-08-25", "name": "Ensayo de Fake Trampantojo. Dia 3", "company": 2, "hours": 4, "price": 50, "iva": 0, "invoice": False, "getPaid": True, "notes": ""},
+        {"id": "22", "type": 4, "activityDate": "2021-08-26", "name": "Ensayo de Fake Trampantojo. Dia 4", "company": 2, "hours": 4, "price": 50, "iva": 0, "invoice": False, "getPaid": True, "notes": ""},
+        {"id": "23", "type": 5, "activityDate": "2022-10-26", "name": "Doblaje de la pelicula Nire Zirkua", "company": 9, "hours": 3, "price": 70, "iva": 0, "invoice": False, "getPaid": True, "notes": ""},
+        {"id": "24", "type": 5, "activityDate": "2022-11-26", "name": "Publicidad EITB", "company": 9, "hours": 2, "price": 750, "iva": 0, "invoice": False, "getPaid": True, "notes": ""},
+        {"id": "25", "type": 5, "activityDate": "2022-12-26", "name": "Sara eta Paulen abenturak podcast", "company": 9, "hours": 3, "price": 150, "iva": 0, "invoice": False, "getPaid": True, "notes": ""},
+        
     ]
 
     user_Init = [
