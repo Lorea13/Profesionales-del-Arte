@@ -169,12 +169,12 @@ def startup_seedData_db():
     ]
     
     casting_Init = [
-        {"id": "1", "castingDate": "2022-07-15", "name": "Campeones", "castingDirector": 1, "director": 12, "inPerson": True, "inProcess": False, "notes": "Fase final"},
+        {"id": "1", "castingDate": "2022-07-15", "name": "Campeones 2", "castingDirector": 1, "director": 12, "inPerson": True, "inProcess": True, "notes": "Fase final"},
         {"id": "2", "castingDate": "2022-06-15", "name": "Buenas companias", "castingDirector": 2, "director": 13, "inPerson": True, "inProcess": False, "notes": "Binahi"},
-        {"id": "3", "castingDate": "2022-06-25", "name": "Detective Romi", "castingDirector": 2, "director": 14, "inPerson": False, "inProcess": False, "notes": "Mas mayores"},
+        {"id": "3", "castingDate": "2022-06-25", "name": "Detective Romi", "castingDirector": 2, "director": 14, "inPerson": False, "inProcess": True, "notes": "Mas mayores"},
         {"id": "4", "castingDate": "2022-09-15", "name": "Netflix", "castingDirector": 4, "director": 25, "inPerson": True, "inProcess": False, "notes": ""},
         {"id": "5", "castingDate": "2021-11-26", "name": "CL criminales", "castingDirector": 5, "director": 17, "inPerson": False, "inProcess": False, "notes": ""},
-        {"id": "6", "castingDate": "2021-09-26", "name": "Somos fuego", "castingDirector": 6, "director": 15, "inPerson": False, "inProcess": False, "notes": "Produccion para"},
+        {"id": "6", "castingDate": "2021-09-26", "name": "Somos fuego", "castingDirector": 6, "director": 15, "inPerson": False, "inProcess": True, "notes": "Produccion para"},
         {"id": "7", "castingDate": "2021-10-25", "name": "Blast", "castingDirector": 26, "director": 26, "inPerson": True, "inProcess": False, "notes": ""},
         {"id": "8", "castingDate": "2022-02-08", "name": "Upa Dance", "castingDirector": 7, "director": 25, "inPerson": False, "inProcess": False, "notes": ""},
         {"id": "9", "castingDate": "2022-02-22", "name": "Pelikula bila", "castingDirector": 16, "director": 16, "inPerson": False, "inProcess": False, "notes": ""},

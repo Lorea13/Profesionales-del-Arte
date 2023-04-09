@@ -190,152 +190,6 @@ class _HomeState extends State<Home> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   TopPanel(0),
-                  SizedBox(height: 70.0),
-                  Expanded(
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(width: 70.0),
-                        Expanded(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(16),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  spreadRadius: 1,
-                                  blurRadius: 5,
-                                  offset: Offset(0, 3),
-                                ),
-                              ],
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Actividades pendientes de cobrar',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20,
-                                  ),
-                                ),
-                                SizedBox(height: 16),
-                                Expanded(
-                                  child: ListView.builder(
-                                    itemCount: activities.length,
-                                    itemBuilder: (context, index) {
-                                      var activity = activities[index];
-                                      if (activity.getPaid) {
-                                        return SizedBox.shrink();
-                                      }
-                                      return ListTile(
-                                        title: Text(activity.name),
-                                        subtitle: Text(activity.price.toString()),
-                                        trailing: activity.invoice
-                                            ? Text('')
-                                            : Icon(Icons.receipt),
-                                      );
-                                    },
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        SizedBox(width: 40.0),
-                        Expanded(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(16),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  spreadRadius: 1,
-                                  blurRadius: 5,
-                                  offset: Offset(0, 3),
-                                ),
-                              ],
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Castings en proceso',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20,
-                                  ),
-                                ),
-                                SizedBox(height: 16),
-                                Expanded(
-                                  child: ListView.builder(
-                                    itemCount: castings.length,
-                                    itemBuilder: (context, index) {
-                                      var casting = castings[index];
-                                      if (!casting.inProcess) {
-                                        return SizedBox.shrink();
-                                      }
-                                      return ListTile(
-                                        title: Text(casting.name),
-                                        subtitle: Text(casting.castingDate.toString()),
-                                        trailing: casting.inPerson
-                                            ? Icon(Icons.person)
-                                            : Icon(Icons.videocam),
-                                      );
-                                    },
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Container(
-                            width: MediaQuery.of(context).size.width / 19,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(16),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  spreadRadius: 1,
-                                  blurRadius: 5,
-                                  offset: Offset(0, 3),
-                                ),
-                              ],
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Actividades recientes',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20,
-                                  ),
-                                ),
-                                SizedBox(height: 16),
-                                Expanded(
-                                  child: ListView.builder(
-                                    itemCount: activities.length > 7 ? 7 : activities.length,
-                                    itemBuilder: (context, index) {
-                                      var activity = activities[index];
-                                      return ListTile(
-                                        title: Text(activity.name),
-                                        subtitle: Text(activity.price.toString()),
-                                      );
-                                    },
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
                   Expanded(
                     child: Center(
                       child: Container(
@@ -502,6 +356,159 @@ class _HomeState extends State<Home> {
                       ),
                     ),
                   ),
+                  Expanded(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(width: 40.0),
+                        Expanded(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(16),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  spreadRadius: 1,
+                                  blurRadius: 5,
+                                  offset: Offset(0, 3),
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                    color: Colors.black,
+                                  ),  
+                                    padding: EdgeInsets.all(8.0),
+                                      child: Text(
+                                        'Actividades pendientes de cobrar',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                ),
+                                Expanded(
+                                  child: ListView.builder(
+                                    itemCount: activities.length,
+                                    itemBuilder: (context, index) {
+                                      var activity = activities[index];
+                                      if (activity.getPaid) {
+                                        return SizedBox.shrink();
+                                      }
+                                      return ListTile(
+                                        title: Text(activity.name),
+                                        subtitle: Text(activity.price.toString()),
+                                        trailing: activity.invoice
+                                            ? Text('')
+                                            : Icon(Icons.receipt),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 20.0),
+                        Expanded(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(16),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  spreadRadius: 1,
+                                  blurRadius: 5,
+                                  offset: Offset(0, 3),
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Castings en proceso',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                  ),
+                                ),
+                                SizedBox(height: 16),
+                                Expanded(
+                                  child: ListView.builder(
+                                    itemCount: castings.length,
+                                    itemBuilder: (context, index) {
+                                      var casting = castings[index];
+                                      if (!casting.inProcess) {
+                                        return SizedBox.shrink();
+                                      }
+                                      return ListTile(
+                                        title: Text(casting.name),
+                                        subtitle: Text(casting.castingDate.toString()),
+                                        trailing: casting.inPerson
+                                            ? Icon(Icons.person)
+                                            : Icon(Icons.videocam),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Container(
+                            width: MediaQuery.of(context).size.width / 19,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(16),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  spreadRadius: 1,
+                                  blurRadius: 5,
+                                  offset: Offset(0, 3),
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Actividades recientes',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                  ),
+                                ),
+                                SizedBox(height: 16),
+                                Expanded(
+                                  child: ListView.builder(
+                                    itemCount: activities.length > 7 ? 7 : activities.length,
+                                    itemBuilder: (context, index) {
+                                      var activity = activities[index];
+                                      return ListTile(
+                                        title: Text(activity.name),
+                                        subtitle: Text(activity.price.toString()),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 40.0),
+                      ],
+                    ),
+                  ),
+                  
         ],
       ),
           ),
