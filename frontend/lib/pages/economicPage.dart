@@ -35,6 +35,8 @@ class _EconomicPageState extends State<EconomicPage> {
 
   bool _isLoading = true;
 
+  final formatter = NumberFormat('#,##0.00', 'es');
+
   int totalMoneyEarned = 0;
   int totalWorkedHours = 0;
   double mediumPricePerHour = 0;
@@ -137,96 +139,180 @@ class _EconomicPageState extends State<EconomicPage> {
       body: _isLoading
           ? Container()
           : Container(
-              padding: EdgeInsets.zero,
-              child: Column(
-                children: [
-                  TopPanel(1),
-                  TopPanelEconomics(0),
-                  Expanded(
-                      child: Row(
-                        children: [
-                          SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Table(
-                              columnWidths: <int, TableColumnWidth>{
-                                0: FixedColumnWidth(200.0),
-                                1: FixedColumnWidth(100.0),
-                                2: FixedColumnWidth(100.0),
-                                3: FixedColumnWidth(100.0),
-                              },
-                              children: <TableRow>[
-                                TableRow(
-                                  children: <Widget>[
-                                    TableCell(
-                                      child: Text(''),
+            padding: EdgeInsets.zero,
+            child: Column(
+              children: [
+                TopPanel(1),
+                TopPanelEconomics(0),
+                SizedBox(height: 20), // add margin between TopPanelEconomics and Table
+                Expanded(
+                  child: Center(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(16),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            spreadRadius: 1,
+                            blurRadius: 5,
+                            offset: Offset(0, 3),
+                          ),
+                        ],
+                      ),
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Table(
+                          columnWidths: <int, TableColumnWidth>{
+                            0: FixedColumnWidth(200.0),
+                            1: FixedColumnWidth(100.0),
+                            2: FixedColumnWidth(100.0),
+                            3: FixedColumnWidth(100.0),
+                          },
+                          children: <TableRow>[
+                            TableRow(
+                              decoration: BoxDecoration(
+                                color: Colors.black,
+                              ),
+                              children: <Widget>[
+                                TableCell(
+                                  child: Container(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Text(
+                                      'Resumen económico',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                      ),
                                     ),
-                                    TableCell(
-                                      child: Text('Total'),
-                                    ),
-                                    TableCell(
-                                      child: Text('Anual'),
-                                    ),
-                                    TableCell(
-                                      child: Text('Mes'),
-                                    ),
-                                  ],
+                                  ),
                                 ),
-                                TableRow(
-                                  children: <Widget>[
-                                    TableCell(
-                                      child: Text('Dinero ganado'),
+                                TableCell(
+                                  child: Container(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Text(
+                                      'Total',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                      ),
                                     ),
-                                    TableCell(
-                                      child: Text(totalMoneyEarned.toString()+"€"),
-                                    ),
-                                    TableCell(
-                                      child: Text(totalPriceAnual.toString()+"€"),
-                                    ),
-                                    TableCell(
-                                      child: Text(totalPriceMonth.toString()+"€"),
-                                    ),
-                                  ],
+                                  ),
                                 ),
-                                TableRow(
-                                  children: <Widget>[
-                                    TableCell(
-                                      child: Text('Horas trabajadas'),
+                                TableCell(
+                                  child: Container(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Text(
+                                      now.year.toString(),
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                      ),
                                     ),
-                                    TableCell(
-                                      child: Text(totalWorkedHours.toString()+"h"),
-                                    ),
-                                    TableCell(
-                                      child: Text(totalHourAnual.toString()+"h"),
-                                    ),
-                                    TableCell(
-                                      child: Text(totalHourMonth.toString()+"h"),
-                                    ),
-                                  ],
+                                  ),
                                 ),
-                                TableRow(
-                                  children: <Widget>[
-                                    TableCell(
-                                      child: Text('Precio por hora'),
+                                TableCell(
+                                  child: Container(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Text(
+                                      "0" + now.month.toString() + " / " + now.year.toString(),
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                      ),
                                     ),
-                                    TableCell(
-                                      child: Text(mediumPricePerHour.toStringAsFixed(2)+"€/h"),
-                                    ),
-                                    TableCell(
-                                      child: Text(mediumPricePerHourAnual.toStringAsFixed(2)+"€/h"),
-                                    ),
-                                    TableCell(
-                                      child: Text(mediumPricePerHourMonth.toStringAsFixed(2)+"€/h"),
-                                    ),
-                                  ],
+                                  ),
                                 ),
                               ],
                             ),
-                          )
-                        ],
-                      )
+                            TableRow(
+                              children: <Widget>[
+                                TableCell(
+                                  child: Container(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Text('Dinero ganado'),
+                                  ),
+                                ),
+                                TableCell(
+                                  child: Container(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Text(formatter.format(totalMoneyEarned) + "€"),
+                                  ),
+                                ),
+                                TableCell(
+                                  child: Container(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Text(formatter.format(totalPriceAnual) + "€"),
+                                  ),
+                                ),
+                                TableCell(
+                                  child: Container(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Text(formatter.format(totalPriceMonth) + "€"),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            TableRow(
+                              children: <Widget>[
+                                TableCell(
+                                  child: Container(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Text('Horas trabajadas'),
+                                  ),
+                                ),
+                                TableCell(
+                                  child: Container(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Text(totalWorkedHours.toString() + "h"),
+                                  ),
+                                ),
+                                TableCell(
+                                  child: Container(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Text(totalHourAnual.toString() + "h"),
+                                  ),
+                                ),
+                                TableCell(
+                                  child: Container(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Text(totalHourMonth.toString() + "h"),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            TableRow(
+                              children: <Widget>[
+                                TableCell(
+                                  child: Container(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Text('Precio por hora'),
+                                  ),
+                                ),
+                                TableCell(
+                                  child: Container(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Text(formatter.format(mediumPricePerHour) + "€/h"),
+                                  ),
+                                ),
+                                TableCell(
+                                  child: Container(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Text(formatter.format(mediumPricePerHourAnual) + "€/h"),
+                                  ),
+                                ),
+                                TableCell(
+                                  child: Container(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Text(formatter.format(mediumPricePerHourMonth) + "€/h"),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
-                ],
-              ),
+                ),
+              ],
+            ),
           ),
     );
   }
