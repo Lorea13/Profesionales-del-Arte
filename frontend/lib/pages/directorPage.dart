@@ -377,7 +377,7 @@ Future<void> _showCreatePersonDialog() async {
           TextButton(
             child: Text('Crear'),
             onPressed: () async {
-                Person newPerson = Person(10,
+                Person newPerson = Person(100,
                   selectedPersonType!,
                   _nameController.text,
                   DateTime.parse(_contactDateController.text),

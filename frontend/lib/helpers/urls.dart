@@ -130,7 +130,7 @@ Uri allActivities() {
 ///
 /// Retorna la URI correspondiente [updateActivity]
 Uri updateActivityUri(String id) {
-  Uri updateActivity = Uri.http('127.0.0.1:8000', '/acitivites/update/$id');
+  Uri updateActivity = Uri.http('127.0.0.1:8000', '/acitivities/update/$id');
   return (updateActivity);
 }
 
@@ -146,6 +146,6 @@ Uri createActivityUri() {
 ///
 /// Se pasa por parametro el id del activity a eliminar [id]. Retorna la URI correspondiente [deleteActivity]
 Uri deleteActivityUri(String id) {
-  Uri deleteActivity = Uri.http('127.0.0.1:8000', '/activites/delete/$id');
+  Uri deleteActivity = Uri.http('127.0.0.1:8000', '/activities/delete/$id');
   return (deleteActivity);
 }

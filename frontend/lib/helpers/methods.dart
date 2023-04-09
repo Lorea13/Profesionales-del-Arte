@@ -455,9 +455,12 @@ Future<bool> updateActivity(Activity activity) async {
 Future<bool> deleteActivity(int id) async {
   Client client = http.Client();
 
+  print("Estoy intentando borrar la actividad");
+
   var response = await client.get(deleteActivityUri(id.toString()),
       headers: {"Content-Type": "application/json"});
 
+  print(response.statusCode);
   if (response.statusCode == 200) {
     return true;
   }

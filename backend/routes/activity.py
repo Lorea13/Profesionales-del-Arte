@@ -21,7 +21,9 @@ def get_activity(id: str):
 
 @activity.get("/activities/delete/{id}", response_model= str, tags= ["Activities"], description="**Delete one** activity with Id.", response_description="String with message: delated activity and Id")
 def delete_activity(id: str):
+    print("Estoy en routes")
     result = conn.execute(activities.delete().where(activities.c.id == id))
+    print(result)
     return ("deleted activity with id = " + id)
 
 @activity.put("/activities/update/{id}", response_model= Activity, tags= ["Activities"], description="**Update** activity with Id.", response_description="Updated activity")

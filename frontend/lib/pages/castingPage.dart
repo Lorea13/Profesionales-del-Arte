@@ -459,7 +459,7 @@ Future<void> _showCreateCastingDialog() async {
           TextButton(
             child: Text('Crear'),
             onPressed: () async {
-                Casting newCasting = Casting(10,
+                Casting newCasting = Casting(100,
                   DateTime.parse(_castingDateController.text),
                   _nameController.text,
                   selectedCastingDirector!,
