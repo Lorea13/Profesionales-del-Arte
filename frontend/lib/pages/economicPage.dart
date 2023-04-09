@@ -172,7 +172,6 @@ class _EconomicPageState extends State<EconomicPage> {
     }
   }
 
-
   Future<void> _showEditActivityDialog(Activity activity) async {
     TextEditingController nameController = TextEditingController(text: activity.name);
     TextEditingController notesController = TextEditingController(text: activity.notes);
@@ -345,9 +344,6 @@ class _EconomicPageState extends State<EconomicPage> {
       },
     );
 }
-
-
-
 
 Future<void> _showCreateActivityDialog() async {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -552,9 +548,6 @@ Future<void> _showCreateActivityDialog() async {
 
 
 
-
-
-
   @override
   Widget build(BuildContext context) {
     
@@ -570,7 +563,6 @@ Future<void> _showCreateActivityDialog() async {
               children: [
                 TopPanel(1),
                 TopPanelEconomics(0),
-                
                 Expanded(
                   child: Center(
                     child: Container(
@@ -737,7 +729,7 @@ Future<void> _showCreateActivityDialog() async {
                     ),
                   ),
                 ),
-                
+               
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.all(38.0),
@@ -801,6 +793,7 @@ Future<void> _showCreateActivityDialog() async {
                     ),
                   ),
                 ),
+                 
 
               ],
             ),
