@@ -22,12 +22,12 @@ import '../pages/pausokaPage.dart';
 import '../pages/listPausokaPage.dart';
 import '../pages/erreProdukzioakPage.dart';
 import '../pages/listErreProdukzioakPage.dart';
-//import '../pages/facturaPage.dart';
-//import '../pages/listFacturaPage.dart';
-//import '../pages/cuentaAjenaPage.dart';
-//import '../pages/listCuentaAjenaPage.dart';
-//import '../pages/promocionPage.dart';
-//import '../pages/listPromocionPage.dart';
+import '../pages/facturaPage.dart';
+import '../pages/listFacturaPage.dart';
+import '../pages/cuentaAjenaPage.dart';
+import '../pages/listCuentaAjenaPage.dart';
+import '../pages/promocionPage.dart';
+import '../pages/listPromocionPage.dart';
 
 
 Color mainColor = Color.fromARGB(255, 0, 0, 139);

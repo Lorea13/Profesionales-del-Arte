@@ -18,6 +18,7 @@ import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 
 import '../fragments/topPanel.dart';
+import '../fragments/topWelcome.dart';
 import '../helpers/methods.dart';
 import 'castingPage.dart';
 import 'directorPage.dart';
@@ -190,57 +191,74 @@ class _HomeState extends State<Home> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   TopPanel(0),
-                  SizedBox(height: 80.0),
+                  TopWelcome(),
+                  
                   Expanded(
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(width: 50.0),
                         Expanded(
-                              child: Container(
-                                height: MediaQuery.of(context).size.height * 0.15,
-                                
-                                  decoration: BoxDecoration(
-                                    color: Colors.blue,
-                                    borderRadius: BorderRadius.circular(56),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.5),
-                                        spreadRadius: 1,
-                                        blurRadius: 5,
-                                        offset: Offset(0, 3),
+                          child: Center(
+                            child: Container(
+                                child: Column(
+                                    children: [
+                                      SizedBox(width: 15.0),
+                                      Container(
+                                          height: MediaQuery.of(context).size.height * 0.26,
+                                          
+                                            decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius: BorderRadius.circular(16),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Colors.grey.withOpacity(0.5),
+                                                  spreadRadius: 1,
+                                                  blurRadius: 5,
+                                                  offset: Offset(0, 3),
+                                                ),
+                                              ],
+                                            ),
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Container(
+                                                    decoration: BoxDecoration(
+                                                    color: Colors.black,
+                                                  ),  
+                                                    padding: EdgeInsets.all(8.0),
+                                                      child: Text(
+                                                        'Listado de últimas interacciones con clientes',
+                                                        style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 16,
+                                                        ),
+                                                      ),
+                                                    
+                                                ),
+                                                Expanded(
+                                                  child: ListView.builder(
+                                                    itemCount: people.length > 7 ? 7 : people.length,
+                                                    itemBuilder: (context, index) {
+                                                      var person = people[index];
+                                                      return ListTile(
+                                                        title: Text(person.name),
+                                                        trailing: Text(person.contactDescription),
+                                                      );
+                                                    },
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+
+                            
+                          
                                       ),
                                     ],
                                   ),
-                                  child: Center(
-                                    child: Column(
-                                      children: [
-                                        SizedBox(height: 15.0),
-                                        Text('¡Bienvenida Lorea!',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 16,
-                                          )),
-                                        
-                                        Text('Aquí te mostramos un',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 16,
-                                          )),
-                                        Text('resumen de tu actividad.',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 16,
-                                          )),
-                                      ],
-                                    ),
-                                  ),
-
-                              
-                            
+                            ),
                           ),
                         ),
-                        SizedBox(height: 40.0),
                         Expanded(
                           child: Center(
                             child: Container(
