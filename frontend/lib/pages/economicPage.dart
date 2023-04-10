@@ -17,9 +17,9 @@ import 'package:http/http.dart';
 import '../helpers/methods.dart';
 import '../fragments/topPanel.dart';
 import '../fragments/topPanelEconomics.dart';
-import '../fragments/topPanelCombined.dart';
+import '../fragments/topButton.dart';
 import 'home.dart';
-import 'pausokaPage.dart';
+import 'listEconomicPage.dart';
 
 
 
@@ -146,34 +146,7 @@ class _EconomicPageState extends State<EconomicPage> {
                 children: [
                   TopPanel(1),
                   TopPanelEconomics(0),
-                  SizedBox(height: 20.0),
-                  Expanded(
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(width: 0.0),
-                        Expanded(
-                          child: Center(
-                            child: Container(
-                              child: Column(
-                                children: [
-                                  ElevatedButton(
-                                    child: Text('Listado de actividades'),
-                                    onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(builder: (context) => PausokaPage()),
-                                      );
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  TopButton(EconomicPage(), ListEconomicPage()),
                   Expanded(
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -186,7 +159,7 @@ class _EconomicPageState extends State<EconomicPage> {
                                     children: [
                                       SizedBox(width: 15.0),
                                       Container(
-                                          height: MediaQuery.of(context).size.height * 0.21,
+                                          height: MediaQuery.of(context).size.height * 0.26,
                                           
                                             decoration: BoxDecoration(
                                               color: Colors.white,
@@ -408,7 +381,7 @@ class _EconomicPageState extends State<EconomicPage> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 55.0),
+                  SizedBox(height: 25.0),
                   Expanded(
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -571,7 +544,7 @@ class _EconomicPageState extends State<EconomicPage> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 50.0),
+                  SizedBox(height: 30.0),
                 ],
               ),
           ),

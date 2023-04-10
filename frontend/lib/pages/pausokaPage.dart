@@ -17,7 +17,8 @@ import 'package:http/http.dart';
 import '../helpers/methods.dart';
 import '../fragments/topPanel.dart';
 import '../fragments/topPanelEconomics.dart';
-import 'home.dart';
+import '../fragments/topButton.dart';
+import 'listPausokaPage.dart';
 
 
 
@@ -95,6 +96,7 @@ class _PausokaPageState extends State<PausokaPage> {
               children: [
                 TopPanel(1),
                 TopPanelEconomics(1),
+                TopButton(PausokaPage(), ListPausokaPage()),
             ],
           ),
       ),
