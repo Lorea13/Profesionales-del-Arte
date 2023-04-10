@@ -208,7 +208,7 @@ def startup_seedData_db():
 
     activity_Init = [
         {"id": "1", "type": 1, "activityDate": "2022-08-15", "name": "Concierto de Go!azen en Elorrio", "company": 1, "hours": 10, "price": 350, "iva": 0, "invoice": False, "getPaid": True, "notes": ""},
-        {"id": "2", "type": 1, "activityDate": "2023-04-01", "name": "Dantza festa en Belauntza", "company": 3, "hours": 3, "price": 300, "iva": 0, "invoice": True, "getPaid": False, "notes": "Asier hace factura"},
+        {"id": "2", "type": 1, "activityDate": "2023-04-01", "name": "Dantza festa en Belauntza", "company": 3, "hours": 3, "price": 300, "iva": 0, "invoice": True, "getPaid": False, "notes": ""},
         {"id": "3", "type": 1, "activityDate": "2023-03-27", "name": "Fake Trampantojo en Hernani", "company": 2, "hours": 5, "price": 250, "iva": 0, "invoice": False, "getPaid": True, "notes": "Ultima funcion"},
         {"id": "4", "type": 1, "activityDate": "2022-10-10", "name": "Gala de clasura del festival Begiradak", "company": 6, "hours": 20, "price": 1000, "iva": 100, "invoice": True, "getPaid": True, "notes": ""},
         {"id": "5", "type": 3, "activityDate": "2023-03-21", "name": "Entrevista en el programa Biba Zuek", "company": 8, "hours": 2, "price": 0, "iva": 0, "invoice": False, "getPaid": False, "notes": ""},

@@ -456,7 +456,7 @@ class _HomeState extends State<Home> {
                                       }
                                       return ListTile(
                                         title: Text(activity.name),
-                                        subtitle: Text("Precio: "+activity.price.toString()),
+                                        subtitle: Text("Precio: "+activity.price.toString()+"€"),
                                         trailing: activity.invoice
                                             ? Text('')
                                             : Icon(Icons.receipt),
@@ -562,7 +562,7 @@ class _HomeState extends State<Home> {
                                       var activity = activities[index];
                                       return ListTile(
                                         title: Text(activity.name),
-                                        subtitle: Text("Precio: "+activity.price.toString()),
+                                        subtitle: Text("Precio: "+activity.price.toString()+"€"),
                                       );
                                     },
                                   ),
