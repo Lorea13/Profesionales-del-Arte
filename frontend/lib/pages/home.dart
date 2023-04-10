@@ -228,7 +228,7 @@ class _HomeState extends State<Home> {
                                                   ),  
                                                     padding: EdgeInsets.all(8.0),
                                                       child: Text(
-                                                        'Listado de últimas interacciones con clientes',
+                                                        'Últimas interacciones con clientes',
                                                         style: TextStyle(
                                                           color: Colors.white,
                                                           fontSize: 16,

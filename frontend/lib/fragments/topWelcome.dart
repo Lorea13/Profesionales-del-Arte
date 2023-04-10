@@ -39,11 +39,16 @@ class _TopWelcomeState extends State<TopWelcome> {
           children: [
             ElevatedButton(
               child: Text('¡Bienvenida, Lorea! Aquí te mostramos un resumen de tu actividad.'),
+              
+              
               onPressed: () {
                 
               },
               style: ElevatedButton.styleFrom(
                 primary: Color.fromARGB(255, 0, 0, 139),
+                textStyle: TextStyle(
+                  fontSize: MediaQuery.of(context).size.width / 1000 * 13,
+                ),
               ),
             ),
             SizedBox(width: 50.0),
