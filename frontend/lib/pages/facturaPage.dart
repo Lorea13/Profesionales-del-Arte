@@ -17,7 +17,8 @@ import 'package:http/http.dart';
 import '../helpers/methods.dart';
 import '../fragments/topPanel.dart';
 import '../fragments/topPanelEconomics.dart';
-import 'home.dart';
+import '../fragments/topButton.dart';
+import 'listFacturaPage.dart';
 
 
 
@@ -95,6 +96,7 @@ class _FacturaPageState extends State<FacturaPage> {
               children: [
                 TopPanel(1),
                 TopPanelEconomics(3),
+                TopButton(FacturaPage(), ListFacturaPage()),
             ],
           ),
       ),

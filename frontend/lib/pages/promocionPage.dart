@@ -17,7 +17,8 @@ import 'package:http/http.dart';
 import '../helpers/methods.dart';
 import '../fragments/topPanel.dart';
 import '../fragments/topPanelEconomics.dart';
-import 'home.dart';
+import '../fragments/topButton.dart';
+import 'listPromocionPage.dart';
 
 
 
@@ -95,6 +96,7 @@ class _PromocionPageState extends State<PromocionPage> {
               children: [
                 TopPanel(1),
                 TopPanelEconomics(5),
+                TopButton(PromocionPage(), ListPromocionPage()),
             ],
           ),
       ),

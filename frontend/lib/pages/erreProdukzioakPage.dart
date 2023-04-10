@@ -17,7 +17,8 @@ import 'package:http/http.dart';
 import '../helpers/methods.dart';
 import '../fragments/topPanel.dart';
 import '../fragments/topPanelEconomics.dart';
-import 'home.dart';
+import '../fragments/topButton.dart';
+import 'listErreProdukzioakPage.dart';
 
 
 
@@ -95,6 +96,7 @@ class _ErreProdukzioakPageState extends State<ErreProdukzioakPage> {
               children: [
                 TopPanel(1),
                 TopPanelEconomics(2),
+                TopButton(ErreProdukzioakPage(), ListErreProdukzioakPage()),
             ],
           ),
       ),

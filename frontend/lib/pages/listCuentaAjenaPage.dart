@@ -18,27 +18,27 @@ import '../helpers/methods.dart';
 import '../fragments/topPanel.dart';
 import '../fragments/topPanelEconomics.dart';
 import '../fragments/topButton.dart';
-import 'facturaPage.dart';
+import 'cuentaAjenaPage.dart';
 
 
-class ListFacturaPage extends StatefulWidget {
+class ListCuentaAjenaPage extends StatefulWidget {
 
-  ListFacturaPage(
+  ListCuentaAjenaPage(
       {Key? key})
       : super(key: key);
 
   @override
-  State<ListFacturaPage> createState() => _ListFacturaPageState();
+  State<ListCuentaAjenaPage> createState() => _ListCuentaAjenaPageState();
 }
 
-class _ListFacturaPageState extends State<ListFacturaPage> {
+class _ListCuentaAjenaPageState extends State<ListCuentaAjenaPage> {
 
   bool _isLoading = true;
 
   List<Company> companys = [];
   List<ActivityType> activityTypes = [];
   List<Activity> activities = [];
-  List<Activity> activitiesFactura = [];
+  List<Activity> activitiesCuentaAjena = [];
   Map<ActivityType, List<Activity>> groupedActivities = {};
 
   obtainDataApi() async {
@@ -87,13 +87,13 @@ class _ListFacturaPageState extends State<ListFacturaPage> {
   obtainGroupedActivities() async {
 
     for(var activity in activities){
-      if(activity.invoice && activity.price != 0){
-        activitiesFactura.add(activity);
+      if(!(activity.company.id == 2 || activity.company.id == 1 || activity.invoice || activity.price == 0)){
+        activitiesCuentaAjena.add(activity);
       }
     }
     
     // Group activities by activity type
-    for (var activity in activitiesFactura) {
+    for (var activity in activitiesCuentaAjena) {
       if (!groupedActivities.containsKey(activity.type)) {
         groupedActivities[activity.type] = [];
       }
@@ -109,7 +109,7 @@ class _ListFacturaPageState extends State<ListFacturaPage> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text('Confirmación de borrado'),
-          content: Text('¿Estás seguro de que quieres borrar esta actividad facturadad?'),
+          content: Text('¿Estás seguro de que quieres borrar esta actividad?'),
           actions: <Widget>[
             TextButton(
               child: Text('Cancelar'),
@@ -177,7 +177,7 @@ class _ListFacturaPageState extends State<ListFacturaPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Editar actividad de facturada"),
+          title: Text("Editar actividad"),
           content: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -346,7 +346,7 @@ Future<void> _showCreateActivityDialog() async {
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        title: Text("Crear actividad facturada"),
+        title: Text("Crear actividad"),
         content: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -517,8 +517,8 @@ Future<void> _showCreateActivityDialog() async {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   TopPanel(1),
-                  TopPanelEconomics(3),
-                  TopButton(FacturaPage(), ListFacturaPage()),
+                  TopPanelEconomics(4),
+                  TopButton(CuentaAjenaPage(), ListCuentaAjenaPage()),
                   Flexible(
                     child: Padding(
                       padding: const EdgeInsets.all(38.0),
@@ -550,7 +550,7 @@ Future<void> _showCreateActivityDialog() async {
                                     DataColumn(label: Text('Pagado')),
                                     DataColumn(label: Text('Notas')),
                                   ],
-                                  rows: activitiesFactura.where((activity) => activity.type!.id == type.id)
+                                  rows: activitiesCuentaAjena.where((activity) => activity.type!.id == type.id)
                                   .map<DataRow>((activity) {
                                     return DataRow(cells: [
                                         DataCell(IconButton(
@@ -590,7 +590,7 @@ Future<void> _showCreateActivityDialog() async {
           onPressed: (){
             _showCreateActivityDialog();
           },
-          tooltip: 'Crear una nueva actividad facturada',
+          tooltip: 'Crear una nueva actividad',
           child: const Icon(Icons.add),
       
         

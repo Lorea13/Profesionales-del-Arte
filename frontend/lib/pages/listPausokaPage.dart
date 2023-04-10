@@ -87,7 +87,7 @@ class _ListPausokaPageState extends State<ListPausokaPage> {
   obtainGroupedActivities() async {
 
     for(var activity in activities){
-      if(activity.company.id == 1){
+      if(activity.company.id == 1 && activity.price != 0){
         activitiesPausoka.add(activity);
       }
     }
@@ -517,7 +517,7 @@ Future<void> _showCreateActivityDialog() async {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   TopPanel(1),
-                  TopPanelEconomics(0),
+                  TopPanelEconomics(1),
                   TopButton(PausokaPage(), ListPausokaPage()),
                   Flexible(
                     child: Padding(
