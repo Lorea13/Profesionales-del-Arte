@@ -190,7 +190,7 @@ class _HomeState extends State<Home> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   TopPanel(0),
-                  SizedBox(height: 40.0),
+                  SizedBox(height: 80.0),
                   Expanded(
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -240,6 +240,7 @@ class _HomeState extends State<Home> {
                             
                           ),
                         ),
+                        SizedBox(height: 40.0),
                         Expanded(
                           child: Center(
                             child: Container(
@@ -575,7 +576,7 @@ class _HomeState extends State<Home> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 40.0),
+                  SizedBox(height: 55.0),
                   
         ],
       ),
