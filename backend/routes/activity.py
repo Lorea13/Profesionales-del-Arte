@@ -28,6 +28,7 @@ def delete_activity(id: str):
 
 @activity.put("/activities/update/{id}", response_model= Activity, tags= ["Activities"], description="**Update** activity with Id.", response_description="Updated activity")
 def update_activity(id: str, activity: Activity):
+    print("Estoy en routes")
     result = conn.execute(activities.update().values(type= activity.type,
     activityDate= activity.activityDate,
     name= activity.name,
@@ -38,4 +39,5 @@ def update_activity(id: str, activity: Activity):
     invoice= activity.invoice,
     getPaid= activity.getPaid,
     notes= activity.notes))
+    print("Estoy en routes. He hecho execute")
     return conn.execute(activities.select().where(activities.c.id == id)).first()

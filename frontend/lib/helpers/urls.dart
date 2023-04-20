@@ -130,7 +130,8 @@ Uri allActivities() {
 ///
 /// Retorna la URI correspondiente [updateActivity]
 Uri updateActivityUri(String id) {
-  Uri updateActivity = Uri.http('127.0.0.1:8000', '/acitivities/update/$id');
+  Uri updateActivity = Uri.http('127.0.0.1:8000', '/activities/update/$id');
+  print("Tengo la ruta");
   return (updateActivity);
 }
 

@@ -92,6 +92,7 @@ Future<int> createPerson(Person person) async {
   var response = await client.post(createPersonUri(),
       headers: {"Content-Type": "application/json"}, body: bodyEncoded);
 
+  print(response.statusCode);
   if (response.statusCode == 200) {
     int id = int.parse(json.decode((response).body)['id']);
     return id;
@@ -196,6 +197,8 @@ Future<int> createCasting(Casting casting) async {
   var response = await client.post(createCastingUri(),
       headers: {"Content-Type": "application/json"}, body: bodyEncoded);
 
+  
+  print(response.statusCode);
   if (response.statusCode == 200 || response.statusCode == 422) {
     print('response 200 Create Casting');
     int id = int.parse(json.decode((response).body)['id']);
@@ -415,6 +418,7 @@ Future<int> createActivity(Activity activity) async {
   var response = await client.post(createActivityUri(),
       headers: {"Content-Type": "application/json"}, body: bodyEncoded);
 
+  print(response.statusCode);
   if (response.statusCode == 200) {
     int id = int.parse(json.decode((response).body)['id']);
     return id;
@@ -442,7 +446,7 @@ Future<bool> updateActivity(Activity activity) async {
 
   var response = await client.put(updateActivityUri(activity.id.toString()),
       headers: {"Content-Type": "application/json"}, body: bodyEncoded);
-
+  print(response.statusCode);
   if (response.statusCode == 200) {
     return true;
   }
