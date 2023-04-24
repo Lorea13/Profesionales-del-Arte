@@ -263,15 +263,24 @@ class _CastingPageState extends State<CastingPage> {
           ),
           TextButton(
             onPressed: () async {
-              casting.castingDate = DateTime.parse(castingDateController.text);
-              casting.name = nameController.text;
-              casting.castingDirector = selectedCastingDirector!;
-              casting.director = selectedDirector!;
-              casting.inPerson = inPerson;
-              casting.inProcess = inProcess;
-              casting.notes = notesController.text;
+              Casting updatedCasting = Casting(
+              casting.id,
+              DateTime.parse(castingDateController.text),
+              nameController.text,
+              selectedCastingDirector!,
+              selectedDirector!,
+              inPerson,
+              inProcess,
+              notesController.text);
 
-              bool success = await updateCasting(casting);
+              bool success = await updateCasting(updatedCasting);
+
+              setState(() {
+                    if (success) {
+                      castings[castings.indexOf(casting)] =
+                          updatedCasting;
+                    }
+                  });
               
               Navigator.of(context).pop();
               await obtainUpdatedData();
@@ -283,32 +292,6 @@ class _CastingPageState extends State<CastingPage> {
     },
   );
 }
-
-
-/// setState(() {
-  ///if (success) {
- /// widget.dinosaurs[widget.dinosaurs.indexOf(dinosaur)] = updatedDinosaur;
-    ///                }
-       ///           }
-
-
-
- ///if (delete == true) {
-     /// bool success = deleteCasting(casting.id);
-
-    ///  if (success) {
-   ///     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      ///    content: Text('Casting deleted successfully!'),
-     ///   ));
-    ///    setState(() {
-       ///   widget.castings.remove(casting);
-  ///      });
-  ///    } else {
-   ///     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-   ///       content: Text('An error occurred while deleting the casting.'),
-   ///     ));
-  ///    }
-  ///  }
 
 
 
@@ -479,6 +462,7 @@ Future<void> _showCreateCastingDialog(int nextCastingId) async {
                   });
 
                 Navigator.of(context).pop();
+                await obtainUpdatedData();
             },
           ),
         ],

@@ -20,6 +20,7 @@ import '../fragments/topPanelEconomics.dart';
 import '../fragments/topButton.dart';
 import 'home.dart';
 import 'listEconomicPage.dart';
+import 'companyPage.dart';
 
 
 
@@ -173,36 +174,48 @@ class _EconomicPageState extends State<EconomicPage> {
                                                 ),
                                               ],
                                             ),
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                Container(
+                                            child: MouseRegion(
+                                            cursor: SystemMouseCursors.click,
+                                            child: GestureDetector(
+                                              
+                                              onTap: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(builder: (context) => CompanyPage()),
+                                                );
+                                              },
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Container(
                                                     decoration: BoxDecoration(
-                                                    color: Colors.black,
-                                                  ),  
+                                                      color: Colors.black,
+                                                    ),
                                                     padding: EdgeInsets.all(8.0),
-                                                      child: Text(
-                                                        'Listado de clientes',
-                                                        style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 16,
-                                                        ),
+                                                    child: Text(
+                                                      'Listado de clientes',
+                                                      style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 16,
                                                       ),
-                                                    
-                                                ),
-                                                Expanded(
-                                                  child: ListView.builder(
-                                                    itemCount: companys.length,
-                                                    itemBuilder: (context, index) {
-                                                      var company = companys[index];
-                                                      return ListTile(
-                                                        title: Text(company.name),
-                                                      );
-                                                    },
+                                                    ),
                                                   ),
-                                                ),
-                                              ],
+                                                  Expanded(
+                                                    child: ListView.builder(
+                                                      itemCount: companys.length,
+                                                      itemBuilder: (context, index) {
+                                                        var company = companys[index];
+                                                        return ListTile(
+                                                          title: Text(company.name),
+                                                        );
+                                                      },
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
+                                            ),
+
 
                             
                           

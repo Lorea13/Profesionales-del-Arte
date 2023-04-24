@@ -66,7 +66,7 @@ class _CompanyPageState extends State<CompanyPage> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text('Confirmación de borrado'),
-          content: Text('¿Estás seguro de que quieres borrar esta actividad?'),
+          content: Text('¿Estás seguro de que quieres borrar esta compañía?'),
           actions: <Widget>[
             TextButton(
               child: Text('Cancelar'),
@@ -179,7 +179,7 @@ Future<void> _showCreateCompanyDialog(int nextCompanyId) async {
                 controller: _nameController,
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return 'Por favor introduzca un nombre de actividad';
+                    return 'Por favor introduzca el nombre de la compañía';
                   }
                   return null;
                 },
@@ -302,7 +302,7 @@ Future<void> _showCreateCompanyDialog(int nextCompanyId) async {
           onPressed: (){
             _showCreateCompanyDialog(companys.last.id + 1);
           },
-          tooltip: 'Crear una nueva actividad',
+          tooltip: 'Crear una nueva compañía',
           child: const Icon(Icons.add),
       
          ),

@@ -84,7 +84,7 @@ class _TopPanelState extends State<TopPanel> {
                     child: Text(
                       'Home',
                       style: TextStyle(
-                        fontSize: 14.0,
+                        fontSize: MediaQuery.of(context).size.width / 1000 * 14,
                         color: _hoveringHome ? hoverTextColor : textColor,
                       ),
                     ),

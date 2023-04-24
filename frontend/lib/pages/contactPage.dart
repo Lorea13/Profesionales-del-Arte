@@ -247,7 +247,7 @@ bool _isLoading = true;
                 phoneController.text,
                 notesController.text);
 
-              bool success = await updatePerson(person);
+              bool success = await updatePerson(updatedPerson);
               
               setState(() {
                     if (success) {
