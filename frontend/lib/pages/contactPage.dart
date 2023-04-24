@@ -234,19 +234,30 @@ bool _isLoading = true;
           ),
           TextButton(
             onPressed: () async {
-              person.type = selectedPersonType!;
-              person.contactDate = DateTime.parse(contactDateController.text);
-              person.contactDescription = contactDescriptionController.text;
-              person.projects = projectsController.text;
-              person.webPage = webPageController.text;
-              person.email = emailController.text;
-              person.phone = phoneController.text;
-              person.notes = notesController.text;
+
+              Person updatedPerson = Person(
+                person.id,
+                selectedPersonType!,
+                nameController.text,
+                DateTime.parse(contactDateController.text),
+                contactDescriptionController.text,
+                projectsController.text,
+                webPageController.text,
+                emailController.text,
+                phoneController.text,
+                notesController.text);
 
               bool success = await updatePerson(person);
               
-              Navigator.of(context).pop();
-              await obtainUpdatedData();
+              setState(() {
+                    if (success) {
+                      people[people.indexOf(person)] =
+                          updatedPerson;
+                    }
+                  });
+
+                  Navigator.pop(context);    
+                  await obtainUpdatedData();   
             },
             child: Text("Guardar cambios"),
           ),
@@ -260,8 +271,7 @@ bool _isLoading = true;
 
 
 
-Future<void> _showCreatePersonDialog() async {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+Future<void> _showCreatePersonDialog(int nextContactId) async {
   final _nameController = TextEditingController();
   final _contactDateController = TextEditingController();
   final _contactDescriptionController = TextEditingController();
@@ -376,7 +386,8 @@ Future<void> _showCreatePersonDialog() async {
           TextButton(
             child: Text('Crear'),
             onPressed: () async {
-                Person newPerson = Person(100,
+                Person newPerson = Person(
+                  nextContactId,
                   selectedPersonType!,
                   _nameController.text,
                   DateTime.parse(_contactDateController.text),
@@ -398,6 +409,7 @@ Future<void> _showCreatePersonDialog() async {
                   });
 
                 Navigator.of(context).pop();
+                await obtainUpdatedData();
             },
           ),
         ],
@@ -504,7 +516,7 @@ Future<void> _showCreatePersonDialog() async {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: (){
-         _showCreatePersonDialog();
+         _showCreatePersonDialog(people.last.id + 1);
         },
         tooltip: 'Crear una nueva persona',
         child: const Icon(Icons.add),

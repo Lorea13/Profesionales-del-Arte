@@ -313,8 +313,7 @@ class _CastingPageState extends State<CastingPage> {
 
 
 
-Future<void> _showCreateCastingDialog() async {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+Future<void> _showCreateCastingDialog(int nextCastingId) async {
   final _nameController = TextEditingController();
   final _castingDateController = TextEditingController();
   final _notesController = TextEditingController();
@@ -459,7 +458,8 @@ Future<void> _showCreateCastingDialog() async {
           TextButton(
             child: Text('Crear'),
             onPressed: () async {
-                Casting newCasting = Casting(100,
+                Casting newCasting = Casting(
+                  nextCastingId,
                   DateTime.parse(_castingDateController.text),
                   _nameController.text,
                   selectedCastingDirector!,
@@ -580,7 +580,7 @@ Future<void> _showCreateCastingDialog() async {
             ),
         floatingActionButton: FloatingActionButton(
           onPressed: (){
-            _showCreateCastingDialog();
+            _showCreateCastingDialog(castings.last.id + 1);
           },
           tooltip: 'Crear un nuevo casting',
           child: const Icon(Icons.add),

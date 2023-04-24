@@ -26,5 +26,5 @@ def delete_activityType(id: str):
 
 @activityType.put("/activityTypes/update/{id}", response_model= ActivityType, tags= ["ActivityTypes"], description="**Update** activityType with Id.", response_description="Updated activityType")
 def update_activityType(id: str, activityType: ActivityType):
-    result = conn.execute(activityTypes.update().values(name= activityType.name))
+    result = conn.execute(activityTypes.update().values(name= activityType.name).where(activityTypes.c.id == id))
     return conn.execute(activityTypes.select().where(activityTypes.c.id == id)).first()

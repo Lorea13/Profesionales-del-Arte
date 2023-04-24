@@ -26,5 +26,5 @@ def delete_personType(id: str):
 
 @personType.put("/personTypes/update/{id}", response_model= PersonType, tags= ["PersonTypes"], description="**Update** personType with Id.", response_description="Updated personType")
 def update_personType(id: str, personType: PersonType):
-    result = conn.execute(personTypes.update().values(name= personType.name))
+    result = conn.execute(personTypes.update().values(name= personType.name).where(personTypes.c.id == id))
     return conn.execute(personTypes.select().where(personTypes.c.id == id)).first()

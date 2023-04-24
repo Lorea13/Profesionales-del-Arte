@@ -38,6 +38,6 @@ def update_activity(id: str, activity: Activity):
     iva= activity.iva,
     invoice= activity.invoice,
     getPaid= activity.getPaid,
-    notes= activity.notes))
+    notes= activity.notes).where(activities.c.id == id))
     print("Estoy en routes. He hecho execute")
     return conn.execute(activities.select().where(activities.c.id == id)).first()

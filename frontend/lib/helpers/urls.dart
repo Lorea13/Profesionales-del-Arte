@@ -19,6 +19,7 @@ Uri allPeople() {
 ///
 /// Retorna la URI correspondiente [updatePerson]
 Uri updatePersonUri(String id) {
+  print("Estoy en update Person uri");
   Uri updatePerson = Uri.http('127.0.0.1:8000', '/people/update/$id');
   return (updatePerson);
 }

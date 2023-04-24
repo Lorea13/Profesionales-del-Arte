@@ -36,5 +36,5 @@ def update_person(id: str, person: Person):
     webPage= person.webPage,
     email= person.email,
     phone= person.phone,
-    notes= person.notes))
+    notes= person.notes).where(people.c.id == id))
     return conn.execute(people.select().where(people.c.id == id)).first()

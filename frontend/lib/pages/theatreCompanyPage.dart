@@ -259,7 +259,7 @@ class _TheatreCompanyPageState extends State<TheatreCompanyPage> {
 
 
 
-Future<void> _showCreatePersonDialog() async {
+Future<void> _showCreatePersonDialog(int nextPersonId) async {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _contactDateController = TextEditingController();
@@ -375,7 +375,8 @@ Future<void> _showCreatePersonDialog() async {
           TextButton(
             child: Text('Crear'),
             onPressed: () async {
-                Person newPerson = Person(100,
+                Person newPerson = Person(
+                  nextPersonId,
                   selectedPersonType!,
                   _nameController.text,
                   DateTime.parse(_contactDateController.text),
@@ -500,7 +501,7 @@ Future<void> _showCreatePersonDialog() async {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: (){
-         _showCreatePersonDialog();
+         _showCreatePersonDialog(people.last.id + 1);
         },
         tooltip: 'Crear una nueva persona',
         child: const Icon(Icons.add),

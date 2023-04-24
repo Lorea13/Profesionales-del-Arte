@@ -23,6 +23,7 @@ import 'package:frontend/pages/home.dart';
 import '../pages/contactPage.dart';
 import '../pages/economicPage.dart';
 import '../pages/castingPage.dart';
+import '../pages/companyPage.dart';
 
 Color mainColor = Colors.blue;
 Color selectedColor = Color.fromARGB(255, 0, 0, 139);

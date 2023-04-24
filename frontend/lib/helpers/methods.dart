@@ -104,6 +104,7 @@ Future<int> createPerson(Person person) async {
 ///
 ///Se pasa como parametro el person modificado [person]. Sus campos se crean en un body json. Después llamamos al endpoint gracias a la URI updatePersonUri de helpers/urls, al que le pasamos el id del person a modificar. Retorna true si la operación se completa exitosamente (codigo de respuesta == 200) y false en caso contrario.
 Future<bool> updatePerson(Person person) async {
+  print("En methods de update person");
   Client client = http.Client();
   var bodyEncoded = jsonEncode({
     "type": person.type.id.toString(),
@@ -120,6 +121,7 @@ Future<bool> updatePerson(Person person) async {
   var response = await client.put(updatePersonUri(person.id.toString()),
       headers: {"Content-Type": "application/json"}, body: bodyEncoded);
 
+  print(response.statusCode);
   if (response.statusCode == 200) {
     return true;
   }
@@ -310,8 +312,10 @@ Future<bool> updateCompany(Company company) async {
   var response = await client.put(updateCompanyUri(company.id.toString()),
       headers: {"Content-Type": "application/json"}, body: bodyEncoded);
 
+  print(response.statusCode);
   if (response.statusCode == 200) {
     return true;
+    
   }
   return false;
 }

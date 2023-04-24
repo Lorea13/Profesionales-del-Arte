@@ -32,5 +32,5 @@ def update_casting(id: str, casting: Casting):
     director= casting.director,
     inPerson= casting.inPerson,
     inProcess= casting.inProcess,
-    notes= casting.notes))
+    notes= casting.notes).where(castings.c.id == id))
     return conn.execute(castings.select().where(castings.c.id == id)).first()
