@@ -518,7 +518,11 @@ Future<void> _showCreateActivityDialog(int nextActivityId) async {
                       newActivity.id = newID;
                       activities.add(newActivity);
                       activitiesPausoka.add(newActivity);
-                      groupedActivities[newActivity.type]?.add(newActivity);
+                      if(groupedActivities.containsKey(newActivity.type)){
+                        groupedActivities[newActivity.type]?.add(newActivity);
+                      }else{
+                          obtainUpdatedGroupedActivities();
+                        } 
                     }
                   });
 

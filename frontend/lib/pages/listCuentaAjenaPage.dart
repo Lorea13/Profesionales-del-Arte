@@ -104,6 +104,7 @@ class _ListCuentaAjenaPageState extends State<ListCuentaAjenaPage> {
   }
 
    obtainUpdatedGroupedActivities() async {
+    ("Estoy rehaciendo la lista");
     groupedActivities = {}; 
     for (var activity in activitiesCuentaAjena) {
       if (!groupedActivities.containsKey(activity.type)) {
@@ -114,6 +115,8 @@ class _ListCuentaAjenaPageState extends State<ListCuentaAjenaPage> {
     }
     
   }
+
+  
 
   Future<void> _showDeleteConfirmationDialog(BuildContext context, Activity activity) async {
     bool delete = await showDialog(
@@ -178,6 +181,16 @@ class _ListCuentaAjenaPageState extends State<ListCuentaAjenaPage> {
             child: Text(activityType.name),
           ))
       .toList();
+
+    Company companyP = companys.firstWhere((p) => p.id == 1, orElse: () => Company.empty());
+      if (companyP != Company.empty()) {
+        companys.remove(companyP);
+      }
+
+      Company companyE = companys.firstWhere((p) => p.id == 2, orElse: () => Company.empty());
+      if (companyE != Company.empty()) {
+        companys.remove(companyE);
+      }
 
     List<DropdownMenuItem<Company>> companyItems = companys
       .map((company) => DropdownMenuItem(
@@ -290,7 +303,7 @@ class _ListCuentaAjenaPageState extends State<ListCuentaAjenaPage> {
                 int priceU = priceController.text.isNotEmpty ? int.parse(priceController.text) : 0;
                 String notesU = notesController.text.isNotEmpty ? notesController.text : "";
 
-                Company selectedCompanyU = selectedCompany != null ? selectedCompany! : companys.firstWhere((p) => p.id == 1);
+                Company selectedCompanyU = selectedCompany != null ? selectedCompany! : companys.firstWhere((p) => p.id == 3);
                 ActivityType selectedActivityTypeU = selectedtype != null ? selectedtype! : activityTypes.firstWhere((p) => p.id == 1);
                
 
@@ -377,13 +390,26 @@ Future<void> _showCreateActivityDialog(int nextActivityId) async {
           ))
       .toList();
 
+      Company companyP = companys.firstWhere((p) => p.id == 1, orElse: () => Company.empty());
+      if (companyP != Company.empty()) {
+        companys.remove(companyP);
+      }
+
+      Company companyE = companys.firstWhere((p) => p.id == 2, orElse: () => Company.empty());
+      if (companyE != Company.empty()) {
+        companys.remove(companyE);
+      }
+
+
+
+
   List<DropdownMenuItem<Company>> companyItems = companys
       .map((company) => DropdownMenuItem(
             value: company,
             child: Text(company.name),
           ))
       .toList();
-
+    
 
 
   await showDialog(
@@ -535,7 +561,12 @@ Future<void> _showCreateActivityDialog(int nextActivityId) async {
                       newActivity.id = newID;
                       activities.add(newActivity);
                       activitiesCuentaAjena.add(newActivity);
-                      groupedActivities[newActivity.type]?.add(newActivity);
+
+                      if(groupedActivities.containsKey(newActivity.type)){
+                        groupedActivities[newActivity.type]?.add(newActivity);
+                    }else{
+                        obtainUpdatedGroupedActivities();
+                      }
                     }
                   });
 
