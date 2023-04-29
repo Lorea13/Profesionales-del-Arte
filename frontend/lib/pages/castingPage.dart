@@ -268,8 +268,7 @@ class _CastingPageState extends State<CastingPage> {
               String nameU = nameController.text.isNotEmpty ? nameController.text : "";
               DateTime castingDateU =  castingDateController.text.isNotEmpty ? DateTime.parse(castingDateController.text) : DateTime.now();
               String notesU = notesController.text.isNotEmpty ? notesController.text : "";
-
-
+              
               Casting updatedCasting = Casting(
               casting.id,
               castingDateU,
@@ -466,13 +465,14 @@ Future<void> _showCreateCastingDialog(int nextCastingId) async {
               String nameU = _nameController.text.isNotEmpty ? _nameController.text : "";
               DateTime castingDateU =  _castingDateController.text.isNotEmpty ? DateTime.parse(_castingDateController.text) : DateTime.now();
               String notesU = _notesController.text.isNotEmpty ? _notesController.text : "";
-
+              Person selectedDirectorU = selectedDirector != null ? selectedDirector! : people.firstWhere((p) => p.id == 12);
+              Person selectedCastingDirectorU = selectedCastingDirector != null ? selectedCastingDirector! : people.firstWhere((p) => p.id == 1);
                 Casting newCasting = Casting(
                   nextCastingId,
                   castingDateU,
                   nameU,
-                  selectedCastingDirector!,
-                  selectedDirector!,
+                  selectedCastingDirectorU,
+                  selectedDirectorU,
                   _inPerson,
                   _inProcess,
                   notesU,

@@ -133,7 +133,7 @@ class _ListErreProdukzioakPageState extends State<ListErreProdukzioakPage> {
 
       if (success) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('¡La actividad ha sido eliminado con éxito!'),
+          content: Text('¡La actividad ha sido eliminada con éxito!'),
         ));
         setState(() {
           activities.remove(activity);
@@ -319,8 +319,7 @@ class _ListErreProdukzioakPageState extends State<ListErreProdukzioakPage> {
     );
 }
 
-Future<void> _showCreateActivityDialog() async {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+Future<void> _showCreateActivityDialog(int nextActivityId) async {
   final _nameController = TextEditingController();
   final _activityDateController = TextEditingController();
   final _notesController = TextEditingController();
@@ -332,7 +331,7 @@ Future<void> _showCreateActivityDialog() async {
   bool _getPaid = false;
 
   ActivityType? selectedtype;
-  Company selectedCompany = companys[1];
+  Company selectedCompany = companys.firstWhere((p) => p.id == 2);
 
   List<DropdownMenuItem<ActivityType>> typeItems = activityTypes
       .map((activityType) => DropdownMenuItem(
@@ -588,7 +587,7 @@ Future<void> _showCreateActivityDialog() async {
           ),
         floatingActionButton: FloatingActionButton(
           onPressed: (){
-            _showCreateActivityDialog();
+            _showCreateActivityDialog(activities.last.id + 1);
           },
           tooltip: 'Crear una nueva actividad de Erre produkzioak',
           child: const Icon(Icons.add),

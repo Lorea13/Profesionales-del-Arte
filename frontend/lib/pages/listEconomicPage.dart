@@ -86,7 +86,7 @@ class _ListEconomicPageState extends State<ListEconomicPage> {
   }
 
   obtainGroupedActivities() async {
-    
+    groupedActivities = {}; 
     // Group activities by activity type
     for (var activity in activities) {
       if (!groupedActivities.containsKey(activity.type)) {
@@ -97,6 +97,8 @@ class _ListEconomicPageState extends State<ListEconomicPage> {
     }
 
   }
+
+
 
   Future<void> _showDeleteConfirmationDialog(BuildContext context, Activity activity) async {
     bool delete = await showDialog(
@@ -128,10 +130,12 @@ class _ListEconomicPageState extends State<ListEconomicPage> {
 
       if (success) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('¡La actividad ha sido eliminado con éxito!'),
+          content: Text('¡La actividad ha sido eliminada con éxito!'),
         ));
         setState(() {
           activities.remove(activity);
+          groupedActivities.remove(activity);
+          
         });
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -151,7 +155,7 @@ class _ListEconomicPageState extends State<ListEconomicPage> {
     bool invoice = activity.invoice;
     bool getPaid = activity.getPaid;
 
-    ActivityType? selectedtype= activity.type;
+    ActivityType? selectedtype = activity.type;
     Company? selectedCompany= activity.company;
 
     List<DropdownMenuItem<ActivityType>> typeItems = activityTypes
@@ -290,21 +294,65 @@ class _ListEconomicPageState extends State<ListEconomicPage> {
             ),
             TextButton(
               onPressed: () async {
-                activity.type = selectedtype!;
-                activity.activityDate = DateTime.parse(activityDateController.text);
-                activity.name = nameController.text;
-                activity.company = selectedCompany!;
-                activity.hours = int.parse(hoursController.text);
-                activity.price = int.parse(priceController.text);
-                activity.iva = int.parse(ivaController.text);
-                activity.invoice = invoice;
-                activity.getPaid = getPaid;
-                activity.notes = notesController.text;
 
-                bool success = await updateActivity(activity);
+                String nameU = nameController.text.isNotEmpty ? nameController.text : "";
+                DateTime activityDateU =  activityDateController.text.isNotEmpty ? DateTime.parse(activityDateController.text) : DateTime.now();
+                int hoursU = hoursController.text.isNotEmpty ? int.parse(hoursController.text) : 0;
+                int priceU = priceController.text.isNotEmpty ? int.parse(priceController.text) : 0;
+                int ivaU = ivaController.text.isNotEmpty ? int.parse(ivaController.text) : 0;
+                String notesU = notesController.text.isNotEmpty ? notesController.text : "";
+
+                Company selectedCompanyU = selectedCompany != null ? selectedCompany! : companys.firstWhere((p) => p.id == 1);
+                ActivityType selectedActivityTypeU = selectedtype != null ? selectedtype! : activityTypes.firstWhere((p) => p.id == 1);
+               
+
+              Activity updatedActivity = Activity(
+                activity.id,
+                selectedActivityTypeU,
+                activityDateU,
+                nameU,
+                selectedCompanyU,
+                hoursU,
+                priceU,
+                ivaU,
+                invoice,
+                getPaid,
+                notesU,        
+              
+              );
+              
+              int index = activities.indexWhere((a) => a.id == activity.id);
+
+              if (index >= 0) {
+                print(activities[index].name);
+              } else {
+                print('Activity not found in list');
+              }
+
+              
+              bool success = await updateActivity(activity);
+
+              setState(() {
+                    if (success) {
+                      activities[index] =
+                          updatedActivity;
+                      
+                      if(activity.type == updatedActivity.type){
+                        int indexG = groupedActivities[activity.type]?.indexWhere((a) => a.id == activity.id) ?? -1;
+                        if (indexG >= 0) {
+                          groupedActivities[updatedActivity.type]?[indexG] = updatedActivity;
+                        }
+                        }else{
+                          obtainGroupedActivities();
+                        }
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text('Ha ocurrido un error al modificar la actividad.'),
+                      ));
+                  }
+            });
                 
                 Navigator.of(context).pop();
-                await obtainUpdatedData();
               },
               child: Text("Guardar cambios"),
             ),
@@ -314,8 +362,7 @@ class _ListEconomicPageState extends State<ListEconomicPage> {
     );
 }
 
-Future<void> _showCreateActivityDialog() async {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+Future<void> _showCreateActivityDialog(int nextActivityId) async {
   final _nameController = TextEditingController();
   final _activityDateController = TextEditingController();
   final _notesController = TextEditingController();
@@ -484,25 +531,41 @@ Future<void> _showCreateActivityDialog() async {
           TextButton(
             child: Text('Crear'),
             onPressed: () async {
-                Activity newActivity = Activity(100,
-                  selectedtype!,
-                  DateTime.parse(_activityDateController.text),
-                  _nameController.text,
-                  selectedCompany!,
-                  int.parse(_hoursController.text),
-                  int.parse(_priceController.text),
-                  int.parse(_ivaController.text),
-                  _invoice,
-                  _getPaid,
-                  _notesController.text,
-                );
 
-                int newID = await createActivity(newActivity);
+                String nameU = _nameController.text.isNotEmpty ? _nameController.text : "";
+                DateTime activityDateU =  _activityDateController.text.isNotEmpty ? DateTime.parse(_activityDateController.text) : DateTime.now();
+                int hoursU = _hoursController.text.isNotEmpty ? int.parse(_hoursController.text) : 0;
+                int priceU = _priceController.text.isNotEmpty ? int.parse(_priceController.text) : 0;
+                int ivaU = _ivaController.text.isNotEmpty ? int.parse(_ivaController.text) : 0;
+                String notesU = _notesController.text.isNotEmpty ? _notesController.text : "";
+
+                Company selectedCompanyU = selectedCompany != null ? selectedCompany! : companys.firstWhere((p) => p.id == 1);
+                ActivityType selectedActivityTypeU = selectedtype != null ? selectedtype! : activityTypes.firstWhere((p) => p.id == 1);
+               
+
+              Activity newActivity = Activity(
+                nextActivityId,
+                selectedActivityTypeU,
+                activityDateU,
+                nameU,
+                selectedCompanyU,
+                hoursU,
+                priceU,
+                ivaU,
+                _invoice,
+                _getPaid,
+                notesU,        
+              
+              );
+
+
+              int newID = await createActivity(newActivity);
 
                 setState(() {
                     if (newID != 0) {
                       newActivity.id = newID;
                       activities.add(newActivity);
+                      groupedActivities[newActivity.type]?.add(newActivity);
                     }
                   });
 
@@ -559,6 +622,7 @@ Future<void> _showCreateActivityDialog() async {
                                       label: Text('Borrar'),
                                     ),
                                     DataColumn(label: Text('Nombre')),
+                                    DataColumn(label: Text('Cliente')),
                                     DataColumn(label: Text('Fecha')),
                                     DataColumn(label: Text('Horas')),
                                     DataColumn(label: Text('Precio')),
@@ -583,6 +647,7 @@ Future<void> _showCreateActivityDialog() async {
                                             },
                                         )),
                                       DataCell(Text(activity.name)),
+                                      DataCell(Text(activity.company.name)),
                                       DataCell(Text(DateFormat('yyyy-MM-dd').format(activity.activityDate))),
                                       DataCell(Text(activity.hours.toString())),
                                       DataCell(Text(activity.price.toString())),
@@ -605,7 +670,7 @@ Future<void> _showCreateActivityDialog() async {
           ),
         floatingActionButton: FloatingActionButton(
           onPressed: (){
-            _showCreateActivityDialog();
+            _showCreateActivityDialog(activities.last.id + 1);
           },
           tooltip: 'Crear una nueva actividad',
           child: const Icon(Icons.add),

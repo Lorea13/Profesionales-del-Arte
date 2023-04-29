@@ -497,6 +497,9 @@ Future<void> _showCreatePersonDialog(int nextContactId) async {
                                   label: Text('Nombre'),
                                 ),
                                 DataColumn(
+                                  label: Text('Tipo'),
+                                ),
+                                DataColumn(
                                   label: Text('Fecha c.'),
                                 ),
                                 DataColumn(
@@ -539,6 +542,7 @@ Future<void> _showCreatePersonDialog(int nextContactId) async {
                                           },
                                       )),
                                         DataCell(Text(person.name)),
+                                        DataCell(Text(person.type.name)),
                                         DataCell(Text(DateFormat('yyyy-MM-dd').format(person.contactDate))),
                                         DataCell(Text(person.contactDescription)),
                                         DataCell(Text(person.projects)),
