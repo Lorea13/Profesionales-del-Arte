@@ -254,24 +254,7 @@ class _ListFacturaPageState extends State<ListFacturaPage> {
                     labelText: 'IVA',
                   ),
                 ), 
-                DropdownButtonFormField<String>(
-                  decoration: InputDecoration(
-                    labelText: 'Factura',
-                  ),
-                  value: invoice ? 'Sí' : 'No',
-                  items: <String>['Sí', 'No']
-                      .map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      invoice = newValue == 'Sí';
-                    });
-                  },
-                ),
+                
                 SizedBox(height: 10),
                 DropdownButtonFormField<String>(
                   decoration: InputDecoration(
@@ -625,7 +608,6 @@ Future<void> _showCreateActivityDialog(int nextActivityId) async {
                                     DataColumn(label: Text('Horas')),
                                     DataColumn(label: Text('Precio')),
                                     DataColumn(label: Text('IVA')),
-                                    DataColumn(label: Text('Factura')),
                                     DataColumn(label: Text('Pagado')),
                                     DataColumn(label: Text('Notas')),
                                   ],
@@ -649,7 +631,6 @@ Future<void> _showCreateActivityDialog(int nextActivityId) async {
                                       DataCell(Text(activity.hours.toString())),
                                       DataCell(Text(activity.price.toString())),
                                       DataCell(Text(activity.iva.toString())),
-                                      DataCell(Text(activity.invoice ? 'Sí' : 'No')),
                                       DataCell(Text(activity.getPaid ? 'Sí' : 'No')),
                                       DataCell(Text(activity.notes)),
                                     ]);

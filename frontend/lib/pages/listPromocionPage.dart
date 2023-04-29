@@ -163,7 +163,6 @@ class _ListPromocionPageState extends State<ListPromocionPage> {
     TextEditingController nameController = TextEditingController(text: activity.name);
     TextEditingController notesController = TextEditingController(text: activity.notes);
     TextEditingController hoursController = TextEditingController(text: activity.hours.toString());
-    TextEditingController ivaController = TextEditingController(text: activity.iva.toString());
     TextEditingController activityDateController = TextEditingController(text: DateFormat('yyyy-MM-dd').format(activity.activityDate));
     bool invoice = activity.invoice;
     bool getPaid = activity.getPaid;
@@ -241,31 +240,6 @@ class _ListPromocionPageState extends State<ListPromocionPage> {
                 ), 
                 
                 SizedBox(height: 10),
-                TextField(
-                  controller: ivaController,
-                  decoration: InputDecoration(
-                    labelText: 'IVA',
-                  ),
-                ), 
-                DropdownButtonFormField<String>(
-                  decoration: InputDecoration(
-                    labelText: 'Factura',
-                  ),
-                  value: invoice ? 'Sí' : 'No',
-                  items: <String>['Sí', 'No']
-                      .map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      invoice = newValue == 'Sí';
-                    });
-                  },
-                ),
-                SizedBox(height: 10),
                 DropdownButtonFormField<String>(
                   decoration: InputDecoration(
                     labelText: 'Pagado',
@@ -304,8 +278,7 @@ class _ListPromocionPageState extends State<ListPromocionPage> {
                 String nameU = nameController.text.isNotEmpty ? nameController.text : "";
                 DateTime activityDateU =  activityDateController.text.isNotEmpty ? DateTime.parse(activityDateController.text) : DateTime.now();
                 int hoursU = hoursController.text.isNotEmpty ? int.parse(hoursController.text) : 0;
-                int ivaU = ivaController.text.isNotEmpty ? int.parse(ivaController.text) : 0;
-                String notesU = notesController.text.isNotEmpty ? notesController.text : "";
+               String notesU = notesController.text.isNotEmpty ? notesController.text : "";
 
                 Company selectedCompanyU = selectedCompany != null ? selectedCompany! : companys.firstWhere((p) => p.id == 1);
                 ActivityType selectedActivityTypeU = selectedtype != null ? selectedtype! : activityTypes.firstWhere((p) => p.id == 1);
@@ -319,7 +292,7 @@ class _ListPromocionPageState extends State<ListPromocionPage> {
                 selectedCompanyU,
                 hoursU,
                 0,
-                ivaU,
+                0,
                 invoice,
                 getPaid,
                 notesU,        
@@ -379,8 +352,7 @@ Future<void> _showCreateActivityDialog(int nextActivityId) async {
   final _activityDateController = TextEditingController();
   final _notesController = TextEditingController();
   final _hoursController = TextEditingController();
-  final _ivaController = TextEditingController();
-
+  
   bool _invoice = false;
   bool _getPaid = false;
 
@@ -472,52 +444,6 @@ Future<void> _showCreateActivityDialog(int nextActivityId) async {
                 SizedBox(height: 10),
                 
                 TextField(
-                  controller: _ivaController,
-                  decoration: InputDecoration(
-                    labelText: 'IVA',
-                  ),
-                ), 
-              
-              DropdownButtonFormField<String>(
-                  decoration: InputDecoration(
-                    labelText: 'Factura',
-                  ),
-                  value: _invoice ? 'Sí' : 'No',
-                  items: <String>['Sí', 'No']
-                      .map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      _invoice = newValue == 'Sí';
-                    });
-                  },
-                ),
-                SizedBox(height: 10),
-
-                DropdownButtonFormField<String>(
-                  decoration: InputDecoration(
-                    labelText: 'Pagado',
-                  ),
-                  value: _getPaid ? 'Sí' : 'No',
-                  items: <String>['Sí', 'No']
-                      .map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      _getPaid = newValue == 'Sí';
-                    });
-                  },
-                ),
-                SizedBox(height: 10),
-                TextField(
                   controller: _notesController,
                   decoration: InputDecoration(
                     labelText: 'Notas',
@@ -539,7 +465,6 @@ Future<void> _showCreateActivityDialog(int nextActivityId) async {
                 String nameU = _nameController.text.isNotEmpty ? _nameController.text : "";
                 DateTime activityDateU =  _activityDateController.text.isNotEmpty ? DateTime.parse(_activityDateController.text) : DateTime.now();
                 int hoursU = _hoursController.text.isNotEmpty ? int.parse(_hoursController.text) : 0;
-                int ivaU = _ivaController.text.isNotEmpty ? int.parse(_ivaController.text) : 0;
                 String notesU = _notesController.text.isNotEmpty ? _notesController.text : "";
 
                 ActivityType selectedActivityTypeU = selectedtype != null ? selectedtype! : activityTypes.firstWhere((p) => p.id == 1);
@@ -554,7 +479,7 @@ Future<void> _showCreateActivityDialog(int nextActivityId) async {
                 selectedCompanyU,
                 hoursU,
                 0,
-                ivaU,
+                0,
                 _invoice,
                 _getPaid,
                 notesU,        
@@ -625,10 +550,7 @@ Future<void> _showCreateActivityDialog(int nextActivityId) async {
                                     DataColumn(label: Text('Nombre')),
                                     DataColumn(label: Text('Fecha')),
                                     DataColumn(label: Text('Horas')),
-                                    DataColumn(label: Text('Precio')),
-                                    DataColumn(label: Text('IVA')),
-                                    DataColumn(label: Text('Factura')),
-                                    DataColumn(label: Text('Pagado')),
+                                    
                                     DataColumn(label: Text('Notas')),
                                   ],
                                   rows: activitiesPromocion.where((activity) => activity.type!.id == type.id)
@@ -649,10 +571,7 @@ Future<void> _showCreateActivityDialog(int nextActivityId) async {
                                       DataCell(Text(activity.name)),
                                       DataCell(Text(DateFormat('yyyy-MM-dd').format(activity.activityDate))),
                                       DataCell(Text(activity.hours.toString())),
-                                      DataCell(Text(activity.price.toString())),
-                                      DataCell(Text(activity.iva.toString())),
-                                      DataCell(Text(activity.invoice ? 'Sí' : 'No')),
-                                      DataCell(Text(activity.getPaid ? 'Sí' : 'No')),
+                                      
                                       DataCell(Text(activity.notes)),
                                     ]);
                                   }).toList() ?? [],
