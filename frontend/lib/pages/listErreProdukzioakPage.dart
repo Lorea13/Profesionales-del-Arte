@@ -103,6 +103,18 @@ class _ListErreProdukzioakPageState extends State<ListErreProdukzioakPage> {
 
   }
 
+    obtainUpdatedGroupedActivities() async {
+    groupedActivities = {}; 
+    for (var activity in activitiesErreProdukzioak) {
+      if (!groupedActivities.containsKey(activity.type)) {
+        groupedActivities[activity.type] = [];
+      }
+      groupedActivities[activity.type]?.add(activity);
+      
+    }
+    
+  }
+
   Future<void> _showDeleteConfirmationDialog(BuildContext context, Activity activity) async {
     bool delete = await showDialog(
       context: context,
@@ -137,6 +149,8 @@ class _ListErreProdukzioakPageState extends State<ListErreProdukzioakPage> {
         ));
         setState(() {
           activities.remove(activity);
+          activitiesErreProdukzioak.remove(activity);
+          groupedActivities.remove(activity);
         });
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -295,21 +309,71 @@ class _ListErreProdukzioakPageState extends State<ListErreProdukzioakPage> {
             ),
             TextButton(
               onPressed: () async {
-                activity.type = selectedtype!;
-                activity.activityDate = DateTime.parse(activityDateController.text);
-                activity.name = nameController.text;
-                activity.company = selectedCompany!;
-                activity.hours = int.parse(hoursController.text);
-                activity.price = int.parse(priceController.text);
-                activity.iva = int.parse(ivaController.text);
-                activity.invoice = invoice;
-                activity.getPaid = getPaid;
-                activity.notes = notesController.text;
+                String nameU = nameController.text.isNotEmpty ? nameController.text : "";
+                DateTime activityDateU =  activityDateController.text.isNotEmpty ? DateTime.parse(activityDateController.text) : DateTime.now();
+                int hoursU = hoursController.text.isNotEmpty ? int.parse(hoursController.text) : 0;
+                int priceU = priceController.text.isNotEmpty ? int.parse(priceController.text) : 0;
+                int ivaU = ivaController.text.isNotEmpty ? int.parse(ivaController.text) : 0;
+                String notesU = notesController.text.isNotEmpty ? notesController.text : "";
 
-                bool success = await updateActivity(activity);
+                Company selectedCompanyU = selectedCompany != null ? selectedCompany! : companys.firstWhere((p) => p.id == 1);
+                ActivityType selectedActivityTypeU = selectedtype != null ? selectedtype! : activityTypes.firstWhere((p) => p.id == 1);
+               
+
+              Activity updatedActivity = Activity(
+                activity.id,
+                selectedActivityTypeU,
+                activityDateU,
+                nameU,
+                selectedCompanyU,
+                hoursU,
+                priceU,
+                ivaU,
+                invoice,
+                getPaid,
+                notesU,        
+              
+              );
+              
+              int index = activities.indexWhere((a) => a.id == activity.id);
+              int indexP = activitiesErreProdukzioak.indexWhere((a) => a.id == activity.id);
+              
+
+              if (index >= 0) {
+                print(activities[index].name);
+              } else {
+                print('Activity not found in list');
+              }
+
+              
+              bool success = await updateActivity(activity);
+
+              setState(() {
+                    if (success) {
+                      activities[index] =
+                          updatedActivity;
+                      activitiesErreProdukzioak[indexP] =
+                          updatedActivity;
+                      if(activity.type == updatedActivity.type){
+                        int indexG = groupedActivities[activity.type]?.indexWhere((a) => a.id == activity.id) ?? -1;
+                        if (indexG >= 0) {
+                          groupedActivities[updatedActivity.type]?[indexG] = updatedActivity;
+                        }
+
+                      }else{
+                        obtainUpdatedGroupedActivities();
+                      }
+                      
+                      
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text('Ha ocurrido un error al modificar la actividad.'),
+                      ));
+                  }
+            });
+                
                 
                 Navigator.of(context).pop();
-                await obtainUpdatedData();
               },
               child: Text("Guardar cambios"),
             ),
@@ -469,27 +533,43 @@ Future<void> _showCreateActivityDialog(int nextActivityId) async {
           TextButton(
             child: Text('Crear'),
             onPressed: () async {
-                Activity newActivity = Activity(100,
-                  selectedtype!,
-                  DateTime.parse(_activityDateController.text),
-                  _nameController.text,
-                  selectedCompany!,
-                  int.parse(_hoursController.text),
-                  int.parse(_priceController.text),
-                  int.parse(_ivaController.text),
-                  _invoice,
-                  _getPaid,
-                  _notesController.text,
-                );
+                String nameU = _nameController.text.isNotEmpty ? _nameController.text : "";
+                DateTime activityDateU =  _activityDateController.text.isNotEmpty ? DateTime.parse(_activityDateController.text) : DateTime.now();
+                int hoursU = _hoursController.text.isNotEmpty ? int.parse(_hoursController.text) : 0;
+                int priceU = _priceController.text.isNotEmpty ? int.parse(_priceController.text) : 0;
+                int ivaU = _ivaController.text.isNotEmpty ? int.parse(_ivaController.text) : 0;
+                String notesU = _notesController.text.isNotEmpty ? _notesController.text : "";
 
-                int newID = await createActivity(newActivity);
+                ActivityType selectedActivityTypeU = selectedtype != null ? selectedtype! : activityTypes.firstWhere((p) => p.id == 1);
+               
+
+              Activity newActivity = Activity(
+                nextActivityId,
+                selectedActivityTypeU,
+                activityDateU,
+                nameU,
+                selectedCompany!,
+                hoursU,
+                priceU,
+                ivaU,
+                _invoice,
+                _getPaid,
+                notesU,        
+              
+              );
+
+
+              int newID = await createActivity(newActivity);
 
                 setState(() {
                     if (newID != 0) {
                       newActivity.id = newID;
                       activities.add(newActivity);
+                      activitiesErreProdukzioak.add(newActivity);
+                      groupedActivities[newActivity.type]?.add(newActivity);
                     }
                   });
+
 
                 Navigator.of(context).pop();
             },

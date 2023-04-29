@@ -100,8 +100,6 @@ class _ListPausokaPageState extends State<ListPausokaPage> {
 
   obtainGroupedActivities() async {
 
-       
-
     for(var activity in activities){
       if(activity.company.id == 1){
         activitiesPausoka.add(activity);
