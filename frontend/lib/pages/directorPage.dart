@@ -235,16 +235,50 @@ class _DirectorPageState extends State<DirectorPage> {
           ),
           TextButton(
             onPressed: () async {
-              person.type = selectedPersonType!;
-              person.contactDate = DateTime.parse(contactDateController.text);
-              person.contactDescription = contactDescriptionController.text;
-              person.projects = projectsController.text;
-              person.webPage = webPageController.text;
-              person.email = emailController.text;
-              person.phone = phoneController.text;
-              person.notes = notesController.text;
+              String nameU = nameController.text.isNotEmpty ? nameController.text : "";
+              DateTime contactDateU =  contactDateController.text.isNotEmpty ? DateTime.parse(contactDateController.text) : DateTime.now();
+              String contactDescriptionU = contactDescriptionController.text.isNotEmpty ? contactDescriptionController.text : "";
+              String projectsU = projectsController.text.isNotEmpty ? projectsController.text : "";
+              String webPageU = webPageController.text.isNotEmpty ? webPageController.text : "";
+              String emailU = emailController.text.isNotEmpty ? emailController.text : "";
+              String phoneU = phoneController.text.isNotEmpty ? phoneController.text : "";
+              String notesU = notesController.text.isNotEmpty ? notesController.text : "";
 
-              bool success = await updatePerson(person);
+
+              Person updatedPerson = Person(
+                person.id,
+                selectedPersonType!,
+                nameU,
+                contactDateU,
+                contactDescriptionU,
+                projectsU,
+                webPageU,
+                emailU,
+                phoneU,
+                notesU);
+
+              
+              int index = people.indexWhere((p) => p.id == person.id);
+
+              if (index >= 0) {
+                print(people[index].name);
+              } else {
+                print('Person not found in list');
+              }
+
+              
+              bool success = await updatePerson(updatedPerson);
+
+              setState(() {
+                    if (success) {
+                      people[index] =
+                          updatedPerson;
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text('Ha ocurrido un error al modificar la persona.'),
+                      ));
+                  }
+            });
               
               Navigator.of(context).pop();
               await obtainUpdatedData();
@@ -262,7 +296,6 @@ class _DirectorPageState extends State<DirectorPage> {
 
 
 Future<void> _showCreatePersonDialog(int nextPersonId) async {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _contactDateController = TextEditingController();
   final _contactDescriptionController = TextEditingController();
@@ -272,14 +305,9 @@ Future<void> _showCreatePersonDialog(int nextPersonId) async {
   final _phoneController = TextEditingController();
   final _notesController = TextEditingController();
 
-  PersonType? selectedPersonType;
+  PersonType selectedPersonType = personTypes.firstWhere((p) => p.id == 2);
 
-  List<DropdownMenuItem<PersonType>> typeItems = personTypes
-      .map((personType) => DropdownMenuItem(
-            value: personType,
-            child: Text(personType.name),
-          ))
-      .toList();
+  
 
   await showDialog(
     context: context,
@@ -316,19 +344,12 @@ Future<void> _showCreatePersonDialog(int nextPersonId) async {
                 ),
               ),
               SizedBox(height: 10),
-              DropdownButtonFormField<PersonType>(
-                value: selectedPersonType,
+              TextField(
+                controller: _contactDescriptionController,
                 decoration: InputDecoration(
-                  labelText: 'Tipo de persona',
+                labelText: 'Descrición del último contacto',
                 ),
-                items: typeItems,
-                onChanged: (value) {
-                  setState(() {
-                    selectedPersonType = value;
-                  });
-                },
               ),
-              SizedBox(height: 10),
               TextField(
                 controller: _projectsController,
                 decoration: InputDecoration(
@@ -377,17 +398,27 @@ Future<void> _showCreatePersonDialog(int nextPersonId) async {
           TextButton(
             child: Text('Crear'),
             onPressed: () async {
+              String nameU = _nameController.text.isNotEmpty ? _nameController.text : "";
+              DateTime contactDateU =  _contactDateController.text.isNotEmpty ? DateTime.parse(_contactDateController.text) : DateTime.now();
+              String contactDescriptionU = _contactDescriptionController.text.isNotEmpty ? _contactDescriptionController.text : "";
+              String projectsU = _projectsController.text.isNotEmpty ? _projectsController.text : "";
+              String webPageU = _webPageController.text.isNotEmpty ? _webPageController.text : "";
+              String emailU = _emailController.text.isNotEmpty ? _emailController.text : "";
+              String phoneU = _phoneController.text.isNotEmpty ? _phoneController.text : "";
+              String notesU = _notesController.text.isNotEmpty ? _notesController.text : "";
+
+        
                 Person newPerson = Person(
                   nextPersonId,
                   selectedPersonType!,
-                  _nameController.text,
-                  DateTime.parse(_contactDateController.text),
-                  _contactDescriptionController.text,
-                  _projectsController.text,
-                  _webPageController.text,
-                  _emailController.text,
-                  _phoneController.text,
-                  _notesController.text,
+                  nameU,
+                  contactDateU,
+                  contactDescriptionU,
+                  projectsU,
+                  webPageU,
+                  emailU,
+                  phoneU,
+                  notesU,
                 );
 
                 int newID = await createPerson(newPerson);

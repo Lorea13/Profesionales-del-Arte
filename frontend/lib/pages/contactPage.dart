@@ -236,6 +236,7 @@ bool _isLoading = true;
             onPressed: () async {
               
               String nameU = nameController.text.isNotEmpty ? nameController.text : "";
+              DateTime contactDateU =  contactDateController.text.isNotEmpty ? DateTime.parse(contactDateController.text) : DateTime.now();
               String contactDescriptionU = contactDescriptionController.text.isNotEmpty ? contactDescriptionController.text : "";
               String projectsU = projectsController.text.isNotEmpty ? projectsController.text : "";
               String webPageU = webPageController.text.isNotEmpty ? webPageController.text : "";
@@ -248,7 +249,7 @@ bool _isLoading = true;
                 person.id,
                 selectedPersonType!,
                 nameU,
-                DateTime.parse(contactDateController.text),
+                contactDateU,
                 contactDescriptionU,
                 projectsU,
                 webPageU,
