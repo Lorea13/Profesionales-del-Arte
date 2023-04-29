@@ -263,24 +263,45 @@ class _CastingPageState extends State<CastingPage> {
           ),
           TextButton(
             onPressed: () async {
+              
+
+              String nameU = nameController.text.isNotEmpty ? nameController.text : "";
+              DateTime castingDateU =  castingDateController.text.isNotEmpty ? DateTime.parse(castingDateController.text) : DateTime.now();
+              String notesU = notesController.text.isNotEmpty ? notesController.text : "";
+
+
               Casting updatedCasting = Casting(
               casting.id,
-              DateTime.parse(castingDateController.text),
-              nameController.text,
+              castingDateU,
+              nameU,
               selectedCastingDirector!,
               selectedDirector!,
               inPerson,
               inProcess,
-              notesController.text);
+              notesU);
 
+              
+              int index = castings.indexWhere((ca) => ca.id == casting.id);
+
+              if (index >= 0) {
+                print(castings[index].name);
+              } else {
+                print('Casting not found in list');
+              }
+
+              
               bool success = await updateCasting(updatedCasting);
 
               setState(() {
                     if (success) {
-                      castings[castings.indexOf(casting)] =
+                      castings[index] =
                           updatedCasting;
-                    }
-                  });
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text('Ha ocurrido un error al modificar el casting.'),
+                      ));
+                  }
+            });
               
               Navigator.of(context).pop();
               await obtainUpdatedData();
@@ -441,15 +462,20 @@ Future<void> _showCreateCastingDialog(int nextCastingId) async {
           TextButton(
             child: Text('Crear'),
             onPressed: () async {
+
+              String nameU = _nameController.text.isNotEmpty ? _nameController.text : "";
+              DateTime castingDateU =  _castingDateController.text.isNotEmpty ? DateTime.parse(_castingDateController.text) : DateTime.now();
+              String notesU = _notesController.text.isNotEmpty ? _notesController.text : "";
+
                 Casting newCasting = Casting(
                   nextCastingId,
-                  DateTime.parse(_castingDateController.text),
-                  _nameController.text,
+                  castingDateU,
+                  nameU,
                   selectedCastingDirector!,
                   selectedDirector!,
                   _inPerson,
                   _inProcess,
-                  _notesController.text,
+                  notesU,
                 );
 
                 int newID = await createCasting(newCasting);
@@ -461,6 +487,7 @@ Future<void> _showCreateCastingDialog(int nextCastingId) async {
                     }
                   });
 
+
                 Navigator.of(context).pop();
                 await obtainUpdatedData();
             },
@@ -470,10 +497,6 @@ Future<void> _showCreateCastingDialog(int nextCastingId) async {
     },
   );
 }
-
-
-
-
 
 
 
