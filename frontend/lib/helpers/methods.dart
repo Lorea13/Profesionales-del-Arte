@@ -8,6 +8,7 @@ import 'package:frontend/models/activityType.dart';
 import 'package:frontend/models/activity.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
+import 'package:intl/intl.dart';
 
 
 /// Obtiene todos los tipos personas de la base de datos
@@ -80,7 +81,7 @@ Future<int> createPerson(Person person) async {
   var bodyEncoded = jsonEncode({
     "type": person.type.id.toString(),
     "name": person.name,
-    "contactDate": person.contactDate.toString(),
+    "contactDate": DateFormat('yyyy-MM-dd').format(person.contactDate),
     "contactDescription": person.contactDescription,
     "projects": person.projects,
     "webPage": person.webPage,
@@ -94,8 +95,7 @@ Future<int> createPerson(Person person) async {
 
   print(response.statusCode);
   if (response.statusCode == 200) {
-    int id = int.parse(json.decode((response).body)['id']);
-    return id;
+    return person.id;
   }
   return 0;
 }
@@ -109,7 +109,7 @@ Future<bool> updatePerson(Person person) async {
   var bodyEncoded = jsonEncode({
     "type": person.type.id.toString(),
     "name": person.name,
-    "contactDate": person.contactDate.toString(),
+    "contactDate": DateFormat('yyyy-MM-dd').format(person.contactDate),
     "contactDescription": person.contactDescription,
     "projects": person.projects,
     "webPage": person.webPage,
@@ -187,7 +187,7 @@ Future<List<Casting>> getCastings(
 Future<int> createCasting(Casting casting) async {
   Client client = http.Client();
   var bodyEncoded = jsonEncode({
-    "castingDate": casting.castingDate.toString(),
+    "castingDate": DateFormat('yyyy-MM-dd').format(casting.castingDate),
     "name": casting.name,
     "castingDirector": casting.castingDirector.id.toString(),
     "director": casting.director.id.toString(),
@@ -218,7 +218,7 @@ Future<int> createCasting(Casting casting) async {
 Future<bool> updateCasting(Casting casting) async {
   Client client = http.Client();
   var bodyEncoded = jsonEncode({
-    "castingDate": casting.castingDate.toString(),
+    "castingDate": DateFormat('yyyy-MM-dd').format(casting.castingDate),
     "name": casting.name,
     "castingDirector": casting.castingDirector.id.toString(),
     "director": casting.director.id.toString(),
@@ -408,7 +408,7 @@ Future<int> createActivity(Activity activity) async {
   Client client = http.Client();
   var bodyEncoded = jsonEncode({
     "type": activity.type.id.toString(),
-    "activityDate": activity.activityDate.toString(),
+    "activityDate": DateFormat('yyyy-MM-dd').format(activity.activityDate),
     "name": activity.name,
     "company": activity.company.id.toString(),
     "hours": activity.hours.toString(),
@@ -437,7 +437,7 @@ Future<bool> updateActivity(Activity activity) async {
   Client client = http.Client();
   var bodyEncoded = jsonEncode({
     "type": activity.type.id.toString(),
-    "activityDate": activity.activityDate.toString(),
+    "activityDate": DateFormat('yyyy-MM-dd').format(activity.activityDate),
     "name": activity.name,
     "company": activity.company.id.toString(),
     "hours": activity.hours.toString(),

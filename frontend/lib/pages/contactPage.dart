@@ -172,7 +172,7 @@ bool _isLoading = true;
               TextField(
                 controller: contactDescriptionController,
                 decoration: InputDecoration(
-                  labelText: 'Decripcion de la fecha',
+                  labelText: 'Decripcion del último contacto',
                 ),
               ),
               SizedBox(height: 10),
@@ -235,23 +235,51 @@ bool _isLoading = true;
           TextButton(
             onPressed: () async {
 
+              print(projectsController.text);
+
+              
+              
+              
+              String nameU = nameController.text.isNotEmpty ? nameController.text : "";
+              String contactDescriptionU = contactDescriptionController.text.isNotEmpty ? contactDescriptionController.text : "";
+              String projectsU = projectsController.text.isNotEmpty ? projectsController.text : "";
+              String webPageU = webPageController.text.isNotEmpty ? webPageController.text : "";
+              String emailU = emailController.text.isNotEmpty ? emailController.text : "";
+              String phoneU = phoneController.text.isNotEmpty ? phoneController.text : "";
+              String notesU = notesController.text.isNotEmpty ? notesController.text : "";
+
+
               Person updatedPerson = Person(
                 person.id,
                 selectedPersonType!,
-                nameController.text,
+                nameU,
                 DateTime.parse(contactDateController.text),
-                contactDescriptionController.text,
-                projectsController.text,
-                webPageController.text,
-                emailController.text,
-                phoneController.text,
-                notesController.text);
+                contactDescriptionU,
+                projectsU,
+                webPageU,
+                emailU,
+                phoneU,
+                notesU);
 
-              bool success = await updatePerson(updatedPerson);
               
+              int index = people.indexWhere((p) => p.id == person.id);
+
+              if (index >= 0) {
+                print(people[index].name);
+              } else {
+                print('Person not found in list');
+              }
+
+              
+              bool success = await updatePerson(updatedPerson);
+
+              print("He hecho el update y ha sido");
+
+
               setState(() {
                     if (success) {
-                      people[people.indexOf(person)] =
+                      print("success");
+                      people[index] =
                           updatedPerson;
                     }
                   });
@@ -325,6 +353,13 @@ Future<void> _showCreatePersonDialog(int nextContactId) async {
                 ),
               ),
               SizedBox(height: 10),
+              TextField(
+                controller: _contactDescriptionController,
+                decoration: InputDecoration(
+                labelText: 'Descrición del último contacto',
+                ),
+              ),
+              SizedBox(height: 10),
               DropdownButtonFormField<PersonType>(
                 value: selectedPersonType,
                 decoration: InputDecoration(
@@ -386,27 +421,42 @@ Future<void> _showCreatePersonDialog(int nextContactId) async {
           TextButton(
             child: Text('Crear'),
             onPressed: () async {
+
+              String nameU = _nameController.text.isNotEmpty ? _nameController.text : "";
+              String contactDescriptionU = _contactDescriptionController.text.isNotEmpty ? _contactDescriptionController.text : "";
+              String projectsU = _projectsController.text.isNotEmpty ? _projectsController.text : "";
+              String webPageU = _webPageController.text.isNotEmpty ? _webPageController.text : "";
+              String emailU = _emailController.text.isNotEmpty ? _emailController.text : "";
+              String phoneU = _phoneController.text.isNotEmpty ? _phoneController.text : "";
+              String notesU = _notesController.text.isNotEmpty ? _notesController.text : "";
+
+        
                 Person newPerson = Person(
                   nextContactId,
                   selectedPersonType!,
-                  _nameController.text,
+                  nameU,
                   DateTime.parse(_contactDateController.text),
-                  _contactDescriptionController.text,
-                  _projectsController.text,
-                  _webPageController.text,
-                  _emailController.text,
-                  _phoneController.text,
-                  _notesController.text,
+                  contactDescriptionU,
+                  projectsU,
+                  webPageU,
+                  emailU,
+                  phoneU,
+                  notesU,
                 );
 
                 int newID = await createPerson(newPerson);
 
                 setState(() {
                     if (newID != 0) {
+                      print("El id es distinto de 0");
                       newPerson.id = newID;
                       people.add(newPerson);
                     }
                   });
+
+              final lastPerson = people.last;
+              print('Id: ${lastPerson.id}, Index: ${people.indexOf(lastPerson)}, Name: ${lastPerson.name}');
+
 
                 Navigator.of(context).pop();
                 await obtainUpdatedData();

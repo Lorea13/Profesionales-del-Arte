@@ -173,7 +173,7 @@ class _DirectorPageState extends State<DirectorPage> {
               TextField(
                 controller: contactDescriptionController,
                 decoration: InputDecoration(
-                  labelText: 'Decripcion de la fecha',
+                  labelText: 'Decripcion del último contacto',
                 ),
               ),
               SizedBox(height: 10),
