@@ -234,11 +234,6 @@ bool _isLoading = true;
           ),
           TextButton(
             onPressed: () async {
-
-              print(projectsController.text);
-
-              
-              
               
               String nameU = nameController.text.isNotEmpty ? nameController.text : "";
               String contactDescriptionU = contactDescriptionController.text.isNotEmpty ? contactDescriptionController.text : "";
@@ -273,16 +268,16 @@ bool _isLoading = true;
               
               bool success = await updatePerson(updatedPerson);
 
-              print("He hecho el update y ha sido");
-
-
               setState(() {
                     if (success) {
-                      print("success");
                       people[index] =
                           updatedPerson;
-                    }
-                  });
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text('Ha ocurrido un error al modificar la persona.'),
+                      ));
+                  }
+            });
 
                   Navigator.pop(context);    
                   await obtainUpdatedData();   
@@ -346,6 +341,7 @@ Future<void> _showCreatePersonDialog(int nextContactId) async {
                   if (value!.isEmpty) {
                     return 'Por favor introduzca una fecha valida';
                   }
+                  
                   return null;
                 },
                 decoration: InputDecoration(
@@ -423,6 +419,7 @@ Future<void> _showCreatePersonDialog(int nextContactId) async {
             onPressed: () async {
 
               String nameU = _nameController.text.isNotEmpty ? _nameController.text : "";
+              DateTime contactDateU =  _contactDateController.text.isNotEmpty ? DateTime.parse(_contactDateController.text) : DateTime.now();
               String contactDescriptionU = _contactDescriptionController.text.isNotEmpty ? _contactDescriptionController.text : "";
               String projectsU = _projectsController.text.isNotEmpty ? _projectsController.text : "";
               String webPageU = _webPageController.text.isNotEmpty ? _webPageController.text : "";
@@ -435,7 +432,7 @@ Future<void> _showCreatePersonDialog(int nextContactId) async {
                   nextContactId,
                   selectedPersonType!,
                   nameU,
-                  DateTime.parse(_contactDateController.text),
+                  contactDateU,
                   contactDescriptionU,
                   projectsU,
                   webPageU,
@@ -448,14 +445,10 @@ Future<void> _showCreatePersonDialog(int nextContactId) async {
 
                 setState(() {
                     if (newID != 0) {
-                      print("El id es distinto de 0");
                       newPerson.id = newID;
                       people.add(newPerson);
                     }
                   });
-
-              final lastPerson = people.last;
-              print('Id: ${lastPerson.id}, Index: ${people.indexOf(lastPerson)}, Name: ${lastPerson.name}');
 
 
                 Navigator.of(context).pop();
