@@ -175,7 +175,7 @@ class _CuentaAjenaPageState extends State<CuentaAjenaPage> {
                 children: [
                   TopPanel(1),
                   TopPanelEconomics(4),
-                  TopButton(CuentaAjenaPage(), ListCuentaAjenaPage()),
+                  TopButton(ListCuentaAjenaPage(), "Listado de actividades por cuenta ajena"),
                   Expanded(
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -325,7 +325,7 @@ class _CuentaAjenaPageState extends State<CuentaAjenaPage> {
                                         TableCell(
                                           child: Container(
                                             padding: EdgeInsets.all(8.0),
-                                            child: Text('Dinero ganado'),
+                                            child: Text('Ingresos'),
                                           ),
                                         ),
                                         TableCell(

@@ -147,7 +147,7 @@ class _EconomicPageState extends State<EconomicPage> {
                 children: [
                   TopPanel(1),
                   TopPanelEconomics(0),
-                  TopButton(EconomicPage(), ListEconomicPage()),
+                  TopButton(ListEconomicPage(), "Listado de actividades"),
                   Expanded(
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -306,7 +306,7 @@ class _EconomicPageState extends State<EconomicPage> {
                                         TableCell(
                                           child: Container(
                                             padding: EdgeInsets.all(8.0),
-                                            child: Text('Dinero ganado'),
+                                            child: Text('Ingresos'),
                                           ),
                                         ),
                                         TableCell(

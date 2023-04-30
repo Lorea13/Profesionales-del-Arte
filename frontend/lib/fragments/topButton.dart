@@ -30,16 +30,16 @@ import '../pages/promocionPage.dart';
 import '../pages/listPromocionPage.dart';
 
 
-Color mainColor = Color.fromARGB(255, 0, 0, 139);
+Color mainColor = Colors.black;
 Color selectedColor = Colors.black;
 Color textColor = Colors.white;
 Color hoverTextColor = Colors.white;
 
 class TopButton extends StatefulWidget {
-  final StatefulWidget paginaResumen;
-  final StatefulWidget paginaListado;
+  final StatefulWidget paginaContraria;
+  final String textPaginaContraria;
 
-  TopButton(this.paginaResumen, this.paginaListado, {Key? key}) : super(key: key);
+  TopButton(this.paginaContraria, this.textPaginaContraria, {Key? key}) : super(key: key);
 
   @override
   State<TopButton> createState() => _TopButtonState();
@@ -58,24 +58,39 @@ class _TopButtonState extends State<TopButton> {
           children: [
             
             ElevatedButton(
-              child: Text('Resumen de la actividad'),
+              child: Text(widget.textPaginaContraria),
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => widget.paginaResumen),
+                  MaterialPageRoute(builder: (context) => widget.paginaContraria),
                 );
               },
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(
+                  Color.fromARGB(255, 0, 204, 102),
+                ),
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                overlayColor: MaterialStateProperty.all<Color>(
+                  Colors.transparent, // remove ripple effect on hover
+                ),
+                mouseCursor: MaterialStateProperty.all<MouseCursor>(
+                  MouseCursor.defer, // default cursor when not hovered
+                ),
+                elevation: MaterialStateProperty.all<double>(0), // remove button elevation
+                textStyle: MaterialStateProperty.all<TextStyle>(
+                  TextStyle(
+                    color: Colors.white,
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                
+              ),
             ),
-            SizedBox(width: 20.0),
-            ElevatedButton(
-              child: Text('Listado de actividades'),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => widget.paginaListado),
-                );
-              },
-            ),
+
+
+
+            
             SizedBox(width: 50.0),
             
           ],

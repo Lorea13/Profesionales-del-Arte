@@ -366,6 +366,10 @@ class _ListFacturaPageState extends State<ListFacturaPage> {
                       }else{
                         obtainUpdatedGroupedActivities();
                       }
+
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('¡La actividad ha sido modificada con éxito!'),
+        ));
                       
                       
                     } else {
@@ -388,8 +392,9 @@ class _ListFacturaPageState extends State<ListFacturaPage> {
 
 Future<void> _showCreateActivityDialog(int nextActivityId) async {
   final _nameController = TextEditingController();
-  final _activityDateController = TextEditingController();
-  final _notesController = TextEditingController();
+  final _activityDateController =
+    TextEditingController(text: DateFormat('yyyy-MM-dd').format(DateTime.now()));
+final _notesController = TextEditingController();
   final _hoursController = TextEditingController();
   final _priceController = TextEditingController();
   final _ivaController = TextEditingController();
@@ -588,6 +593,15 @@ Future<void> _showCreateActivityDialog(int nextActivityId) async {
                       }else{
                           obtainUpdatedGroupedActivities();
                         }
+
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('¡La actividad ha sido creada con éxito!'),
+        ));
+                    }else{
+
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Ha ocurrido un error al crear la actividad'),
+        ));
                     }
                   });
 
@@ -617,7 +631,7 @@ Future<void> _showCreateActivityDialog(int nextActivityId) async {
                 children: [
                   TopPanel(1),
                   TopPanelEconomics(3),
-                  TopButton(FacturaPage(), ListFacturaPage()),
+                  TopButton(FacturaPage(),  "Resumen de la actividad facturada"),
                   Flexible(
                     child: Padding(
                       padding: const EdgeInsets.all(38.0),

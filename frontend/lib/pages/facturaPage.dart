@@ -175,7 +175,7 @@ class _FacturaPageState extends State<FacturaPage> {
                 children: [
                   TopPanel(1),
                   TopPanelEconomics(3),
-                  TopButton(FacturaPage(), ListFacturaPage()),
+                  TopButton(ListFacturaPage(), "Listado de actividades facturadas"),
                   Expanded(
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -325,7 +325,7 @@ class _FacturaPageState extends State<FacturaPage> {
                                         TableCell(
                                           child: Container(
                                             padding: EdgeInsets.all(8.0),
-                                            child: Text('Dinero ganado'),
+                                            child: Text('Ingresos'),
                                           ),
                                         ),
                                         TableCell(

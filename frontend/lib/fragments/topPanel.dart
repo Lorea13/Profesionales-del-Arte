@@ -28,7 +28,7 @@ import '../pages/companyPage.dart';
 Color mainColor = Colors.blue;
 Color selectedColor = Color.fromARGB(255, 0, 0, 139);
 Color textColor = Colors.white;
-Color hoverTextColor = Colors.black;
+Color hoverTextColor = Colors.white;
 
 class TopPanel extends StatefulWidget {
   final int _count;
@@ -82,7 +82,7 @@ class _TopPanelState extends State<TopPanel> {
                   color: widget._count == 0 ? selectedColor : mainColor,
                   child: Center(
                     child: Text(
-                      'Home',
+                      'Inicio',
                       style: TextStyle(
                         fontSize: MediaQuery.of(context).size.width / 1000 * 14,
                         color: _hoveringHome ? hoverTextColor : textColor,

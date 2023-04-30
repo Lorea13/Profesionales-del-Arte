@@ -175,7 +175,7 @@ class _PromocionPageState extends State<PromocionPage> {
                 children: [
                   TopPanel(1),
                   TopPanelEconomics(5),
-                  TopButton(PromocionPage(), ListPromocionPage()),
+                  TopButton(ListPromocionPage(), "Listado de actividades de promoción"),
                   Expanded(
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -325,7 +325,7 @@ class _PromocionPageState extends State<PromocionPage> {
                                         TableCell(
                                           child: Container(
                                             padding: EdgeInsets.all(8.0),
-                                            child: Text('Dinero ganado'),
+                                            child: Text('Ingresos'),
                                           ),
                                         ),
                                         TableCell(

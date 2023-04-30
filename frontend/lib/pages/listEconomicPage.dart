@@ -348,6 +348,10 @@ class _ListEconomicPageState extends State<ListEconomicPage> {
                         }else{
                           obtainGroupedActivities();
                         }
+
+                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('¡La actividad ha sido modificada con éxito!'),
+        ));
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         content: Text('Ha ocurrido un error al modificar la actividad.'),
@@ -367,7 +371,9 @@ class _ListEconomicPageState extends State<ListEconomicPage> {
 
 Future<void> _showCreateActivityDialog(int nextActivityId) async {
   final _nameController = TextEditingController();
-  final _activityDateController = TextEditingController();
+  final _activityDateController =
+    TextEditingController(text: DateFormat('yyyy-MM-dd').format(DateTime.now()));
+
   final _notesController = TextEditingController();
   final _hoursController = TextEditingController();
   final _priceController = TextEditingController();
@@ -573,6 +579,13 @@ Future<void> _showCreateActivityDialog(int nextActivityId) async {
                     }else{
                         obtainGroupedActivities();
                       }
+                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('¡La actividad ha sido creada con éxito!'),
+        ));
+                    }else{
+                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Ha ocurrido un error al crear la actividad.'),
+        ));
                     }
                   });
 
@@ -605,7 +618,7 @@ Future<void> _showCreateActivityDialog(int nextActivityId) async {
                 children: [
                   TopPanel(1),
                   TopPanelEconomics(0),
-                  TopButton(EconomicPage(), ListEconomicPage()),
+                  TopButton(EconomicPage(), "Resumen de la actividad"),
                   Flexible(
                     child: Padding(
                       padding: const EdgeInsets.all(38.0),

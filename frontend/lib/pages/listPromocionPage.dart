@@ -327,10 +327,14 @@ class _ListPromocionPageState extends State<ListPromocionPage> {
                           groupedActivities[updatedActivity.type]?[indexG] = updatedActivity;
                         }
 
+
                       }else{
                         obtainUpdatedGroupedActivities();
                       }
                       
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('¡La actividad ha sido modificada con éxito!'),
+        ));
                       
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -352,7 +356,8 @@ class _ListPromocionPageState extends State<ListPromocionPage> {
 
 Future<void> _showCreateActivityDialog(int nextActivityId) async {
   final _nameController = TextEditingController();
-  final _activityDateController = TextEditingController();
+  final _activityDateController =
+    TextEditingController(text: DateFormat('yyyy-MM-dd').format(DateTime.now()));
   final _notesController = TextEditingController();
   final _hoursController = TextEditingController();
   
@@ -504,6 +509,13 @@ Future<void> _showCreateActivityDialog(int nextActivityId) async {
                       }else{
                           obtainUpdatedGroupedActivities();
                         }
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('¡La actividad ha sido creada con éxito!'),
+        ));
+                    }else{
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Ha ocurrido un error al crear la actividad'),
+        ));
                     }
                   });
 
@@ -533,7 +545,7 @@ Future<void> _showCreateActivityDialog(int nextActivityId) async {
                 children: [
                   TopPanel(1),
                   TopPanelEconomics(5),
-                  TopButton(PromocionPage(), ListPromocionPage()),
+                  TopButton(PromocionPage(), "Resumen de la actividad de Promocion"),
                   Flexible(
                     child: Padding(
                       padding: const EdgeInsets.all(38.0),

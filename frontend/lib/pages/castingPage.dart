@@ -81,6 +81,7 @@ class _CastingPageState extends State<CastingPage> {
 
   Future<bool> obtainUpdatedData() async {
 
+
     Future<List<Casting>> futureCastings = getCastings(people);
     castings = await futureCastings;
 
@@ -290,12 +291,17 @@ class _CastingPageState extends State<CastingPage> {
                     if (success) {
                       castings[index] =
                           updatedCasting;
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text('¡El casting ha sido modificado con éxito!'),
+                      ));
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         content: Text('Ha ocurrido un error al modificar el casting.'),
                       ));
                   }
             });
+
+    
               
               Navigator.of(context).pop();
               await obtainUpdatedData();
@@ -313,8 +319,8 @@ class _CastingPageState extends State<CastingPage> {
 
 Future<void> _showCreateCastingDialog(int nextCastingId) async {
   final _nameController = TextEditingController();
-  final _castingDateController = TextEditingController();
-  final _notesController = TextEditingController();
+  final _castingDateController = TextEditingController(text: DateFormat('yyyy-MM-dd').format(DateTime.now()));
+final _notesController = TextEditingController();
   bool _inPerson = false;
   bool _inProcess = false;
 
@@ -479,6 +485,13 @@ Future<void> _showCreateCastingDialog(int nextCastingId) async {
                     if (newID != 0) {
                       newCasting.id = newID;
                       castings.add(newCasting);
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text('¡El casting ha sido creado con éxito!'),
+                      ));
+                    }else{
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text('Ha ocurrido un error al crear el casting'),
+                      ));
                     }
                   });
 

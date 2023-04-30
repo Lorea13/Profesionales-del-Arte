@@ -174,7 +174,7 @@ class _ErreProdukzioakPageState extends State<ErreProdukzioakPage> {
                 children: [
                   TopPanel(1),
                   TopPanelEconomics(2),
-                  TopButton(ErreProdukzioakPage(), ListErreProdukzioakPage()),
+                  TopButton(ListErreProdukzioakPage(), "Listado de actividades de Erre Produkzioak"),
                   Expanded(
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -324,7 +324,7 @@ class _ErreProdukzioakPageState extends State<ErreProdukzioakPage> {
                                         TableCell(
                                           child: Container(
                                             padding: EdgeInsets.all(8.0),
-                                            child: Text('Dinero ganado'),
+                                            child: Text('Ingresos'),
                                           ),
                                         ),
                                         TableCell(

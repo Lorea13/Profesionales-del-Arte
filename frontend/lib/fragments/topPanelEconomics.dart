@@ -16,12 +16,12 @@ import '../models/company.dart';
 import '../models/activityType.dart';
 import '../models/activity.dart';
 
-import 'package:frontend/pages/economicPage.dart';
-import '../pages/pausokaPage.dart';
-import '../pages/erreProdukzioakPage.dart';
-import '../pages/facturaPage.dart';
-import '../pages/cuentaAjenaPage.dart';
-import '../pages/promocionPage.dart';
+import 'package:frontend/pages/listEconomicPage.dart';
+import '../pages/listPausokaPage.dart';
+import '../pages/listErreProdukzioakPage.dart';
+import '../pages/listFacturaPage.dart';
+import '../pages/listCuentaAjenaPage.dart';
+import '../pages/listPromocionPage.dart';
 
 Color mainColor = Color.fromARGB(255, 0, 0, 139);
 Color selectedColor = Colors.black;
@@ -70,7 +70,7 @@ class _TopPanelEconomicsState extends State<TopPanelEconomics> {
               onTap: () {
                   Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => EconomicPage()),
+                  MaterialPageRoute(builder: (context) => ListEconomicPage()),
                 );
                                
               },
@@ -109,7 +109,7 @@ class _TopPanelEconomicsState extends State<TopPanelEconomics> {
               onTap: () {
                   Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => PausokaPage()),
+                  MaterialPageRoute(builder: (context) => ListPausokaPage()),
                 );
                                
               },
@@ -148,7 +148,7 @@ class _TopPanelEconomicsState extends State<TopPanelEconomics> {
               onTap: () {
                   Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ErreProdukzioakPage()),
+                  MaterialPageRoute(builder: (context) => ListErreProdukzioakPage()),
                 );
               },
               child: Opacity(
@@ -186,7 +186,7 @@ class _TopPanelEconomicsState extends State<TopPanelEconomics> {
              onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => FacturaPage()),
+                MaterialPageRoute(builder: (context) => ListFacturaPage()),
               );
             },
               child: Opacity(
@@ -224,7 +224,7 @@ class _TopPanelEconomicsState extends State<TopPanelEconomics> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => CuentaAjenaPage()),
+                  MaterialPageRoute(builder: (context) => ListCuentaAjenaPage()),
                 );
               },
               child: Opacity(
@@ -262,7 +262,7 @@ class _TopPanelEconomicsState extends State<TopPanelEconomics> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => PromocionPage()),
+                  MaterialPageRoute(builder: (context) => ListPromocionPage()),
                 );
               },
               child: Opacity(

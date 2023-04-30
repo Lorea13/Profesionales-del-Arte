@@ -175,7 +175,7 @@ class _PausokaPageState extends State<PausokaPage> {
                 children: [
                   TopPanel(1),
                   TopPanelEconomics(1),
-                  TopButton(PausokaPage(), ListPausokaPage()),
+                  TopButton(ListPausokaPage(),  "Lista de actividades de Pausoka"),
                   Expanded(
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -325,7 +325,7 @@ class _PausokaPageState extends State<PausokaPage> {
                                         TableCell(
                                           child: Container(
                                             padding: EdgeInsets.all(8.0),
-                                            child: Text('Dinero ganado'),
+                                            child: Text('Ingresos'),
                                           ),
                                         ),
                                         TableCell(
