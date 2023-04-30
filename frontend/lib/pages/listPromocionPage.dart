@@ -149,7 +149,10 @@ class _ListPromocionPageState extends State<ListPromocionPage> {
         setState(() {
           activities.remove(activity);
           activitiesPromocion.remove(activity);
-          groupedActivities.remove(activity);
+          groupedActivities[activity.type]?.remove(activity);
+          if (groupedActivities[activity.type]?.isEmpty ?? true) {
+            obtainUpdatedGroupedActivities();
+          }
         });
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -554,6 +557,7 @@ Future<void> _showCreateActivityDialog(int nextActivityId) async {
                                       label: Text('Borrar'),
                                     ),
                                     DataColumn(label: Text('Nombre')),
+                                    DataColumn(label: Text('Cliente')),
                                     DataColumn(label: Text('Fecha')),
                                     DataColumn(label: Text('Horas')),
                                     
@@ -575,6 +579,7 @@ Future<void> _showCreateActivityDialog(int nextActivityId) async {
                                             },
                                         )),
                                       DataCell(Text(activity.name)),
+                                      DataCell(Text(activity.company.name)),
                                       DataCell(Text(DateFormat('yyyy-MM-dd').format(activity.activityDate))),
                                       DataCell(Text(activity.hours.toString())),
                                       

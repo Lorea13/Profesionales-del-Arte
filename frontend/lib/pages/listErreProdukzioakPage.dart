@@ -150,7 +150,10 @@ class _ListErreProdukzioakPageState extends State<ListErreProdukzioakPage> {
         setState(() {
           activities.remove(activity);
           activitiesErreProdukzioak.remove(activity);
-          groupedActivities.remove(activity);
+          groupedActivities[activity.type]?.remove(activity);
+          if (groupedActivities[activity.type]?.isEmpty ?? true) {
+            obtainUpdatedGroupedActivities();
+          }
         });
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(

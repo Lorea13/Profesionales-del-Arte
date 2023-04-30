@@ -151,10 +151,12 @@ class _ListFacturaPageState extends State<ListFacturaPage> {
         setState(() {
           activities.remove(activity);
           activitiesFactura.remove(activity);
-          groupedActivities.remove(activity);
-          if (groupedActivities[activity.type]?.firstWhere((p) => p != null, orElse: () => null) != null) {
-  obtainUpdatedGroupedActivities();
-}
+          groupedActivities[activity.type]?.remove(activity);
+          if (groupedActivities[activity.type]?.isEmpty ?? true) {
+            obtainUpdatedGroupedActivities();
+          }
+
+
 
         });
       } else {
@@ -313,7 +315,7 @@ class _ListFacturaPageState extends State<ListFacturaPage> {
                 String nameU = nameController.text.isNotEmpty ? nameController.text : "";
                 DateTime activityDateU =  activityDateController.text.isNotEmpty ? DateTime.parse(activityDateController.text) : DateTime.now();
                 int hoursU = hoursController.text.isNotEmpty ? int.parse(hoursController.text) : 0;
-                int priceU = priceController.text.isNotEmpty ? int.parse(priceController.text) : 0;
+                int priceU = priceController.text.isNotEmpty ? int.parse(priceController.text) : 10;
                 int ivaU = ivaController.text.isNotEmpty ? int.parse(ivaController.text) : 0;
                 String notesU = notesController.text.isNotEmpty ? notesController.text : "";
 
@@ -549,12 +551,12 @@ Future<void> _showCreateActivityDialog(int nextActivityId) async {
                 String nameU = _nameController.text.isNotEmpty ? _nameController.text : "";
                 DateTime activityDateU =  _activityDateController.text.isNotEmpty ? DateTime.parse(_activityDateController.text) : DateTime.now();
                 int hoursU = _hoursController.text.isNotEmpty ? int.parse(_hoursController.text) : 0;
-                int priceU = _priceController.text.isNotEmpty ? int.parse(_priceController.text) : 0;
+                int priceU = _priceController.text.isNotEmpty ? int.parse(_priceController.text) : 10;
                 int ivaU = _ivaController.text.isNotEmpty ? int.parse(_ivaController.text) : 0;
                 String notesU = _notesController.text.isNotEmpty ? _notesController.text : "";
 
                 ActivityType selectedActivityTypeU = selectedtype != null ? selectedtype! : activityTypes.firstWhere((p) => p.id == 1);
-                Company selectedCompanyU = selectedCompany != null ? selectedCompany! : companys.firstWhere((p) => p.id == 1);
+                Company selectedCompanyU = selectedCompany != null ? selectedCompany! : companys.firstWhere((p) => p.id == 3);
                 
 
               Activity newActivity = Activity(
@@ -639,6 +641,7 @@ Future<void> _showCreateActivityDialog(int nextActivityId) async {
                                       label: Text('Borrar'),
                                     ),
                                     DataColumn(label: Text('Nombre')),
+                                    DataColumn(label: Text('Cliente')),
                                     DataColumn(label: Text('Fecha')),
                                     DataColumn(label: Text('Horas')),
                                     DataColumn(label: Text('Precio')),
@@ -662,6 +665,7 @@ Future<void> _showCreateActivityDialog(int nextActivityId) async {
                                             },
                                         )),
                                       DataCell(Text(activity.name)),
+                                      DataCell(Text(activity.company.name)),
                                       DataCell(Text(DateFormat('yyyy-MM-dd').format(activity.activityDate))),
                                       DataCell(Text(activity.hours.toString())),
                                       DataCell(Text(activity.price.toString())),

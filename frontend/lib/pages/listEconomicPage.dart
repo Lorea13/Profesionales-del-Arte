@@ -134,7 +134,10 @@ class _ListEconomicPageState extends State<ListEconomicPage> {
         ));
         setState(() {
           activities.remove(activity);
-          groupedActivities.remove(activity);
+          groupedActivities[activity.type]?.remove(activity);
+          if (groupedActivities[activity.type]?.isEmpty ?? true) {
+            obtainGroupedActivities();
+          }
           
         });
       } else {
