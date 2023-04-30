@@ -138,17 +138,33 @@ class _CompanyPageState extends State<CompanyPage> {
             TextButton(
               onPressed: () async {
 
+                String nameU = nameController.text.isNotEmpty ? nameController.text : "";
+
                 Company updatedCompany = Company(
                       company.id,
-                      nameController.text);
+                      nameU);
+
+                  int index = companys.indexWhere((co) => co.id == company.id);
+
+                  if (index >= 0) {
+                    print(companys[index].name);
+                  } else {
+                    print('Company not found in list');
+                  }
+
                   bool success = await updateCompany(updatedCompany);
 
                   setState(() {
                     if (success) {
-                      companys[companys.indexOf(company)] =
+                      companys[index] =
                           updatedCompany;
-                    }
-                  });
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text('Ha ocurrido un error al modificar la compañía.'),
+                      ));
+                  }
+            });
+              
 
                   Navigator.pop(context);   
                
@@ -202,9 +218,12 @@ Future<void> _showCreateCompanyDialog(int nextCompanyId) async {
           TextButton(
             child: Text('Crear'),
             onPressed: () async {
+
+              String nameU = _nameController.text.isNotEmpty ? _nameController.text : "";
+              
                 Company newCompany = Company(
                   nextCompanyId,
-                  _nameController.text,
+                  nameU,
                  
                 );
 

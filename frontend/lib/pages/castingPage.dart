@@ -42,15 +42,11 @@ class _CastingPageState extends State<CastingPage> {
 
   obtainDataApi() async {
     await obtainPersonTypes();
-    print("Obtenidos personType");
     await obtainPeople();
-    print("Obtenidos people");
     await obtainCastings();
-    print("Obtenidos castings");
 
     setState(() {
       _isLoading = false;
-      print("Ya tengo todos los datos");
     });
 
   }
@@ -60,7 +56,6 @@ class _CastingPageState extends State<CastingPage> {
   ///Llama al método de /helpers/methods getPersonTypes, que nos retorna una lista de los tipos de personas, futurePersonType. Es un Future List porque, al ser una petición API, no se obtendrá respuesta al momento. Retorna dicha lista de tipos de personas [personTypes] que contendrá todos los tipos de personas de la base de datos.
   obtainPersonTypes() async {
     Future<List<PersonType>> futurePersonTypes = getPersonTypes();
-    print("Obteniendo personType");
 
     personTypes = await futurePersonTypes;
   }
