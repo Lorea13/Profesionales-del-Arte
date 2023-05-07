@@ -313,7 +313,7 @@ class _ListPromocionPageState extends State<ListPromocionPage> {
               }
 
               
-              bool success = await updateActivity(activity);
+              bool success = await updateActivity(updatedActivity);
 
               setState(() {
                     if (success) {

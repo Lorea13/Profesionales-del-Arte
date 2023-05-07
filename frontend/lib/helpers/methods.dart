@@ -6,6 +6,7 @@ import 'package:frontend/models/casting.dart';
 import 'package:frontend/models/company.dart';
 import 'package:frontend/models/activityType.dart';
 import 'package:frontend/models/activity.dart';
+import 'package:frontend/models/user.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:intl/intl.dart';
@@ -104,7 +105,6 @@ Future<int> createPerson(Person person) async {
 ///
 ///Se pasa como parametro el person modificado [person]. Sus campos se crean en un body json. Después llamamos al endpoint gracias a la URI updatePersonUri de helpers/urls, al que le pasamos el id del person a modificar. Retorna true si la operación se completa exitosamente (codigo de respuesta == 200) y false en caso contrario.
 Future<bool> updatePerson(Person person) async {
-  print("En methods de update person");
   Client client = http.Client();
   var bodyEncoded = jsonEncode({
     "type": person.type.id.toString(),
@@ -473,4 +473,29 @@ Future<bool> deleteActivity(int id) async {
     return true;
   }
   return false;
+}
+
+
+
+/// Obtiene todos los users de la base de datos
+///
+Future<List<User>> getUsers() async {
+  Client client = http.Client();
+
+  List<User> users = [];
+
+  List<dynamic> response = json.decode((await client.get(allUsers())).body);
+
+  for (var user in response) {
+    int id = int.parse(user['id']);
+    String name = user['name'];
+    String pass = user['pass'];
+
+    users.add(User(
+      id,
+      name,
+      pass,
+    ));
+  }
+  return users;
 }

@@ -349,7 +349,7 @@ class _ListFacturaPageState extends State<ListFacturaPage> {
               }
 
               
-              bool success = await updateActivity(activity);
+              bool success = await updateActivity(updatedActivity);
 
               setState(() {
                     if (success) {

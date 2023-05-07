@@ -126,10 +126,26 @@ class _EconomicPageState extends State<EconomicPage> {
       }
       
     }
-    mediumPricePerHour = totalMoneyEarned / totalWorkedHours;
-    mediumPricePerHourAnual = totalPriceAnual / totalHourAnual;
-    mediumPricePerHourMonth = totalPriceMonth / totalHourMonth;
 
+    if(totalWorkedHours == 0){
+      mediumPricePerHour = 0;
+    }else{
+      mediumPricePerHour = totalMoneyEarned / totalWorkedHours;
+    }
+
+    if(totalHourAnual == 0){
+      mediumPricePerHourAnual = 0;
+    }else{
+      mediumPricePerHourAnual = totalPriceAnual / totalHourAnual;
+    }
+
+    if(totalHourMonth == 0){
+      mediumPricePerHourMonth = 0;
+    }else{
+      mediumPricePerHourMonth = totalPriceMonth / totalHourMonth;
+    }
+
+  
   }
 
   @override

@@ -325,7 +325,7 @@ class _ListPausokaPageState extends State<ListPausokaPage> {
               }
 
               
-              bool success = await updateActivity(activity);
+              bool success = await updateActivity(updatedActivity);
 
               setState(() {
                     if (success) {

@@ -36,9 +36,7 @@ Uri createPersonUri() {
 ///
 /// Se pasa por parametro el id del person a eliminar [id]. Retorna la URI correspondiente [deletePerson]
 Uri deletePersonUri(String id) {
-  print("Estoy en la URI");
   Uri deletePerson = Uri.http('127.0.0.1:8000', '/people/delete/$id');
-  print("Estoy en URI 2"+deletePerson.toString());
   return (deletePerson);
 }
 
@@ -132,7 +130,6 @@ Uri allActivities() {
 /// Retorna la URI correspondiente [updateActivity]
 Uri updateActivityUri(String id) {
   Uri updateActivity = Uri.http('127.0.0.1:8000', '/activities/update/$id');
-  print("Tengo la ruta");
   return (updateActivity);
 }
 
@@ -150,4 +147,12 @@ Uri createActivityUri() {
 Uri deleteActivityUri(String id) {
   Uri deleteActivity = Uri.http('127.0.0.1:8000', '/activities/delete/$id');
   return (deleteActivity);
+}
+
+/// Crea la URI al endpoint de get all users
+///
+/// Retorna la URI correspondiente [allUsers]
+Uri allUsers() {
+  Uri allUsers = Uri.http('127.0.0.1:8000', '/users');
+  return (allUsers);
 }

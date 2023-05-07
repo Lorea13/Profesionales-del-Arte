@@ -339,7 +339,7 @@ class _ListCuentaAjenaPageState extends State<ListCuentaAjenaPage> {
               }
 
               
-              bool success = await updateActivity(activity);
+              bool success = await updateActivity(updatedActivity);
 
               setState(() {
                     if (success) {

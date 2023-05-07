@@ -94,7 +94,7 @@ class _CastingPageState extends State<CastingPage> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text('Confirmación de borrado'),
-          content: Text('¿Estás seguro de que quieres borrar este casting?'),
+          content: Text('¿Estás seguro de que quieres borrar este casting'),
           actions: <Widget>[
             TextButton(
               child: Text('Cancelar'),

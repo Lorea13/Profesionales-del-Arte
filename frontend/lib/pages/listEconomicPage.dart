@@ -333,7 +333,7 @@ class _ListEconomicPageState extends State<ListEconomicPage> {
               }
 
               
-              bool success = await updateActivity(activity);
+              bool success = await updateActivity(updatedActivity);
 
               setState(() {
                     if (success) {
