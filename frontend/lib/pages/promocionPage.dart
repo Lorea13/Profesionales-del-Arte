@@ -106,7 +106,7 @@ class _PromocionPageState extends State<PromocionPage> {
   obtainGroupedActivities() async {
 
     for(var activity in activities){
-      if(activity.company.id == 1 && activity.price != 0){
+      if(activity.price == 0){
         activitiesPromocion.add(activity);
       }
     }

@@ -21,7 +21,7 @@ import '../models/activity.dart';
 
 import 'package:frontend/pages/home.dart';
 import '../pages/contactPage.dart';
-import '../pages/economicPage.dart';
+import '../pages/listEconomicPage.dart';
 import '../pages/castingPage.dart';
 import '../pages/companyPage.dart';
 
@@ -109,7 +109,7 @@ class _TopPanelState extends State<TopPanel> {
               onTap: () {
                   Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => EconomicPage()),
+                  MaterialPageRoute(builder: (context) => ListEconomicPage()),
                 );
               },
               child: Opacity(

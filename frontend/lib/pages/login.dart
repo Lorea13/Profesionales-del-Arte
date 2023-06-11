@@ -67,51 +67,93 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
-  @override
-  Widget build(BuildContext context) {
-    if (_isDataLoading) {
-      obtainDataApi();
-    }
-    return Scaffold(
-        body: _isLoading
-          ? Container()
-          : Container(
-      
-        padding: const EdgeInsets.all(16.0),
-        
-        child: Form(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextFormField(
-                controller: _usernameController,
-                decoration: InputDecoration(labelText: 'Usuario'),
-                
-              ),
-              SizedBox(height: 16.0),
-              TextFormField(
-                controller: _passwordController,
-                decoration: InputDecoration(labelText: 'Contraseña'),
-                obscureText: true,
-                
-              ),
-              SizedBox(height: 16.0),
-              if (_isLoading)
-                CircularProgressIndicator()
-              else
-                ElevatedButton(
-                  onPressed: () {
-                      _login();
-                    
-                  },
-                  child: Text('Login'),
-                ),
-              
-            ],
-          ),
-        ),
-      ),
-    );
-    
+@override
+Widget build(BuildContext context) {
+  if (_isDataLoading) {
+    obtainDataApi();
   }
+  return Scaffold(
+    body: _isLoading
+        ? Container()
+        : Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 12.0),
+                  child: Text(
+                    "Sistema de gestión de la información",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 24.0),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 0),
+                  child: Text(
+                    "del arte escénico",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 24.0),
+                  ),
+                ),
+                SizedBox(height: 36.0),
+                Padding(
+                  padding: const EdgeInsets.all(0.0),
+                  child: Icon(
+                    Icons.person,
+                    size: 64.0,
+                  ),
+                ),
+                SizedBox(height: 26.0),
+                Card(
+  elevation: 4.0,
+  margin: EdgeInsets.all(16.0),
+  shape: RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(10.0),
+    side: BorderSide(color: Colors.blue, width: 2.0),
+  ),
+  child: Padding(
+    padding: const EdgeInsets.all(16.0),
+     child: Container(
+                    width: MediaQuery.of(context).size.width / 4,
+    child: Form(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          TextFormField(
+            controller: _usernameController,
+            decoration: InputDecoration(
+              labelText: 'Usuario',
+            ),
+          ),
+          SizedBox(height: 16.0),
+          TextFormField(
+            controller: _passwordController,
+            decoration: InputDecoration(
+              labelText: 'Contraseña',
+            ),
+            obscureText: true,
+          ),
+          SizedBox(height: 16.0),
+          if (_isLoading)
+            CircularProgressIndicator()
+          else
+            ElevatedButton(
+              onPressed: () {
+                _login();
+              },
+              child: Text('Login'),
+            ),
+        ],
+      ),
+    ),
+  ),
+  ),
+),
+
+              ],
+            ),
+          ),
+  );
+}
+
 }
